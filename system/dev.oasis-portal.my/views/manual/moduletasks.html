@@ -1,0 +1,54 @@
+<nav id="primary_nav_wrap">
+	<ul>
+	  <li><a href="#" ng-click="changeContent(1)">{{templates[1].name}}</a></li>
+	  
+	  <li class="current-menu-item"><a href="#">Education Process</a>
+	    <ul>
+	      <li><a href="#" ng-click="changeContent(2)">{{templates[2].name}}</a></li>
+	      <li><a href="#" ng-click="changeContent(3)">{{templates[3].name}}</a></li>
+	      <li><a href="#" ng-click="changeContent(4)">{{templates[4].name}}</a></li>
+	      <li><a href="#" ng-click="changeContent(5)">{{templates[5].name}}</a></li>
+	      <li><a href="#" ng-click="changeContent(6)">{{templates[6].name}}</a></li>
+	      <li><a href="#" ng-click="changeContent(7)">{{templates[7].name}}</a></li>
+	      <li><a href="#" ng-click="changeContent(8)">{{templates[8].name}}</a></li>
+	    </ul>
+	  </li>
+	  <li><a href="#">System Navigation</a>
+	    <ul>
+	      <li><a href="#" ng-click="changeContent(9)">{{templates[9].name}}</a></li>
+	      <li><a href="#" ng-click="changeContent(10)">{{templates[10].name}}</a></li>
+	      <li><a href="#" ng-click="changeContent(11)">{{templates[11].name}}</a></li>
+	      <li><a href="#" ng-click="changeContent(12)">{{templates[12].name}}</a></li>
+	      <li><a href="#" ng-click="changeContent(13)">{{templates[13].name}}</a></li>
+	    </ul>
+	  </li>
+	</ul>
+</nav>
+
+<div class="manual-content">
+
+	<h1>{{template.name}}</h1>
+
+	<p>Module Tasks is one of the core aspects of your educational process. In order to evaluate the level of your knowledges and for you to pass the course module, you will be given different tasks. </p>
+
+	<p>The current task list is located in a Course Details section of the menu, under the Tasks tab. "My Tasks" displays the list of the tasks to be completed before the task due date.</p>
+
+
+	<div class="manual-image" style="width:800px; height:209px;" back-img="/assets/img/manual/14.jpg"></div>
+
+	<p>In order for you to download the task, first navigate to the action column of the list and click on Download Task button. Once the task is downloaded, open the file and follow the steps for completing your work.</p>
+
+	<div class="manual-image" style="width:780px; height:233px;" back-img="/assets/img/manual/15.jpg"></div>
+
+	<p>Upon task completion, you need to navigate to the Tasks list page and click Upload Task button, then select a file for the task upload. Thereafter, your work will be evaluated by the lecturer, and results will be published.
+	</p>
+
+	<div class="manual-image" style="width:800px; height:266px;" back-img="/assets/img/manual/16.jpg"></div>
+
+	<p>The task list widget is also available for you on the dashboard page.</p>
+
+	<div class="nec-center">
+		<button class="btn btn-primary btn-large" ng-click="changeContent(4)">Next to {{templates[4].name}}</button>
+	</div>
+
+</div>

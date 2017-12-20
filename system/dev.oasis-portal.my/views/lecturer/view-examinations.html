@@ -1,0 +1,93 @@
+<div id="page-heading">
+    <ol class="breadcrumb">
+        <li><a href="#/">Dashboard</a></li>
+        <li>Tests & Examination</li>
+        <li class="active">View Examinations</li>
+    </ol>
+
+    <h1>View Examinations</h1>
+    <div class="options">
+
+        <div class="btn-toolbar">
+            <a href="#" class="btn btn-default hidden-xs"><i class="glyphicon glyphicon-home"></i></a>
+        </div>
+        <input type="text" ng-model="searchString" placeholder="search your exam" style="float: right" />
+    </div>
+</div>
+
+<div ng-controller="viewExaminations" class="container-fluid">
+    
+    <div class="row">
+        <div class="col-md-12">
+
+			<panel panel-class="panel-sky" heading="Examination List">
+
+                <panel-controls>
+                    <panel-control-collapse></panel-control-collapse> 
+                </panel-controls>
+            
+                
+        
+            	<p ng-hide="isValid(credentials.examinations)" class="ng-hide">Not Available.</p>
+        
+                <div class="table-responsive" ng-show="isValid(credentials.examinations)">
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="padding-right:30px">Module Code</th>
+                                <th style="padding-right:50px">Module Name</th>
+                                <th>Title</th>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Duration</th>
+                                <th>Code</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng:repeat="(key, item) in credentials.examinations">
+                             <td align="left"><i>{{item.id}}</i></td>
+
+                                
+                           
+                                <td align="left"><i>{{item.module_id}}</i></td>
+                                <td align="left"><i>{{item.name}}</i></td>
+                                <td align="left"><i>{{item.startdate}} - {{item.enddate }}</i></td>
+                                <td align="left"><i>{{item.type}}</i></td>
+                                <td align="left"><i>{{item.duration}}</i></td>
+                                <td align="left"><i>{{item.code}}</i></td>
+                                <td align="left"><i>{{item.status ? 'Active' : 'Not Active' }}</i></td>
+                                
+                                <td>
+                                	<a ng-if="!item.status" ng-click="activate(key, item.id)" class="btn btn-success btn-sm">Activate</a>
+                                	<a ng-if="!item.status" href="/#/exam-edit/{{item.id}}" class="btn btn-sky btn-sm">Edit Questions</a>
+                                    <a href="/#/view-exam-results/{{item.id}}" class="btn btn-inverse btn-sm">View Results</a>
+                                	<a ng-click="open(item.name)" class="btn btn-brown btn-sm">Delete</a>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </panel>
+        </div>
+    </div>
+
+     <script type="text/ng-template" id="myModalContent.html">
+      <div class="modal-header">
+          <h3 class="modal-title">Confirmation</h3>
+      </div>
+      <div class="modal-body">
+          Are you sure you want to delete this exam?
+      </div>
+      <div class="modal-footer">
+          <button class="btn btn-brown" ng-click="ok()">Delete</button>
+          <button class="btn btn-primary" ng-click="cancel()">Cancel</button>
+      </div>
+   </script>
+
+</div> <!-- container-fluid -->
+
+

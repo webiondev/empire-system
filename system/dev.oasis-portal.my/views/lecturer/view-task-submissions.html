@@ -1,0 +1,67 @@
+<div id="page-heading">
+    <ol class="breadcrumb">
+        <li><a href="#/">Dashboard</a></li>
+        <li>Tasks</li>
+        <li class="active">View Student Uploads</li>
+    </ol>
+
+    <h1>Student Uploads</h1>
+    <div class="options">
+        <div class="btn-toolbar">
+            <a href="#" class="btn btn-default hidden-xs"><i class="glyphicon glyphicon-home"></i></a>
+        </div>
+    </div>
+</div>
+
+<div ng-controller="viewTaskSubmissions" class="container-fluid">
+    
+    <div class="row">
+        <div class="col-md-12">
+
+         	<panel panel-class="panel-sky" heading="Students Tasks">
+                <panel-controls>
+                    <panel-control-collapse></panel-control-collapse> 
+                </panel-controls>
+
+               	<div id="alert" class="alert alert-danger hide">
+	              <strong>Error</strong> Unable to obtain tasks details.<br><br>
+	              <ul>
+	                  <li id="error"></li>
+	              </ul>
+	            </div>
+
+	            <p ng-hide="isValid(credentials.tasks)" class="ng-hide">Not Available.</p>
+                <div ng-show="isValid(credentials.tasks)" class="table-responsive">
+                    
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="padding-right:50px">Student Name</th>
+                                <th>Date</th>
+
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="(key, c) in credentials.tasks">
+
+                                <td align="left"><i>{{c.name}}</i></td>
+                                <td align="left"><i>{{c.datetime | asDate}}</i></td>
+
+
+                                <td>
+                                    <a href="/files/tasks/students/{{c.file}}" class="btn btn-primary btn-sm" download="{{c.credentials.task.title + '_' + name}}">Download Task</a>
+                                </td>
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </panel>
+
+        </div>
+
+    </div>
+
+</div>

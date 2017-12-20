@@ -1,0 +1,115 @@
+<div id="page-heading">
+    <ol class="breadcrumb">
+        <li><a href="#/">Course Details</a></li>
+        <li>Announcements</li>
+        <li class="active">View Announcements</li>
+    </ol>
+
+    <h1>View Announcements</h1>
+    <div class="options">
+        <div class="btn-toolbar">
+            <div class="btn-group" dropdown>
+                <button type="button" class="btn btn-default dropdown-toggle" dropdown-toggle>
+                    Export as <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Separated link</a></li>
+                </ul>
+            </div>
+            <a href="#" class="btn btn-default hidden-xs"><i class="glyphicon glyphicon-cog"></i></a>
+        </div>
+    </div>
+   
+</div>
+
+
+<div ng-controller="viewAnnouncements" class="container-fluid">
+    
+    <div class="row">
+        <div class="col-md-12">
+
+        <panel panel-class="panel-sky" heading="Announcements list">
+
+          <panel-controls>
+              <panel-control-collapse></panel-control-collapse> 
+          </panel-controls>
+
+
+			<p ng-hide="isValid(credentials.announcements)" class="ng-hide">Not available.</p>
+                <div ng-show="isValid(credentials.announcements)" class="table-responsive">
+                    
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="padding-right:30px">Date Time</th>
+                                <th>Type</th>
+                                <th>User Group</th>
+                                <th>Message</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="announcements_{{value.id}}" ng-repeat="(key, value) in credentials.announcements">
+
+                                <td align="left"><i>{{value.datetime}}</i></td>
+                                <td align="left"><i>{{value.type}}</i></td>
+                                <td align="left"><i>{{value.name ? value.name : "All" }}</i></td>
+                                <td align="left"><i>{{value.value}}</i></td>
+                                <td align="left"><i>HII</i></td>
+                             
+                                <td align="left">
+                                	<a ng-click="setDelAnnouncement(key,value)" class="btn btn-brown btn-sm" data-toggle="modal" data-target="#deleteModal">Delete</a>
+                                </td>
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+
+      	</panel>
+
+        </div>
+    </div>
+    <!-- Modal -->
+    <div id="deleteModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Confirm Delete</h4>
+          </div>
+          <div class="modal-body">
+            <p id="deleteMessage"></p>
+          </div>
+          <div class="modal-footer">
+            <button ng-click="destroy()" class="btn btn-brown">Delete</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- modal -->
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

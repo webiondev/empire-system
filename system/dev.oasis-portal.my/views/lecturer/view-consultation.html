@@ -1,0 +1,150 @@
+<div id="page-heading">
+    <ol class="breadcrumb">
+        <li><a href="#/">Dashboard</a></li>
+        <li>Course Details</li>
+        <li class="active">Consultation Details</li>
+    </ol>
+
+    <h1>Consultation Details</h1>
+    <div class="options">
+        <div class="btn-toolbar">
+            <a href="#" class="btn btn-default hidden-xs"><i class="glyphicon glyphicon-home"></i></a>
+        </div>
+    </div>
+</div>
+
+<div ng-controller="viewConsultationById" class="container-fluid">
+    
+    <div class="row">
+        <div class="col-md-12">
+
+         	<panel panel-class="panel-sky" heading="Consultation Details">
+                <panel-controls>
+                    <panel-control-collapse></panel-control-collapse> 
+                </panel-controls>
+
+               	<div id="alert" class="alert alert-danger hide">
+	              <strong>Error</strong> Unable to save the module data.<br><br>
+	              <ul>
+	                  <li id="error"></li>
+	              </ul>
+	            </div>
+
+	             <form class="form-horizontal">
+
+             	 	<div class="form-group">
+                      	<label for="fieldemail" class="col-md-3 control-label bold">Module Code:</label>
+                      	<div class="col-md-6">
+                      		<p class="text">{{credentials.consultation.code}}</p>
+                     	</div>
+                    </div>
+
+                    <div class="form-group">
+                      	<label for="fieldemail" class="col-md-3 control-label bold">Module:</label>
+                      	<div class="col-md-6">
+						              <p class="text">{{credentials.consultation.module}}</p>
+                     	</div>
+                    </div>
+
+                    <div class="form-group">
+                      	<label for="fieldemail" class="col-md-3 control-label bold">Date:</label>
+                      	<div class="col-md-6">
+                      		<p class="text">{{credentials.consultation.date}}</p>
+                     	</div>
+                    </div>
+
+                    <div class="form-group" ng-if="credentials.consultation.type">
+                      	<label for="fieldemail" class="col-md-3 control-label bold">Consultation Type:</label>
+                      	<div class="col-md-6">
+                      		<p class="text">{{credentials.consultation.type}}</p>
+                     	</div>
+                    </div>
+
+                    <div class="form-group" ng-if="credentials.consultation.reason">
+                      	<label for="fieldemail" class="col-md-3 control-label bold">Reason for appointment:</label>
+                      	<div class="col-md-6">
+                      		<p class="text">{{credentials.consultation.reason}}</p>
+                     	</div>
+                    </div>
+
+                    <div class="form-group" ng-if="!credentials.consultation.student_id">
+                      	<label for="fieldemail" class="col-md-3 control-label bold">Status:</label>
+                      	<div class="col-md-6">
+                      		<p class="text">Empty</p>
+                     	</div>
+                    </div>
+
+                    <div class="form-group" ng-if="credentials.consultation.student">
+                      	<label for="fieldemail" class="col-md-3 control-label bold">Status:</label>
+                      	<div class="col-md-6">
+                      		<p class="text">{{credentials.consultation.status ? "Approved" : "Pending Approval"}}</p>
+                     	</div>
+                    </div>
+
+                     <div class="form-group">
+                      	<div class="col-md-6 col-md-offset-3">
+                      		<a href="/#/view-consultations" class="btn btn-primary">Back to list</a>
+                          <a class="btn btn-success" ng-click="open(credentials.consultation.student_id)">Booking List</a>
+                     	</div>
+                    </div>
+
+
+	             </form>
+
+            </panel>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script type="text/ng-template" id="BookingList.html">
+      <div class="modal-header">
+          <h3 class="modal-title">Booking List</h3>
+      </div>
+      <div class="modal-body">
+            
+      <form class="form-horizontal">
+
+                <!-- <div class="form-group">
+                  <div class="col-sm-6 col-sm-offset-0"><p><strong>Please Note: </strong> The  task must be submitted before the due date {{ item.id }}</p>
+                  </div>
+                </div>
+                -->
+
+                <div class="form-group">
+                  <div class="col-sm-6 col-sm-offset-0">
+                    <table class="table">
+                    <thead>
+                      <tr>
+                        <th>No.:</th>
+                        <th>Name</th>
+                        <th>Reason for appointment</th>
+                        <th>Communication Type</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="(key, item) in items">
+                        <td>{{key}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.reason}}</td>
+                        <td>{{item.type}}</td>
+                        <td>
+                          <button ng-if="item.user_id != student_booked" class="btn btn-success" ng-click="book(item)">Approve</button>
+                          <p ng-if="item.user_id == student_booked">Booked</p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  </div>
+                </div>
+
+            </form>
+
+      </div>
+      <div class="modal-footer">
+          <button class="btn btn-primary" ng-click="cancel()">Cancel</button>
+      </div>
+</script>

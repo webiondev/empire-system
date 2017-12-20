@@ -1,0 +1,108 @@
+<div id="page-heading">
+   <ol class="breadcrumb">
+      <li><a href="#/">Dashboard</a></li>
+      <li>Students</li>
+      <li class="active">Fee Statement</li>
+   </ol>
+   <h1>Fee Statement</h1>
+   <div class="options">
+      <div class="btn-toolbar">
+         <a href="#" class="btn btn-default hidden-xs"><i class="glyphicon glyphicon-home"></i></a>
+      </div>
+   </div>
+</div>
+<div ng-controller="feeStatement" class="container-fluid">
+   <div class="row">
+      <div class="col-md-12">
+         <panel panel-class="panel-sky" heading="Add Fee Details">
+            <panel-controls>
+               <panel-control-collapse></panel-control-collapse>
+            </panel-controls>
+            <div id="alert" class="alert alert-danger hide">
+               <strong>Error</strong> Unable to save the course data.<br><br>
+               <ul>
+                  <li id="error"></li>
+               </ul>
+            </div>
+            <form ng-submit="submit(credentials)" ng-controller="feeStatementSubmit" class="form-horizontal row-border">
+               <div class="form-group">
+                  <label for="fieldname" class="col-md-3 control-label">Item Description</label>
+                  <div class="col-md-6">
+                     <textarea name="description" id="fieldabout" class="form-control autosize" rows="2" ng-model="credentials.description"></textarea>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="fieldname" class="col-md-3 control-label">Due Date</label>
+                  <div class="col-md-6">
+                     <datepicker ng-model="dt" min-date="minDate" show-weeks="true" class="datepicker"></datepicker>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="fieldname" class="col-md-3 control-label">Amount Payable</label>
+                  <div class="col-md-6">
+                     <input name="amount_payable"
+                        type="number"
+                        placeholder="Numbers only"
+                        required
+                        ng-model="credentials.amount_payable"
+                        class="form-control">
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="fieldname" class="col-md-3 control-label">Total Collected</label>
+                  <div class="col-md-6">
+                     <input name="total_collected"
+                        type="number"
+                        placeholder="Numbers only"
+                        required
+                        ng-model="credentials.total_collected"
+                        class="form-control">
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="fieldname" class="col-md-3 control-label"></label>
+                  <div class="col-md-6">
+                     <input type="submit" class="finish btn-success btn" value="Submit" />
+                     <a href="/#/admin-browse-users" class="finish btn-primary btn">Student List</a>
+                  </div>
+               </div>
+            </form>
+         </panel>
+         <panel panel-class="panel-danger" heading="Fee Details">
+            <panel-controls>
+               <panel-control-collapse></panel-control-collapse>
+            </panel-controls>
+            <p ng-hide="isValid(shared.mydata)" class="ng-hide">No fee statements for the student.</p>
+            <div ng-show="isValid(shared.mydata)" class="table-responsive">
+               <table class="table">
+                  <thead>
+                     <tr>
+                        <th style="padding-right:100px">Item Description</th>
+                        <th>Due Date</th>
+                        <th>Amount Payable</th>
+                        <th>Total Collected</th>
+                        <th>Outstanding</th>
+                        <th>Fine</th>
+                        <th>Action</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr ng-repeat="item in shared.mydata | unique: 'id'">
+                        <td align="left"><i>{{item.description}}</i></td>
+                        <td align="left"><i>{{item.duedate}}</i></td>
+                        <td align="left"><i>{{item.amount_payable}}</i></td>
+                        <td align="left"><i>{{item.total_collected}}</i></td>
+                        <td align="left"><i>{{item.outstanding}}</i></td>
+                        <td align="left"><i>{{item.fine}}</i></td>
+                        <td align="left">
+                           <a ng-click="destroy(item)" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </panel>
+      </div>
+   </div>
+</div>
+<!-- container-fluid -->

@@ -1,0 +1,40 @@
+<nav id="primary_nav_wrap">
+	<ul>
+	  <li><a href="#" ng-click="changeContent(1)">{{templates[1].name}}</a></li>
+	  
+	  <li><a href="#">Education Process</a>
+	    <ul>
+	      <li><a href="#" ng-click="changeContent(2)">{{templates[2].name}}</a></li>
+	      <li><a href="#" ng-click="changeContent(3)">{{templates[3].name}}</a></li>
+	      <li><a href="#" ng-click="changeContent(4)">{{templates[4].name}}</a></li>
+	      <li><a href="#" ng-click="changeContent(5)">{{templates[5].name}}</a></li>
+	      <li><a href="#" ng-click="changeContent(6)">{{templates[6].name}}</a></li>
+	      <li><a href="#" ng-click="changeContent(7)">{{templates[7].name}}</a></li>
+	      <li><a href="#" ng-click="changeContent(8)">{{templates[8].name}}</a></li>
+	    </ul>
+	  </li>
+	  <li class="current-menu-item"><a href="#">System Navigation</a>
+	    <ul>
+	      <li><a href="#" ng-click="changeContent(9)">{{templates[9].name}}</a></li>
+	      <li><a href="#" ng-click="changeContent(10)">{{templates[10].name}}</a></li>
+	      <li><a href="#" ng-click="changeContent(11)">{{templates[11].name}}</a></li>
+	      <li><a href="#" ng-click="changeContent(12)">{{templates[12].name}}</a></li>
+	      <li><a href="#" ng-click="changeContent(13)">{{templates[13].name}}</a></li>
+	    </ul>
+	  </li>
+	</ul>
+</nav>
+
+<div class="manual-content">
+
+	<h1>{{template.name}}</h1>
+
+	<div class="manual-image" style="width:442px; height:447px;" back-img="/assets/img/manual/18.jpg"></div>
+
+	<p>Notification panel located on the right top corner. Everytime an important event will happen in a system you will be notified about it right away.</p>
+
+	<div class="nec-center">
+		<button class="btn btn-primary btn-large" ng-click="changeContent(11)">{{templates[11].name}}</button>
+	</div>
+
+</div>

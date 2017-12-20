@@ -1,0 +1,86 @@
+<div id="page-heading">
+    <ol class="breadcrumb">
+        <li><a href="#/">Dashboard</a></li>
+        <li>Modules</li>
+        <li class="active">Assignment Submission</li>
+    </ol>
+
+    <h1>Assignment Submission</h1>
+    <div class="options">
+        <div class="btn-toolbar">
+            <a href="#" class="btn btn-default hidden-xs"><i class="glyphicon glyphicon-home"></i></a>
+        </div>
+    </div>
+   
+</div>
+
+
+<div ng-controller="assignmentSubmission" class="container-fluid">
+    
+    <div class="row">
+        <div class="col-md-12">
+
+      <panel ng-if="loaded" panel-class="panel-danger" heading="Assignment Submission Form">
+                <panel-controls>
+                    <panel-control-collapse></panel-control-collapse> 
+                </panel-controls>
+
+                  <div id="alert" class="alert alert-danger hide">
+                      <strong>Error</strong> Unable to save information.<br><br>
+                      <ul>
+                          <li id="error"></li>
+                      </ul>
+                  </div>
+
+                  <p><strong>Guidelines: </strong> Select a module first. Then select ONE file or archive for selected module. Click submit assignment button.</p>
+
+                  <p><strong>Please Note: </strong> All assignments must be submitted before the due date!</p>
+
+
+                 <form ng-controller="assignmentSubmission" ng-submit="submit(credentials)" class="form-horizontal margin-top">
+
+                
+                    <div class="form-group">
+                        <label for="fieldname" class="col-md-3 control-label">Choose Module</label>
+                        <div class="col-md-6">
+
+                           <input type="hidden" name="_token" ng-model="credentials.token" value="{{ type.csrf }}">
+
+                          <select name="module_id" class="form-control" id="module" ng-model="module.id" ng-change="update(module.id)" required>
+                          <optgroup label="Choose module">
+                              <option ng:repeat="item in modules" value="{{item.id}}">{{item.name}}</option>
+                          </optgroup>
+                          </select>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                    <label class="col-sm-3 control-label">File</label>
+                      <div class="col-sm-6">
+                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                          <span class="btn btn-default btn-file" style="background: #e6e9ee">
+                            <span class="fileinput-new">Select a file</span>
+                            <span class="fileinput-exists">Change</span>
+                            <input fileread="credentials.file" type="file" name="file">
+                          </span>
+
+                          <span id="filename" class="fileinput-filename"></span>
+                          <a href="#"  class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="col-md-6 col-md-offset-3">
+                        <button type="submit" class="btn btn-primary">
+                          Submit Assignment
+                        </button>
+                      </div>
+                    </div>
+
+                 </form>
+            </panel>
+        </div>
+    </div>
+</div> <!-- container-fluid -->

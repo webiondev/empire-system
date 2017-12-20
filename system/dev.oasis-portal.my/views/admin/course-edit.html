@@ -1,0 +1,80 @@
+<div id="page-heading">
+   <ol class="breadcrumb">
+      <li><a href="#/">Dashboard</a></li>
+      <li>Courses</li>
+      <li class="active">Edit Courses</li>
+   </ol>
+   <h1 ng-controller="viewCourse">{{course.name}}</h1>
+   <div class="options">
+      <div class="btn-toolbar">
+         <a href="#" class="btn btn-default hidden-xs"><i class="glyphicon glyphicon-home"></i></a>
+      </div>
+   </div>
+</div>
+<div ng-controller="courseEdit" class="container-fluid">
+   <div class="row">
+      <div class="col-md-12">
+         <panel panel-class="panel-sky" heading="Module form">
+            <panel-controls>
+               <panel-control-collapse></panel-control-collapse>
+            </panel-controls>
+            <form ng-controller="courseEdit" ng-submit="submit()" name="editForm">
+
+               <div class="row">
+                  <div class="col-md-3">
+                     <label class="control-label pull-right">Name</label>
+                  </div>
+                  <div ng-controller="viewCourse" class="col-md-6">
+                     <input type="hidden" name="courseId" data-ng-model="course.id">
+                     <input type="text" class="form-control" data-ng-model="course.name" name="courseName">
+                  </div>
+               </div>
+               <br>
+
+               <div class="row">
+                  <div class="col-md-3">
+                     <label class="control-label pull-right">Course Module</label>
+                  </div>
+                  <div ng-controller="viewCourse" class="col-md-6">
+                     <p ng-hide="isValid(modules)" class="ng-hide text">No modules for this course</p>
+                        <p ng-show="isValid(modules)">
+                           <ul ng:repeat="module in modules">
+                              <li id="{{module.id}}">
+                                 <div class="row">
+                                    <div class="col-md-6">
+                                       <a href="#">{{module.code}} {{module.name}} </a> 
+                                    </div>
+                                    <div class="col-md-4">
+                                       <button type="button" class="btn btn-brown btn-sm" ng-click="delBtn(module.id)"> <i class="fa fa-trash-o" aria-hidden="true"></i> </button>
+                                    </div>
+                                 </div>
+                                 <hr>
+                              </li>
+                              
+                           </ul>
+                        </p>
+                  </div>
+               </div>
+               <br>
+
+               <div class="row">
+                  <div class="col-md-3">
+                     <label class="control-label pull-right">Description</label>
+                  </div>
+                  <div class="col-md-6" ng-controller="viewCourse">
+                     <textarea class="form-control" name="courseDesc" data-ng-model="course.description"></textarea>
+                  </div>
+               </div>
+               <br>
+
+               <div class="row">
+                  <div class="col-md-6 col-md-offset-3" >
+                     <a href="/#/add-new-module/{{course_id}}" class="btn-primary btn">Add new module</a>
+                     <button type="submit" class="btn btn-success">Save</button>
+                  </div>
+               </div>
+            </form>
+         </panel>
+      </div>
+   </div>
+</div>

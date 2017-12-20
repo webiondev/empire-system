@@ -1,0 +1,69 @@
+<div id="page-heading">
+    <ol class="breadcrumb">
+        <li><a href="#/">Dashboard</a></li>
+        <li>Tasks</li>
+        <li class="active">Submit task</li>
+    </ol>
+
+    <h1>Submit task</h1>
+    <div class="options">
+        <div class="btn-toolbar">
+            <a href="#" class="btn btn-default hidden-xs"><i class="glyphicon glyphicon-home"></i></a>
+        </div>
+    </div>
+</div>
+
+<div ng-controller="submitTask" class="container-fluid">
+    
+    <div class="row">
+        <div class="col-md-12">
+
+         <panel panel-class="panel-sky" heading="Task submission form">
+                <panel-controls>
+                    <panel-control-collapse></panel-control-collapse> 
+                </panel-controls>
+
+                <div id="alert" class="alert alert-danger hide">
+                  <strong>Error</strong> Unable to create a task.<br><br>
+                  <ul>
+                      <li id="error"></li>
+                  </ul>
+                </div>
+
+              	<form ng-submit="submit(credentials)" ng-controller="submitTask" class="form-horizontal">
+
+                <div class="form-group">
+                <div class="col-sm-6 col-sm-offset-2"><p><strong>Please Note: </strong> All assignments must be submitted before the due date {{ credentials.task }}</p>
+                </div></div>
+
+    				<div class="form-group">
+					<label class="col-sm-3 control-label">Choose File</label>
+						<div class="col-sm-6">
+							<div class="fileinput fileinput-new" data-provides="fileinput">
+								<span class="btn btn-default btn-file" style="background: #e6e9ee">
+									<span class="fileinput-new">Select a file</span>
+									<span class="fileinput-exists">Change</span>
+									<input fileread="credentials.file" type="file" name="file">
+								</span>
+
+								<span id="filename" class="fileinput-filename"></span>
+								<a href="#"  class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+							</div>
+						</div>
+					</div>
+
+		            <div class="form-group">
+		              <div class="col-md-6 col-md-offset-3">
+		                <button type="submit" class="btn btn-primary">
+		                  Submit Task
+		                </button>
+		              </div>
+		            </div>
+
+
+              	</form>
+
+    	</panel>
+        </div>
+    </div>
+</div>

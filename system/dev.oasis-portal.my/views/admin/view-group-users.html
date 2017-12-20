@@ -1,0 +1,73 @@
+<div ng-controller="viewGroupUsers">
+
+<div id="page-heading">
+   <ol class="breadcrumb">
+      <li><a href="#/">Dashboard</a></li>
+      <li>User Groups</li>
+      <li class="active">Group User List</li>
+   </ol>
+   <h1>Group User List</h1>
+   <div class="options">
+      <div class="btn-toolbar">
+         <a href="#" class="btn btn-default hidden-xs"><i class="glyphicon glyphicon-home"></i></a>
+      </div>
+   </div>
+</div>
+<div class="container-fluid" >
+   <div class="row">
+      <div class="col-md-12">
+         <panel panel-class="panel-sky" heading="Group User List">
+            <panel-controls>
+               <panel-control-collapse></panel-control-collapse>
+            </panel-controls>
+            <div class="table-responsive">
+               <table class="table">
+                  <thead>
+                     <tr>
+                        <th style="padding-right:100px">Student ID</th>
+                        <th style="padding-right:100px">Student Name</th>
+                        <th style="padding-right:100px">Course</th>
+                        <th>Action</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr ng:repeat="(key, student) in credentials.students">
+                        <td align="left"><i>{{student.id}}</i></td>
+                        <td align="left"><i>{{student.name}}</i></td>
+                        <td align="left"><i>{{student.course}}</i></td>
+                        <td>
+                           <a ng-click="openDel(student.id)" class="btn btn-brown btn-sm" data-toggle="modal" data-target="#modalDelete">Delete</a>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+               <a href="/#/admin-browse-groups" class="btn btn-primary">Back to list</a>
+            </div>
+         </panel>
+      </div>
+   </div>
+   
+<div id="modalDelete" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Delete Confirmation</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to remove this user from this usergroup?.</p>
+      </div>
+      <div class="modal-footer">
+         <button type="button" class="btn btn-brown btn-sm" ng-click="delete()">Delete</button>
+        <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div>
+</div>
+<!-- container-fluid -->

@@ -1,0 +1,93 @@
+<div ng-controller="viewCourse">
+   <div id="page-heading">
+      <ol class="breadcrumb">
+         <li><a href="#/">Dashboard</a></li>
+         <li>Courses</li>
+         <li class="active">View Course</li>
+      </ol>
+      <h1>{{course.name}}</h1>
+      <div class="options">
+         <div class="btn-toolbar">
+         <a href="#" class="btn btn-default hidden-xs"><i class="glyphicon glyphicon-home"></i></a>
+        </div>
+      </div>
+   </div>
+   <div class="container-fluid">
+      <div class="row">
+         <div class="col-md-12">
+            <panel panel-class="panel-sky" heading="Course Details">
+               <panel-controls>
+                  <panel-control-collapse></panel-control-collapse>
+               </panel-controls>
+               <form class="form-horizontal">
+                  <div class="form-group">
+                     <label for="fieldname" class="col-md-3 control-label">Name:</label>
+                     <div class="col-md-6">
+                        <p class="text">{{course.name}}</p>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label for="fieldname" class="col-md-3 control-label">Course Modules</label>
+                     <div class="col-md-6">
+                        <p ng-hide="isValid(modules)" class="ng-hide text">No modules for this course</p>
+                        <p ng-show="isValid(modules)">
+                        <ul ng:repeat="module in modules">
+                           <li id="mod_{{module.id}}">
+                              <div class="row">
+                                 <div class="col-md-6">
+                                    <a href="#">{{module.code}} {{module.name}}</a>
+                                 </div>
+                                 <div class="col-md-3">
+                                    <button type="button" class="btn btn-brown btn-sm" data-toggle="modal" data-target="#modalDelete" ng-click="delBtn2(module.id,course.id,module.code,module.name,course.name)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                 </div>
+                              </div>
+                              
+                           </li>
+                        </ul>
+                        </p>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label for="fieldname" class="col-md-3 control-label">Description:</label>
+                     <div class="col-md-6">
+                        <p class="text">{{course.description || "No Description"}}</p>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label for="fieldname" class="col-md-3 control-label">Action:</label>
+                     <div class="col-md-6">
+                        <a href="/#/add-new-module/{{course_id}}" class="btn-primary btn">Add new module</a>
+                        <a href="/#/course-edit/{{course_id}}" class="btn-success btn">Edit Course</a>
+                        <a class="btn-danger btn">Delete Course</a>
+                     </div>
+                  </div>
+               </form>
+            </panel>
+         </div>
+      </div>
+   </div>
+
+   <!-- Modal -->
+   <div id="modalDelete" class="modal fade" role="dialog">
+     <div class="modal-dialog">
+
+       <!-- Modal content-->
+       <div class="modal-content">
+         <div class="modal-header">
+           <button type="button" class="close" data-dismiss="modal">&times;</button>
+           <h4 class="modal-title">Remove Module Confirmation</h4>
+         </div>
+         <div class="modal-body">
+           <p id="modalMessage"></p>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-brown" ng-click="removeModule()">Remove</button>
+           <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+         </div>
+       </div>
+
+     </div>
+   </div>
+   <!-- modal-->
+   <!-- container-fluid -->
+</div>

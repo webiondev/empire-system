@@ -1,0 +1,99 @@
+<div id="page-heading">
+    <ol class="breadcrumb">
+        <li><a href="#/">Dashboard</a></li>
+        <li>Modules</li>
+        <li class="active">My Units</li>
+    </ol>
+
+    <h1>My Units</h1>
+    <div class="options">
+        <div class="btn-toolbar">
+            <div class="btn-group" dropdown>
+                <button type="button" class="btn btn-default dropdown-toggle" dropdown-toggle>
+                    Export as <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Separated link</a></li>
+                </ul>
+            </div>
+            <a href="#" class="btn btn-default hidden-xs"><i class="glyphicon glyphicon-cog"></i></a>
+        </div>
+    </div>
+</div>
+
+
+<div ng-controller="viewLearningModule" class="container-fluid">
+    
+	<div class="row">
+		<div class="col-md-12">
+
+			<panel panel-class="panel-sky" heading="{{module[0].name}} Materials">
+                <panel-controls>
+                    <panel-control-collapse></panel-control-collapse> 
+                </panel-controls>
+
+                <h2>Lectures</h2>
+
+                
+                <div class="item" ng-repeat="item in materials | getObjectBy:'Lectures "> 
+                    
+                    <div class="block">
+
+                        <div class="{{item.ext}}"></div>
+                        <div class="files" style="float:left;">
+                            <a target="_self" href="/files/lecturer/{{item.module_id}}/{{item.file}}" download="{{item.file}}">{{item.name}}</a>
+                            {{item.size | asHumanReadable}} {{ item.ext | typeDescription}}
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <hr/>
+
+                <h2>Assignment Resources</h2>
+
+                <div class="item" ng-repeat="item in materials ">
+                    
+                    <div class="block">
+
+                        <div class="{{item.ext}}"></div>
+                        <div class="files" style="float:left;">
+                            <a target="_self" href="/files/{{item.module_id}}/{{item.file}}" download="{{item.file}}">{{item.name}}</a>
+                            {{item.size | asHumanReadable}} {{ item.ext | typeDescription}}
+                        </div>
+                        <!--| getObjectBy:'Assignment Resources' -->
+                    </div>
+
+                </div>
+
+                <hr/>
+
+                <h2>Assessments & Grades</h2>
+
+                <div class="item" ng-repeat="item in materials "> <!--| getObjectBy:'Assessments & Grades' -->
+                            
+                    <div class="block">
+
+                        <div class="{{item.ext}}"></div>
+                        <div class="files" style="float:left;">
+                            <a target="_self" href="/files/{{item.module_id}}/{{item.file}}" download="{{item.file}}">{{item.name}}</a>
+                            {{item.size | asHumanReadable}} {{ item.ext | typeDescription}}
+                        </div>
+
+                    </div>
+
+                </div>
+                
+
+            </panel>
+
+        </div>
+
+    </div>
+
+</div>

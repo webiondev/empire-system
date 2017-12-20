@@ -1,0 +1,41 @@
+<div id="page-heading">
+    <ol class="breadcrumb">
+        <li><a href="#/">Course Details</a></li>
+        <li>COURSE AND ACADEMIC INFORMATION</li>
+        <li class="active">Course Syllabus</li>
+    </ol>
+
+    <h1>Course Subjects</h1>
+
+    <div class="options">
+        <div class="btn-toolbar">
+            <a href="#" class="btn btn-default hidden-xs"><i class="glyphicon glyphicon-home"></i></a>
+        </div>
+    </div>
+</div>
+
+<div ng-controller="courseSyllabus" class="container-fluid">
+    
+    <div class="row">
+        <div class="col-md-12">
+
+        <!-- <h2>Course Subjects</h2> -->
+                
+            <tabset panel-tabs="true" heading="Course Modules" panel-class="panel-info">
+
+              <tab heading="Home">
+                <tab-heading><i class="fa fa-desktop"></i></tab-heading>
+
+                <div class="row" ng-repeat="(key,item) in credentials.subjects">
+                <h2>{{key}}</h2>
+                  <div class="col-md-3" ng-repeat="program in item">
+                    <module-tile data="program"></module-tile>
+                  </div>
+                </div>
+
+              </tab>
+
+            </tabset>
+        </div>
+    </div>
+</div>

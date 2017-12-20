@@ -1,0 +1,84 @@
+<div id="page-heading">
+   <ol class="breadcrumb">
+      <li><a href="#/">Dashboard</a></li>
+      <li>Students</li>
+      <li class="active">Student Assessment</li>
+   </ol>
+   <h1>Student Assessment</h1>
+   <div class="options">
+      <div class="btn-toolbar">
+         <a href="#/" class="btn btn-default hidden-xs"><i class="glyphicon glyphicon-home"></i></a>
+      </div>
+   </div>
+</div>
+<div ng-controller="studentAssessment" class="container-fluid">
+   <div class="row">
+      <div class="col-md-12">
+         <panel panel-class="panel-sky" heading="Student Assessment">
+            <panel-controls>
+               <panel-control-collapse></panel-control-collapse>
+            </panel-controls>
+            <div id="alert" class="alert alert-danger hide">
+               <strong>Error</strong> Unable to save the module data.<br><br>
+               <ul>
+                  <li id="error"></li>
+               </ul>
+            </div>
+            <form ng-submit="submit(module)" ng-controller="formStudentAssessment" class="form-horizontal row-border">
+               <div class="form-group">
+                  <label for="fieldname" class="col-md-3 control-label">Student Name</label>
+                  <div class="col-md-6">
+                     <p class="text">{{student.name}}</p>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="fieldname" class="col-md-3 control-label">Choose Module</label>
+                  <div class="col-md-6">
+                     <select name="module_id" class="form-control" id="module" ng-model="module.id" ng-change="update(module.id)" required>
+                        <optgroup label="Choose module">
+                           <option ng:repeat="item in modules" value="{{item.id}}">{{item.code }} {{item.name}}</option>
+                        </optgroup>
+                     </select>
+                  </div>
+               </div>
+            </form>
+            <div class="form-horizontal row-border" ng-controller="submitAssessment">
+               <div class="form-group">
+                  <label for="fieldname" class="col-md-3 control-label"></label>
+                  <div class="col-md-6"> 
+                     <a ng-click="details(shared.module_id)" ng-show="(!isValid(shared) && shared.on)" class="btn btn-primary ng-hide">Add Module Evalution</a>
+                     <a ng-click="edit(shared.module_id)" ng-show="isValid(shared)" class="btn btn-success">Edit</a>
+                  </div>
+               </div>
+            </div>
+            <panel panel-class="panel-sky" class="margin-top" heading="Student Grades">
+               <panel-controls></panel-controls>
+               <p ng-hide="isValid(shared)" class="ng-hide">Not Information.</p>
+               <div ng-show="isValid(shared)" class="table-responsive" ng-controller="studentAssessment">
+                  <table class="table">
+                     <thead>
+                        <tr>
+                           <th style="padding-right:50px">Module Code</th>
+                           <th>Module Title</th>
+                           <th>Credit Points</th>
+                           <th>Mark</th>
+                           <th>Grade</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr ng:repeat="student in shared">
+                           <td>{{student.module_code}}</td>
+                           <td>{{student.title}}</td>
+                           <td>{{student.credit_points}}</td>
+                           <td>{{student.mark}}</td>
+                           <td>{{student.grade}}</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </panel>
+         </panel>
+      </div>
+   </div>
+</div>
+<!-- container-fluid -->

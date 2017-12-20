@@ -1,0 +1,97 @@
+<div id="page-heading">
+    <ol class="breadcrumb">
+        <li><a href="#/">Dashboard</a></li>
+        <li class="active">Calendar</li>
+    </ol>
+
+    <h1>Calendar</h1>
+    <div class="options">
+        <div class="btn-toolbar">
+            <div class="btn-group" dropdown>
+                <button type="button" class="btn btn-default dropdown-toggle" dropdown-toggle>
+                    Export as <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Separated link</a></li>
+                </ul>
+            </div>
+            <a href="#" class="btn btn-default hidden-xs"><i class="glyphicon glyphicon-cog"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" ng-controller="editTemplateController">
+    <div class="row">
+      <div class="col-md-12">
+         <panel panel-class="panel-sky" heading="User Groups">
+            <panel-controls>
+               <panel-control-collapse></panel-control-collapse>
+            </panel-controls>
+            <form class="form-horizontal">
+               <fieldset title="Step 1">
+                  <div id="alert" class="alert alert-danger hide">
+                     <strong>Error</strong> Unable to create a template.<br><br>
+                     <ul>
+                        <li id="error"></li>
+                     </ul>
+                  </div>
+                  <input type="hidden" name="_token" ng-model="credentials.token" value="{{ type.csrf }}">
+                  <legend>Select a template</legend>
+                  <div class="form-group">
+                     <label for="fieldname" class="col-md-3 control-label">Template Name</label>
+                     <div class="col-md-6">
+                        <select name="semester" ng-change="onTemplateChange()" class="form-control" ng-model="credentials.template"required>
+                          <optgroup label="Choose a template">
+                             <option value="{{template.id}}" ng:repeat="template in credentials.templates">{{template.name}}</option>
+                          </optgroup>
+                        </select>
+                     </div>
+                  </div>
+               </fieldset>
+               <div class="form-group">
+                  <label class="col-md-3 control-label"></label>
+                  <div class="col-md-6 col-offset-8">
+                     <!-- <input ng-click="render()" class="finish btn-success btn" value="Render" /> -->
+                  </div>
+               </div>
+            </form>
+         </panel>
+      </div>
+
+    <div class="col-xs-12">
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <h2>Calendar</h2>
+                <div class="options">  
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div id='external-events' class="col-sm-3">
+                        <h3>Draggable Events</h3>
+                        <form style="margin-bottom: 10px;" class="clearfix">
+                            <label for="" class="control-label">Enter a name for an event:</label>
+                            <input type="text" ng-model="newEvent" class="form-control" style="margin-bottom: 10px;" placeholder="Event Name...">
+                            <!-- <button class="btn btn-primary pull-right" ng-click="addEvent()">Create Event</button> -->
+                        </form>
+                        <div class='external-event label label-info' data-draggable-event="{ title: event.title, calendar_id: credentials.template }">
+                          {{newEvent}}
+                        </div>
+                        <!-- <div ng-repeat="event in events" style="margin-bottom: 5px;">
+                            <div class='external-event label label-info' data-draggable-event="{ title: event.title, calendar_id: credentials.template }" >{{event.title}}</div>
+                        </div> -->
+                    </div>
+
+                    
+                      <div id="fullcalendar" data-full-calendar="{ rerenderEvents: render, events: credentials.demoEvent, droppable: true, removeDroppedEvent: true, calendar_id: credentials.calendar_id }" class="col-sm-9" ng-model="credentials"></div>
+                    
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- container-fluid -->

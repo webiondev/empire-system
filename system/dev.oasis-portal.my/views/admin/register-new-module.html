@@ -1,0 +1,84 @@
+<div id="page-heading">
+   <ol class="breadcrumb">
+      <li><a href="#/">Dashboard</a></li>
+      <li>Modules</li>
+      <li class="active">Registration of a new module</li>
+   </ol>
+   <h1>Registration of a new module</h1>
+   <div class="options">
+      <div class="btn-toolbar">
+         <a href="#" class="btn btn-default hidden-xs"><i class="glyphicon glyphicon-home"></i></a>
+      </div>
+   </div>
+</div>
+<div ng-controller="moduleRegistration" class="container-fluid">
+   <div class="row">
+      <div class="col-md-12">
+         <panel panel-class="panel-sky" heading="Module registration form">
+            <panel-controls>
+               <panel-control-collapse></panel-control-collapse>
+            </panel-controls>
+            <p ng-hide="isValid(lecturers)" class="ng-hide">
+               There are no registered lecturers in a system. <br/>
+               <a id="course-reg" href="#/admin-lecturer-registration" class="btn btn-primary">Register new course</a>
+            </p>
+            <form ng-submit="submit(credentials)" ng-controller="moduleRegistration" class="form-horizontal ng-hide" ng-show="isValid(lecturers)">
+               <div id="alert" class="alert alert-danger hide">
+                  <strong>Error</strong> Unable to save the module data.<br><br>
+                  <ul>
+                     <li id="error"></li>
+                  </ul>
+               </div>
+               <div class="form-group">
+                  <label for="fieldnick" class="col-md-3 control-label">Module Lecturer</label>
+                  <div class="col-md-6">
+                     <select name="lecturer_id" class="form-control" id="course" ng-model="credentials.lecturer_id" required>
+                        <optgroup label="Assign a lecturer for the module">
+                           <option ng:repeat="item in lecturers" value="{{item.id}}">{{item.name}}</option>
+                        </optgroup>
+                     </select>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="fieldnick" class="col-md-3 control-label">Module Semester</label>
+                  <div class="col-md-6">
+                     <select name="semester" class="form-control" ng-model="credentials.semester"required>
+                        <optgroup label="Assign a semester for the student">
+                           <option value="1">Semester 1</option>
+                           <option value="2">Semester 2</option>
+                           <option value="3">Semester 3</option>
+                           <option value="4">Semester 4</option>
+                        </optgroup>
+                     </select>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="fieldname" class="col-md-3 control-label">Module Code</label>
+                  <div class="col-md-6">
+                     <input id="fieldname" class="form-control" name="code" ng-model="credentials.code" minlength="4" type="text" required>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="fieldname" class="col-md-3 control-label">Module Name</label>
+                  <div class="col-md-6">
+                     <input id="fieldname" class="form-control" name="name" ng-model="credentials.name" minlength="4" type="text" required>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="fieldabout" class="col-md-3 control-label">Description</label>
+                  <div class="col-md-6">
+                     <textarea name="description" ng-model="credentials.description" id="fieldabout" class="form-control autosize" rows="2"></textarea>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-md-6 col-md-offset-7">
+                     <button type="submit" class="btn btn-primary">
+                     Register new module
+                     </button>
+                  </div>
+               </div>
+            </form>
+         </panel>
+      </div>
+   </div>
+</div>

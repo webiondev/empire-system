@@ -1,0 +1,109 @@
+<div id="page-heading" ng-controller="moduleDetail">
+    <ol class="breadcrumb">
+        <li><a href="#/">Course Details</a></li>
+        <li>COURSE AND ACADEMIC INFORMATION</li>
+        <li class="active">{{moduleDetail._data.moduleName}}</li>
+    </ol>
+    <h1>({{moduleDetail._data.moduleCode}} ) {{moduleDetail._data.moduleName}}</h1>
+    <div class="options">
+        <div class="btn-toolbar">
+            <a href="#/" class="btn btn-default hidden-xs"><i class="glyphicon glyphicon-home"></i></a>
+        </div>
+    </div>
+</div>
+<div class="container-fluid" ng-controller="moduleDetail">
+    <div class="row">
+        <div class="col-md-12">
+            <panel class="description" panel-class="panel-sky" heading="Module Information">
+                <panel-controls>
+                    <panel-control-collapse></panel-control-collapse>
+                </panel-controls>
+                <!-- <p><strong>Course:</strong> </p> -->
+                <p><strong>Module Code:</strong>{{moduleDetail._data.moduleCode}}</p>
+                <p><strong>Module:</strong>{{moduleDetail._data.moduleName}}</p>
+                <p><strong>Year:</strong>{{moduleDetail._data.moduleYear}}</p>
+            </panel>
+            <panel class="description" panel-class="panel-sky" heading="1. Instructional Hours">
+                <panel-controls>
+                    <panel-control-collapse></panel-control-collapse>
+                </panel-controls>
+                <p><strong>Lecture:</strong>{{moduleDetail._data.lectureTime}}</p>
+                <p><strong>Project:</strong>{{moduleDetail._data.projectTime}}</p>
+                <p><strong>Private Study:</strong>{{moduleDetail._data.privateStudy}}</p>
+                <p><strong>Total:</strong>{{moduleDetail._data.lectureTime+moduleDetail._data.projectTime+moduleDetail._data.privateStudy}}</p>
+                <p><strong>Credit Value:</strong>{{moduleDetail._data.creditValue}}</p>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th style="padding-right:50px">Learning Outcomes</th>
+                            <th>Assessment criteria</th>
+                            <th>Indicative content</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       <tr ng:repeat="(key,outcome) in moduleDetail._data.tableOutcomes">
+                           <td>{{outcome.outcome}}</td>
+                           <td>{{outcome.assessment}}</td>
+                           <td>{{outcome.indicative}}</td>
+                       </tr>
+                    </tbody>
+                </table>
+            </panel>
+            <panel class="description" panel-class="panel-sky" heading="2. Module Synopsis">
+                <panel-controls>
+                    <panel-control-collapse></panel-control-collapse>
+                </panel-controls>
+                <p>
+                    {{moduleDetail._data.synopsis}}
+                </p>
+            </panel>
+            <panel class="description" panel-class="panel-sky" heading="3. Module Objectives">
+                <panel-controls>
+                    <panel-control-collapse></panel-control-collapse>
+                </panel-controls>
+                <p>
+                    {{moduleDetail._data.objectives}}
+                </p>
+            </panel>
+            <panel class="description" panel-class="panel-sky" heading="4. Learning Outcomes">
+                <panel-controls>
+                    <panel-control-collapse></panel-control-collapse>
+                </panel-controls>
+                <p>
+                    {{moduleDetail._data.outcomeSummary}}
+                </p>
+            </panel>
+            <panel class="description" panel-class="panel-sky" heading="5. Assessment Components">
+                <panel-controls>
+                    <panel-control-collapse></panel-control-collapse>
+                </panel-controls>
+                <p>To successfully complete the module, the students must perform the following:</p>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th style="padding-right:50px">Components</th>
+                            <th>Weightage</th>
+                            <th>Due Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       <tr ng:repeat="(key,assessment) in moduleDetail._data.tableAssessments">
+                            <td>{{assessment.component}}</td>
+                            <td>{{assessment.weightage}}</td>
+                            <td>{{assessment.due_date}}</td>
+                       </tr>
+                    </tbody>
+                </table>
+                <p><i>* The nominal word count for this module is 1,200 words. The suggested range is in between 1000-1500</i></p>
+            </panel>
+            <panel class="description" panel-class="panel-sky" heading="6. Teaching and Learning Strategies">
+                <panel-controls>
+                    <panel-control-collapse></panel-control-collapse>
+                </panel-controls>
+                <p>
+                    {{moduleDetail._data.teachingStrategy}}
+                </p>
+            </panel>
+        </div>
+    </div>
+</div>

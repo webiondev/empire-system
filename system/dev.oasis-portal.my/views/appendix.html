@@ -1,0 +1,39 @@
+<div id="page-heading">
+    <ol class="breadcrumb">
+        <li><a href="#/">Home</a></li>
+        <li class="active">COURSE AND ACADEMIC INFORMATION</li>
+    </ol>
+
+    <h1>Appendix</h1>
+    <div class="options">
+        <div class="btn-toolbar">
+            <a href="#/" class="btn btn-default hidden-xs"><i class="glyphicon glyphicon-home"></i></a>
+        </div>
+    </div>
+</div>
+
+
+<div ng-controller="courseSyllabus" class="container-fluid">
+    
+    <div class="row">
+        <div class="col-md-12">
+                
+        <tabset panel-tabs="true" heading="Information For Students" panel-class="panel-info">
+            <tab>
+                <tab-heading><i class="fa fa-desktop"></i></tab-heading>
+                <div class="row">
+                    <div class="col-md-2" ng-repeat="item in credentials.shortcutTiles">
+                        <tile-shortcut data="item"></tile-shortcut>
+                    </div>
+                </div>
+
+            </tab>
+            <tab heading="Profile">
+                <tab-heading><i class="fa fa-code"></i></tab-heading>
+                <p>Same as <code>&lt;tile-large&gt;</code>, <code>&lt;tile-shortcut&gt;</code> can be generated programmatically.</p>
+            </tab>
+        </tabset>
+
+        </div>
+    </div>
+</div>

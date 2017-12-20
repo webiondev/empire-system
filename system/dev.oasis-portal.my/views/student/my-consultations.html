@@ -1,0 +1,71 @@
+<div id="page-heading">
+    <ol class="breadcrumb">
+        <li><a href="#/">Dashboard</a></li>
+        <li>Consultation Hours</li>
+        <li class="active">My Consultations</li>
+    </ol>
+
+    <h1>My Consultations</h1>
+    <div class="options">
+        <div class="btn-toolbar">
+            <a href="#" class="btn btn-default hidden-xs"><i class="glyphicon glyphicon-home"></i></a>
+        </div>
+    </div>
+   
+</div>
+
+
+<div ng-controller="myConsultations" class="container-fluid">
+    
+    <div class="row">
+        <div class="col-md-12">
+
+        <panel panel-class="panel-sky" heading="View Appointment(s) made with Lecturer">
+
+          <panel-controls>
+              <panel-control-collapse></panel-control-collapse> 
+          </panel-controls>
+
+          	<div id="alert" class="alert alert-danger hide">
+	              <strong>Error</strong><br><br>
+	              <ul>
+	                  <li id="error"></li>
+	              </ul>
+        	</div>
+
+
+          <div ng-hide="isValid(credentials.consultations)" class="ng-hide" ng-bind-html="credentials.note | sanitize"></div>
+
+            <div ng-if="isValid(credentials.consultations)" class="table-responsive">
+                    
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="padding-right:20px">Code</th>
+                                <th style="padding-right:30px">Module</th>
+                                <th>Date</th>
+                                <th>Lecturer</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="c in credentials.consultations">
+
+                                <td align="left"><i>{{c.code}}</i></td>
+                                <td align="left"><i>{{c.name}}</i></td>
+                                <td align="left"><i>{{c.date | asDate }}</i></td>
+                                <td align="left"><i>{{c.lecturer}}</i></td>
+                                <td align="left"><i>{{c.status ? "Approved" : "Pending Approval" }}</i></td>                                
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+        </panel>
+
+        </div>
+    </div>
+</div>
+
+
