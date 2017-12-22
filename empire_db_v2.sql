@@ -20,13 +20,13 @@ USE `empire_portal` ;
 DROP TABLE IF EXISTS `empire_portal`.`user` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`user` (
-  `iduser` INT NOT NULL,
+  `iduser` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `email` VARCHAR(45) NULL,
   `password` VARCHAR(1024) NULL,
   `type` VARCHAR(45) NULL,
   `remember_token` VARCHAR(1024) NULL,
-  `avatar` VARCHAR(250) NULL,
+  `image` VARCHAR(1024) NULL,
   PRIMARY KEY (`iduser`))
 ENGINE = InnoDB;
 
@@ -37,7 +37,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`branch_address` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`branch_address` (
-  `idbranch_address` INT NOT NULL,
+  `idbranch_address` INT NOT NULL AUTO_INCREMENT,
   `postcode` VARCHAR(45) NULL,
   `city` VARCHAR(45) NULL,
   `street` VARCHAR(45) NULL,
@@ -52,7 +52,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`branch` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`branch` (
-  `idbranch` INT NOT NULL,
+  `idbranch` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `branch_address_id` INT NOT NULL,
   PRIMARY KEY (`idbranch`, `branch_address_id`),
@@ -71,7 +71,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`staff_address` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`staff_address` (
-  `idstaff_address` INT NOT NULL,
+  `idstaff_address` INT NOT NULL AUTO_INCREMENT,
   `postcode` VARCHAR(45) NULL,
   `city` VARCHAR(45) NULL,
   `street` VARCHAR(45) NULL,
@@ -86,7 +86,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`staff` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`staff` (
-  `idstaff` INT NOT NULL,
+  `idstaff` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
   `position` VARCHAR(45) NULL,
   `role` VARCHAR(45) NULL,
@@ -122,7 +122,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`enquiry` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`enquiry` (
-  `idenquiry` INT NOT NULL,
+  `idenquiry` INT NOT NULL AUTO_INCREMENT,
   `staff_id` INT NOT NULL,
   `date_time` DATETIME NULL,
   `description` VARCHAR(250) NULL,
@@ -142,7 +142,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`attendance` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`attendance` (
-  `staff_id` INT NOT NULL,
+  `staff_id` INT NOT NULL AUTO_INCREMENT,
   `date_time` DATETIME NULL,
   `photo` VARCHAR(1024) NULL,
   `id_attendance` INT NOT NULL,
@@ -183,7 +183,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`interview_address` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`interview_address` (
-  `idinterview_address` INT NOT NULL,
+  `idinterview_address` INT NOT NULL AUTO_INCREMENT,
   `postcode` VARCHAR(45) NULL,
   `city` VARCHAR(45) NULL,
   `street` VARCHAR(45) NULL,
@@ -198,7 +198,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`interview` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`interview` (
-  `idinterview` INT NOT NULL,
+  `idinterview` INT NOT NULL AUTO_INCREMENT,
   `staff_id` INT NOT NULL,
   `date_time` DATETIME NULL,
   `domain` VARCHAR(45) NULL,
@@ -225,7 +225,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`recruit_address` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`recruit_address` (
-  `idrecruit_address` INT NOT NULL,
+  `idrecruit_address` INT NOT NULL AUTO_INCREMENT,
   `postcode` VARCHAR(45) NULL,
   `city` VARCHAR(45) NULL,
   `street` VARCHAR(45) NULL,
@@ -261,21 +261,19 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`recruit` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`recruit` (
-  `idrecruit` INT NOT NULL,
+  `idrecruit` INT NOT NULL AUTO_INCREMENT,
   `interview_id` INT NOT NULL,
   `user_id` INT NOT NULL,
   `applied_for` VARCHAR(45) NULL,
   `file` VARCHAR(1024) NULL,
   `date_applied` DATE NULL,
   `recruit_address_id` INT NOT NULL,
-  `employee_idemployee` INT NOT NULL,
-  `employee_user_id` INT NOT NULL,
-  `employee_user_iduser` INT NOT NULL,
+  `employee_id` INT NOT NULL,
   PRIMARY KEY (`idrecruit`, `user_id`),
   INDEX `fk_recruit_interview1_idx` (`interview_id` ASC),
   INDEX `fk_recruit_user1_idx` (`user_id` ASC),
   INDEX `fk_recruit_recruit_address1_idx` (`recruit_address_id` ASC),
-  INDEX `fk_recruit_employee1_idx` (`employee_idemployee` ASC, `employee_user_id` ASC, `employee_user_iduser` ASC),
+  INDEX `fk_recruit_employee1_idx` (`employee_id` ASC),
   CONSTRAINT `fk_recruit_interview1`
     FOREIGN KEY (`interview_id`)
     REFERENCES `empire_portal`.`interview` (`idinterview`)
@@ -292,8 +290,8 @@ CREATE TABLE IF NOT EXISTS `empire_portal`.`recruit` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_recruit_employee1`
-    FOREIGN KEY (`employee_idemployee` , `employee_user_id` , `employee_user_iduser`)
-    REFERENCES `empire_portal`.`employee` (`idemployee` , `user_id` , `user_iduser`)
+    FOREIGN KEY (`employee_id`)
+    REFERENCES `empire_portal`.`employee` (`idemployee`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -305,7 +303,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`course` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`course` (
-  `idcourse` INT NOT NULL,
+  `idcourse` INT NOT NULL AUTO_INCREMENT,
   `recruit_id` INT NOT NULL,
   `name` VARCHAR(45) NULL,
   `description` VARCHAR(250) NULL,
@@ -326,7 +324,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`class` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`class` (
-  `idclass` INT NOT NULL,
+  `idclass` INT NOT NULL AUTO_INCREMENT,
   `building` VARCHAR(45) NULL,
   `level` INT NULL,
   PRIMARY KEY (`idclass`))
@@ -339,7 +337,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`student_address` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`student_address` (
-  `idstudent_address` INT NOT NULL,
+  `idstudent_address` INT NOT NULL AUTO_INCREMENT,
   `postcode` VARCHAR(45) NULL,
   `city` VARCHAR(45) NULL,
   `street` VARCHAR(45) NULL,
@@ -354,7 +352,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`student` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`student` (
-  `idstudent` INT NOT NULL,
+  `idstudent` INT NOT NULL AUTO_INCREMENT,
   `user_iduser` INT NOT NULL,
   `semester` INT NULL,
   `phone` VARCHAR(45) NULL,
@@ -383,7 +381,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`student_module` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`student_module` (
-  `idstudent_module` INT NOT NULL,
+  `idstudent_module` INT NOT NULL AUTO_INCREMENT,
   `date_enrolled` DATE NULL,
   `student_id` INT NOT NULL,
   `student_user_id` INT NOT NULL,
@@ -403,7 +401,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`module` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`module` (
-  `idmodule` INT NOT NULL,
+  `idmodule` INT NOT NULL AUTO_INCREMENT,
   `class_id` INT NOT NULL,
   `code` VARCHAR(45) NULL,
   `semester` INT NULL,
@@ -433,7 +431,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`lecturer_address` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`lecturer_address` (
-  `idlecturer_address` INT NOT NULL,
+  `idlecturer_address` INT NOT NULL AUTO_INCREMENT,
   `postcode` VARCHAR(45) NULL,
   `city` VARCHAR(45) NULL,
   `street` VARCHAR(45) NULL,
@@ -448,7 +446,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`lecturer` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`lecturer` (
-  `idlecturer` INT NOT NULL,
+  `idlecturer` INT NOT NULL AUTO_INCREMENT,
   `phone` VARCHAR(45) NULL,
   `date_joined` DATE NULL,
   `date_left` DATE NULL,
@@ -476,7 +474,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`course_module` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`course_module` (
-  `idcourse_module` INT NOT NULL,
+  `idcourse_module` INT NOT NULL AUTO_INCREMENT,
   `module_id` INT NOT NULL,
   `course_id` INT NOT NULL,
   `lecturer_id` INT NOT NULL,
@@ -508,7 +506,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`module_cost` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`module_cost` (
-  `idmodule_cost` INT NOT NULL,
+  `idmodule_cost` INT NOT NULL AUTO_INCREMENT,
   `cost` FLOAT NULL,
   PRIMARY KEY (`idmodule_cost`))
 ENGINE = InnoDB;
@@ -520,7 +518,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`student_payment` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`student_payment` (
-  `idstudent_payment` INT NOT NULL,
+  `idstudent_payment` INT NOT NULL AUTO_INCREMENT,
   `student_id` INT NOT NULL,
   `module_cost_id` INT NOT NULL,
   `date_time` DATETIME NULL,
@@ -547,7 +545,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`class_date` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`class_date` (
-  `idclass_date` INT NOT NULL,
+  `idclass_date` INT NOT NULL AUTO_INCREMENT,
   `student_id` INT NOT NULL,
   `class_id` INT NOT NULL,
   `date_time` DATETIME NULL,
@@ -573,7 +571,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`student_attendance` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`student_attendance` (
-  `idstudent_attendance` INT NOT NULL,
+  `idstudent_attendance` INT NOT NULL AUTO_INCREMENT,
   `class_id` INT NOT NULL,
   `student_id` INT NOT NULL,
   `date_time` DATETIME NULL,
@@ -599,7 +597,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`employer_address` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`employer_address` (
-  `idemployer_address` INT NOT NULL,
+  `idemployer_address` INT NOT NULL AUTO_INCREMENT,
   `postcode` VARCHAR(45) NULL,
   `city` VARCHAR(45) NULL,
   `street` VARCHAR(45) NULL,
@@ -614,7 +612,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`employer` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`employer` (
-  `idemployer` INT NOT NULL,
+  `idemployer` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
   `company` VARCHAR(45) NULL,
   `position` VARCHAR(45) NULL,
@@ -643,7 +641,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`employer_notification` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`employer_notification` (
-  `idnotification` INT NOT NULL,
+  `idnotification` INT NOT NULL AUTO_INCREMENT,
   `employer_id` INT NOT NULL,
   `description` VARCHAR(250) NULL,
   `date_time` DATETIME NULL,
@@ -663,7 +661,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`feedback` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`feedback` (
-  `idfeedback` INT NOT NULL,
+  `idfeedback` INT NOT NULL AUTO_INCREMENT,
   `employer_id` INT NOT NULL,
   `description` VARCHAR(250) NULL,
   `date` DATE NULL,
@@ -684,7 +682,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`employer_report` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`employer_report` (
-  `idemployee_report` INT NOT NULL,
+  `idemployee_report` INT NOT NULL AUTO_INCREMENT,
   `employer_id` INT NOT NULL,
   `description` VARCHAR(250) NULL,
   `date` DATE NULL,
@@ -704,7 +702,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`trainer` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`trainer` (
-  `idtrainer` INT NOT NULL,
+  `idtrainer` INT NOT NULL AUTO_INCREMENT,
   `phone` VARCHAR(45) NULL,
   `date_joined` DATE NULL,
   `date_left` DATE NULL,
@@ -726,7 +724,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`training` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`training` (
-  `idtraining` INT NOT NULL,
+  `idtraining` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `type` VARCHAR(45) NULL,
   `description` VARCHAR(250) NULL,
@@ -747,7 +745,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`employee_training` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`employee_training` (
-  `idemployee_training` INT NOT NULL,
+  `idemployee_training` INT NOT NULL AUTO_INCREMENT,
   `training_id` INT NOT NULL,
   `employee_id` INT NOT NULL,
   `date_started` DATE NULL,
@@ -774,7 +772,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`training_material` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`training_material` (
-  `training_id` INT NOT NULL,
+  `training_id` INT NOT NULL AUTO_INCREMENT,
   `idtraining_material` INT NOT NULL,
   `type` VARCHAR(45) NULL,
   `date_created` DATE NULL,
@@ -795,7 +793,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`employee_training_mat` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`employee_training_mat` (
-  `idemployee_training_mat` INT NOT NULL,
+  `idemployee_training_mat` INT NOT NULL AUTO_INCREMENT,
   `employee_id` INT NOT NULL,
   `training_material_id` INT NOT NULL,
   `date_issued` DATE NULL,
@@ -821,7 +819,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`training_address` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`training_address` (
-  `idtraining_address` INT NOT NULL,
+  `idtraining_address` INT NOT NULL AUTO_INCREMENT,
   `postcode` VARCHAR(45) NULL,
   `city` VARCHAR(45) NULL,
   `street` VARCHAR(45) NULL,
@@ -843,7 +841,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`trainer_address` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`trainer_address` (
-  `idtrainer_address` INT NOT NULL,
+  `idtrainer_address` INT NOT NULL AUTO_INCREMENT,
   `postcode` VARCHAR(45) NULL,
   `city` VARCHAR(45) NULL,
   `street` VARCHAR(45) NULL,
@@ -865,7 +863,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `empire_portal`.`employment_history` ;
 
 CREATE TABLE IF NOT EXISTS `empire_portal`.`employment_history` (
-  `idemployment_history` INT NOT NULL,
+  `idemployment_history` INT NOT NULL AUTO_INCREMENT,
   `status` VARCHAR(45) NULL,
   `employer_id` INT NOT NULL,
   `employee_id` INT NOT NULL,
@@ -885,6 +883,8 @@ CREATE TABLE IF NOT EXISTS `empire_portal`.`employment_history` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+INSERT INTO `user` (`iduser`, `name`, `email`, `password`, `type`, `remember_token`, `image`) VALUES ('1', 'Rahman', 'admin@empire.com', '$2a$12$7UxAwve2XBy8Or567CcTPeygiMLUHuu7xx.j8N.LH.4ki0tjaaKz6', NULL, NULL, NULL);
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

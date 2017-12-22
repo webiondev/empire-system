@@ -1,0 +1,13 @@
+.blur {
+  color: transparent;
+  text-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;
+}
+
+.btn-group {
+  color: #000;
+  text-shadow: none;
+}
+
+.grecaptcha-badge {
+  display:none;
+}
