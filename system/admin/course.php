@@ -11,7 +11,7 @@ include_once("inc/security.php");
 
     $courseid = $_GET["courseid"];
 
-    $course = $dbcon->exec("select * from tblcourse where id = ".quote_smart($courseid));
+    $course = $dbcon->exec("select * from course where idcourse = ".quote_smart($courseid));
 
     $strAction = "Add Course";
 
@@ -53,19 +53,19 @@ include_once("inc/security.php");
                         </div>
                         <div class="ibox-content">
                             <form class="form-horizontal" action="courseaction.php" method="post">
-                                <input type="hidden" name="id" value="<?php echo $row[id];?>">
-                                <div class="form-group"><label class="col-sm-2 control-label">Image</label>
+                                <input type="hidden" name="id" value="<?php echo $row[idcourse];?>">
+                                <!-- <div class="form-group"><label class="col-sm-2 control-label">Image</label>
                                     <div class="col-sm-10">
                                       <input accept="image/jpeg,image/gif,image/png" class="enable-attache" data-geometry="150x150#" data-value="[<?php echo htmlentities($row[image]); ?>]" data-uploadurl="<?php echo ATTACHE_DOMAIN; ?>/upload" data-downloadurl="<?php echo ATTACHE_DOMAIN; ?>/view" data-uuid="<?php echo $uuid; ?>" data-expiration="<?php echo $expiration; ?>" data-hmac="<?php echo hash_hmac('sha1', $uuid.$expiration, ATTACHE_SECRET); ?>" type="file" name="image" id="image" />
                                     </div>
-                                </div>
-                                <div class="form-group"><label class="col-sm-2 control-label">Category</label>
+                                </div> -->
+                       <!--          <div class="form-group"><label class="col-sm-2 control-label">Category</label>
                                     <div class="col-sm-10">
                                       <div class="input-group">
                                          <div class="input-group-btn">
                                             <button type="button" class="btn btn-default
                                                dropdown-toggle" data-toggle="dropdown">
-                                               -- Select Existing --
+                                                Select Existing 
                                                <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu">
@@ -81,21 +81,25 @@ include_once("inc/security.php");
                                                 <?php
                                                     }
                                                 ?>
-                                               <li><a href="#" class="quick-select" info="">-- Create New --</a></li>
+                                               <li><a href="#" class="quick-select" info=""> Create New </a></li>
                                             </ul>
                                          </div>
                                          <input id="category" name="category" type="text" class="form-control" value="<?php echo $row[category]; ?>">
                                       </div>
                                     </div>
+                                </div> -->
+                                 <div class="form-group"><label class="col-sm-2 control-label">Recruit ID</label>
+                                    <div class="col-sm-10"><input name="recruitid" type="text" class="form-control" value="<?php echo $row[recruit_id]; ?>"></div>
                                 </div>
-                                <div class="form-group"><label class="col-sm-2 control-label">Schedule Limit (Month)</label>
-                                    <div class="col-sm-10"><input name="month" type="text" class="form-control" value="<?php echo $row[month]; ?>"></div>
-                                </div>
+                               
                                 <div class="form-group"><label class="col-sm-2 control-label">Course Code</label>
-                                    <div class="col-sm-10"><input name="course_code" type="text" class="form-control" value="<?php echo $row[course_code]; ?>"></div>
+                                    <div class="col-sm-10"><input name="coursecode" type="text" class="form-control" value="<?php echo $row[code]; ?>"></div>
                                 </div>
                                 <div class="form-group"><label class="col-sm-2 control-label">Course Title</label>
-                                    <div class="col-sm-10"><input name="title" type="text" class="form-control" value="<?php echo $row[title]; ?>"></div>
+                                    <div class="col-sm-10"><input name="title" type="text" class="form-control" value="<?php echo $row[name]; ?>"></div>
+                                </div>
+                                 <div class="form-group"><label class="col-sm-2 control-label">Year</label>
+                                    <div class="col-sm-10"><input name="year" type="text" class="form-control" value="<?php echo $row[year]; ?>"></div>
                                 </div>
                                 <div class="form-group"><label class="col-sm-2 control-label">Description</label>
                                     <div class="col-sm-10"><textarea name="description" class="summernote form-control"><?php echo $row[description]; ?></textarea></div>

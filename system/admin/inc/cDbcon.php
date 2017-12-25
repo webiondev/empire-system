@@ -13,7 +13,7 @@ class dBcon_MCI
   function error_log($str, $conn){
     if(mysqli_errno($conn)){
 
-      $str= $str."\n ". mysqli_errno($conn).": ".mysqli_error($conn)."\n";
+      $str= $str."\n " .mysqli_errno($conn).": ".mysqli_error($conn)."\n";
 
       die("query Error! => $str ");
     }
@@ -124,13 +124,14 @@ class dBcon_MCI
       $i++;
 
     }
-
+    
     if ($where !=""){
 
       $where = " where $where";
     }
-    $qry="update $table  set $qry ".$where;
 
+    $qry="update $table  set $qry ".$where;
+  
     if($this->Exec($qry)) return false;
     $this->total = mysqli_affected_rows($this->conn);
     return $this->total;
