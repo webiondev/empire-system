@@ -61,9 +61,10 @@ include_once("inc/security.php");
                                       <input accept="image/jpeg,image/gif,image/png" class="enable-attache" data-geometry="150x150#" data-value="[<?php echo htmlentities($row[image]); ?>]" data-uploadurl="<?php echo ATTACHE_DOMAIN; ?>/upload" data-downloadurl="<?php echo ATTACHE_DOMAIN; ?>/view" data-uuid="<?php echo $uuid; ?>" data-expiration="<?php echo $expiration; ?>" data-hmac="<?php echo hash_hmac('sha1', $uuid.$expiration, ATTACHE_SECRET); ?>" type="file" name="image" id="image" />
                                     </div>
                                 </div>
-                                <div class="form-group"><label class="col-sm-2 control-label">User Name</label>
+                               <!--  <div class="form-group"><label class="col-sm-2 control-label">User Name</label>
                                     <div class="col-sm-10">
-                                      <div class="input-group">
+
+                                    <div class="input-group">
                                          <div class="input-group-btn">
                                             <button type="button" class="btn btn-default
                                                dropdown-toggle" data-toggle="dropdown">
@@ -83,15 +84,18 @@ include_once("inc/security.php");
                                                 <?php
                                                     }
                                                 ?>
-                                               <li><a href="#" class="quick-select" info="">-- Create New --</a></li>
+                                               <li><a href="#" class="quick-select" info="">-- Create New </a></li>
                                             </ul>
                                          </div>
                                          <input id="userid" name="username" type="text" class="form-control" value="<?php echo $row[name]; ?>">
-                                      </div>
+                                      </div> 
                                     </div>
+                                </div> -->
+                              
+                                <div class="form-group"><label class="col-sm-2 control-label">Name</label>
+                                    <div class="col-sm-10"><input name="username" type="text" class="form-control" value="<?php echo $row[name]; ?>"></div>
                                 </div>
-                              
-                              
+                                
                                 <div class="form-group"><label class="col-sm-2 control-label">Email</label>
                                     <div class="col-sm-10"><input name="email" type="text" class="form-control" value="<?php echo $row[email]; ?>"></div>
                                 </div>
@@ -99,6 +103,22 @@ include_once("inc/security.php");
                                 <div class="form-group"><label class="col-sm-2 control-label">Type</label>
                                     <div class="col-sm-10"><input name="type" type="text" class="form-control" value="<?php echo $row[type]; ?>"></div>
                                 </div>
+
+                                 <div class="form-group"><label class="col-sm-2 control-label">Postcode</label>
+                                    <div class="col-sm-10"><input name="postcode" type="text" class="form-control" value="<?php echo $row[postcode]; ?>"></div>
+                                </div>
+
+                                 <div class="form-group"><label class="col-sm-2 control-label">City</label>
+                                    <div class="col-sm-10"><input name="city" type="text" class="form-control" value="<?php echo $row[city]; ?>"></div>
+                                </div>
+                                 <div class="form-group"><label class="col-sm-2 control-label">Street</label>
+                                    <div class="col-sm-10"><input name="street" type="text" class="form-control" value="<?php echo $row[street]; ?>"></div>
+                                </div>
+                                 <div class="form-group"><label class="col-sm-2 control-label">Country</label>
+                                    <div class="col-sm-10"><input name="country" type="text" class="form-control" value="<?php echo $row[country]; ?>"></div>
+                                </div>
+
+
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">
                                     <div class="col-sm-4 col-sm-offset-2">

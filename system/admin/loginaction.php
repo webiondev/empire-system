@@ -11,6 +11,9 @@ $dbcon->connect();
 //$res=post_captcha($_POST['g-recaptcha-response']); // Here you get to check captcha response
 $res['success']=true;
 
+//error params
+$error_1="?error=Invalid username/password";
+$error_2="&error=Invalid username/password";
 
 if (!$res['success']) {
   // if captcha is not setup correctly, it means people try to cheat. So just redirect them back to home.
@@ -41,6 +44,8 @@ if (!$res['success']) {
         setcookie ("user_id", $row[iduser], 0, "/");
         setcookie ("logon", "true", 0, "/");
         setcookie ("key", md5($row[iduser].$row[email]."empire"), 0, "/");
+        $refererURL="index.php";
+       
       }
       else
       {
@@ -48,11 +53,11 @@ if (!$res['success']) {
 
         if ($pos === false)
         {
-          $refererURL = $refererURL."?error=Invalid username/password";
+          $refererURL = $refererURL.$error_1;
         }
         else
         {
-          $refererURL = $refererURL."&error=Invalid username/password";
+          $refererURL = $refererURL.$error_2;
         }
       }
     }
@@ -62,18 +67,18 @@ if (!$res['success']) {
 
       if ($pos === false)
       {
-        $refererURL = $refererURL."?error=Invalid username/password";
+        $refererURL = $refererURL.$error_1;
       }
       else
       {
-        $refererURL = $refererURL."&error=Invalid username/password";
+        $refererURL = $refererURL.$error_2;
       }
     }
 
   }
   else
   {
-    $refererURL = $refererURL."?error=Invalid username/password";
+    $refererURL = $refererURL.$error_1;
   }
 }
 

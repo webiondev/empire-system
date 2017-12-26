@@ -25,14 +25,11 @@ include_once("inc/security.php");
 
        else if ($idclass){
 
-      	$dbcon->exec("DELETE FROM class WHERE idclass = ".quote_smart($idclass));
+      	 $dbcon->exec("DELETE FROM class WHERE idclass = ".quote_smart($idclass));
       	 header("location:classlist.php?classid=".$idclass."&success='".urlencode($idclass)."' deleted.");
       }
 
-      else
-
-      	 header("location: index.php"."&error=An error occur while processing. Please try again.");
-
+      
       
     
 ?>

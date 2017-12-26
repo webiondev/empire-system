@@ -56,8 +56,11 @@ include_once("inc/security.php");
                         <div class="ibox-content">
                             <form class="form-horizontal" action="classaction.php" method="post">
                                 <input type="hidden" name="id" value="<?php echo $row[idclass];?>">
-                                
-                                <div class="form-group"><label class="col-sm-2 control-label">Class Code</label>
+                                  
+                                  <div class="form-group"><label class="col-sm-2 control-label">Code</label>
+                                    <div class="col-sm-10"><input name="classcode" type="text" class="form-control" value="<?php echo $row[code]; ?>"></div>
+                                </div>
+                      <!--           <div class="form-group"><label class="col-sm-2 control-label">Class Code</label>
                                     <div class="col-sm-10">
                                       <div class="input-group">
                                          <div class="input-group-btn">
@@ -85,7 +88,7 @@ include_once("inc/security.php");
                                          <input id="classcode" name="classcode" type="text" class="form-control" value="<?php echo $row[code]; ?>">
                                       </div>
                                     </div>
-                                </div>
+                                </div> -->
                               
                               
                                 <div class="form-group"><label class="col-sm-2 control-label">Building</label>

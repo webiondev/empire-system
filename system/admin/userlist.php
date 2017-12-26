@@ -135,11 +135,13 @@ $userlist=$dbcon->exec("SELECT * FROM user ".$strwhere." ORDER BY name DESC, typ
                                   <thead>
                                   <tr>
                                       <th>&nbsp;</th>
-
                                       <th>name</th>
                                       <th>email</th>
                                       <th>type</th>
-                                     
+                                    <th>postcode</th>
+                                      <th>city</th>
+                                      <th>street</th>
+                                      <th>country</th>
                                       <th style="width:120px;" class="no-sort text-center">Action</th>
                                   </tr>
                                   </thead>
@@ -153,11 +155,16 @@ $userlist=$dbcon->exec("SELECT * FROM user ".$strwhere." ORDER BY name DESC, typ
                                       <td><?php echo $row[name]; ?></td>
                                       <td><?php echo $row[email]; ?></td>
                                       <td><?php echo $row[type]; ?></td>
+                                      <td><?php echo $row[postcode]; ?></td>
+                                      <td><?php echo $row[city]; ?></td>
+                                      <td><?php echo $row[street]; ?></td>
+                                      <td><?php echo $row[country]; ?></td>
                                       
                                       <td class="text-center">
                                         <div class="btn-group action-tooltip">
                                           <a href="user.php?user_id=<?php echo $row[iduser]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a>
                                         </div>
+
                                          <div class="btn-group action-tooltip">
                                           <a href="delete.php?userid=<?php echo $row[iduser]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="delete"><i class="fa fa-remove"></i></a>
                                         </div>
@@ -171,7 +178,7 @@ $userlist=$dbcon->exec("SELECT * FROM user ".$strwhere." ORDER BY name DESC, typ
                                   </tbody>
                                   <tfoot>
                                   <tr>
-                                      <td colspan="7" class="footable-visible">
+                                      <td colspan="9" class="footable-visible">
                                           <?php echo $pagination; ?>
                                       </td>
                                   </tr>
