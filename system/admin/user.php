@@ -100,9 +100,44 @@ include_once("inc/security.php");
                                     <div class="col-sm-10"><input name="email" type="text" class="form-control" value="<?php echo $row[email]; ?>"></div>
                                 </div>
                                 
-                                <div class="form-group"><label class="col-sm-2 control-label">Type</label>
+                                <!-- <div class="form-group"><label class="col-sm-2 control-label">Type</label>
                                     <div class="col-sm-10"><input name="type" type="text" class="form-control" value="<?php echo $row[type]; ?>"></div>
+                                </div> -->
+                            <!--     <div class="form-group"><label class="col-sm-2 control-label">Type</label>
+                                    <div class="col-sm-10">
+                                <div class="input-group">
+                                         <div class="input-group-btn">
+                                            <button type="button" class="btn btn-default
+                                               dropdown-toggle" data-toggle="dropdown">
+                                               -- Select Existing --
+                                               <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+
+                                             <li><a href="#" class="quick-select">">HR</a></li>
+                                            <li><a href="#" class="quick-select">">Staff</a></li>
+                                            </ul>
+
+                                        </div>
+
                                 </div>
+                              </div>
+                            </div> -->
+                            <div class="form-group"><label class="col-sm-2 control-label">Type</label>
+                                 <div class="col-sm-10">
+                                  <select class="form-control" id="type" name="type">
+                                    <option>Staff</option>
+                                    <option>Lecturer</option>
+                                    <option>Trainer</option>
+                                    <option>Employer</option>
+                                    <option>Employee</option>
+                                    <option>Recruit</option>
+                                    <option>Student</option>
+                                  </select>
+                                
+                                  </select>
+                                </div>
+                              </div>
 
                                  <div class="form-group"><label class="col-sm-2 control-label">Postcode</label>
                                     <div class="col-sm-10"><input name="postcode" type="text" class="form-control" value="<?php echo $row[postcode]; ?>"></div>

@@ -8,12 +8,13 @@ include_once("inc/security.php");
     $idcourse = $_GET["courseid"];
     $iduser=$_GET["userid"];
     $idclass = $_GET["classid"];
+    $idtraining=$_GET["trainingid"];
     
 
    
       if($idcourse){
 
-      	$dbcon->exec("DELETE FROM course WHERE id = ".quote_smart($id));
+      	$dbcon->exec("DELETE FROM course WHERE idcourse = ".quote_smart($idcourse));
       	  header("location: courselist.php?courseid=".$idcourse."&success='".urlencode($idcourse)."' deleted.");
       }	
 
@@ -28,6 +29,12 @@ include_once("inc/security.php");
       	 $dbcon->exec("DELETE FROM class WHERE idclass = ".quote_smart($idclass));
       	 header("location:classlist.php?classid=".$idclass."&success='".urlencode($idclass)."' deleted.");
       }
+      else if ($idtraining){
+
+         $dbcon->exec("DELETE FROM training WHERE idtraining = ".quote_smart($idtraining));
+         header("location:traininglist.php?trainingid=".$idtraining."&success='".urlencode($idtraining)."' deleted.");
+      }
+
 
       
       

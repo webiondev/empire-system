@@ -39,8 +39,19 @@ include_once("inc/security.php");
 
         $user_id = $dbcon->insert("user",$data);
 
-        header("location: userlist.php?userid=".$userid."&success='".urlencode($name)."' added.");
-        exit();
+        
+
+        if ($user_id>0){
+
+            header("location: userlist.php?userid=".$user_id."&success='".urlencode($name)."' added.");
+            exit();
+        }
+        else{
+            header("location: userlist.php?userid=".$user_id."&error=An error occur while processing. Please check if record exists.");
+            exit();
+
+        }
+
       }
       else
       {
@@ -57,9 +68,15 @@ include_once("inc/security.php");
 
         $res=$dbcon->update("user",$data,"iduser = ".quote_smart($userid));
 
-
-        header("location: userlist.php?userid=".$userid."&success='".urlencode($country)."' updated.");
+        if(res==1){
+        header("location: userlist.php?userid=".$userid."&success='".urlencode($name)."' updated.");
         exit();
+    }
+        else{
+         header("location: userlist.php?userid=".$userid."&error=An error occur while processing. Please check if record exists.");
+        exit();   
+    }
+
       }
 
 

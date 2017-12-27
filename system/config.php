@@ -3,7 +3,7 @@
   //define("DB_SERVER", "thesundaystudio.cddemi06qrpk.ap-southeast-1.rds.amazonaws.com");
   define("DB_SERVER", "localhost");
   define("DB_USERNAME", "root");
-  define("DB_PASSWORD", '');
+  define("DB_PASSWORD", 'root');
  // define("DB_SERVER", "thesundaystudio.cddemi06qrpk.ap-southeast-1.rds.amazonaws.com");
  //  define("DB_USERNAME", "empire");
  //  define("DB_PASSWORD", 'password@1');
