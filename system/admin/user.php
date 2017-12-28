@@ -123,7 +123,7 @@ include_once("inc/security.php");
                                       ?>] <?php echo $info?></option>
 
 
-                                      
+                                      <option>Admin</option>
                                       <option>Staff</option>
                                       <option>Lecturer</option>
                                       <option>Trainer</option>
@@ -251,7 +251,12 @@ include_once("inc/security.php");
 
 
       $('#type').change(function(){
-    if( $(this).val() == 'Staff'){
+
+        if( $(this).val() == 'Admin'){
+       $('.new-field').remove();
+       
+    }
+      if( $(this).val() == 'Staff'){
        $('.new-field').remove();
         $('.new-input').append('<div class="new-field"><div class="form-group"><label class="col-sm-2 control-label">Position</label><div class="col-sm-10"><input name="position" type="text" class="form-control" value="<?php echo $staffrow[position]; ?>"></div></div> <div class="form-group"><label class="col-sm-2 control-label">Role</label><div class="col-sm-10"><input name="role" type="text" class="form-control" value="<?php echo $staffrow[role]; ?>"></div></div> <div class="form-group"><label class="col-sm-2 control-label">Date Joined</label><div class="col-sm-10"><input name="datej" type="date" class="form-control" value="<?php echo $staffrow[date_joined]; ?>"></div></div> <div class="form-group"><label class="col-sm-2 control-label">Date Left</label><div class="col-sm-10"><input name="datel" type="date" class="form-control" value="<?php echo $staffrow[date_left]; ?>"></div></div><div class="form-group" id="opt"><label class="col-sm-2 control-label">Branch</label><div class="col-sm-10"><select class="form-control" id="branch" name="branch"><option selected disable>Choose Branch</option><option><?php echo $branchrow[name]; ?></option></select></div></div><?php } ?> </div>');
     }
