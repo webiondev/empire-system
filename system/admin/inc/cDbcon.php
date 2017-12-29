@@ -131,6 +131,8 @@ class dBcon_MCI
     }
 
     $qry="update $table  set $qry ".$where;
+
+   
   
     if($this->Exec($qry)) return false;
     $this->total = mysqli_affected_rows($this->conn);
