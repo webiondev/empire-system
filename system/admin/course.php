@@ -54,43 +54,8 @@ include_once("inc/security.php");
                         <div class="ibox-content">
                             <form class="form-horizontal" action="courseaction.php" method="post">
                                 <input type="hidden" name="id" value="<?php echo $row[idcourse];?>">
-                                <!-- <div class="form-group"><label class="col-sm-2 control-label">Image</label>
-                                    <div class="col-sm-10">
-                                      <input accept="image/jpeg,image/gif,image/png" class="enable-attache" data-geometry="150x150#" data-value="[<?php echo htmlentities($row[image]); ?>]" data-uploadurl="<?php echo ATTACHE_DOMAIN; ?>/upload" data-downloadurl="<?php echo ATTACHE_DOMAIN; ?>/view" data-uuid="<?php echo $uuid; ?>" data-expiration="<?php echo $expiration; ?>" data-hmac="<?php echo hash_hmac('sha1', $uuid.$expiration, ATTACHE_SECRET); ?>" type="file" name="image" id="image" />
-                                    </div>
-                                </div> -->
-                       <!--          <div class="form-group"><label class="col-sm-2 control-label">Category</label>
-                                    <div class="col-sm-10">
-                                      <div class="input-group">
-                                         <div class="input-group-btn">
-                                            <button type="button" class="btn btn-default
-                                               dropdown-toggle" data-toggle="dropdown">
-                                                Select Existing 
-                                               <span class="caret"></span>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <?php
-
-                                                    $categorylist = $dbcon->exec("select DISTINCT(category) from tblcourse");
-
-                                                    for($i=0;$i<$categorylist;$i++){
-                                                      $categoryrow=$dbcon->data_seek($i);
-
-                                                ?>
-                                                  <li><a href="#" class="quick-select" info="<?php echo $categoryrow[category]; ?>"><?php echo $categoryrow[category]; ?></a></li>
-                                                <?php
-                                                    }
-                                                ?>
-                                               <li><a href="#" class="quick-select" info=""> Create New </a></li>
-                                            </ul>
-                                         </div>
-                                         <input id="category" name="category" type="text" class="form-control" value="<?php echo $row[category]; ?>">
-                                      </div>
-                                    </div>
-                                </div> -->
-                                 <div class="form-group"><label class="col-sm-2 control-label">Recruit ID</label>
-                                    <div class="col-sm-10"><input name="recruitid" type="text" class="form-control" value="<?php echo $row[recruit_id]; ?>"></div>
-                                </div>
+                              
+                                
                                
                                 <div class="form-group"><label class="col-sm-2 control-label">Course Code</label>
                                     <div class="col-sm-10"><input name="coursecode" type="text" class="form-control" value="<?php echo $row[code]; ?>"></div>

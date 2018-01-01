@@ -42,8 +42,16 @@
              <li class="<?php if ($nav == 'class') { echo 'active'; } ?>">
                 <a href="classlist.php"><i class="fa fa-book"></i> <span class="nav-label">Class</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li class="<?php if ($subnav == 'addcclass') { echo 'active'; } ?>"><a href="class.php">Add New</a></li>
+                    <li class="<?php if ($subnav == 'addclass') { echo 'active'; } ?>"><a href="class.php">Add New</a></li>
                     <li class="<?php if ($subnav == 'listclass') { echo 'active'; } ?>"><a href="classlist.php">List All</a></li>
+                </ul>
+            </li>
+
+              <li class="<?php if ($nav == 'training') { echo 'active'; } ?>">
+                <a href="traininglist.php"><i class="fa fa-book"></i> <span class="nav-label">Training</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li class="<?php if ($subnav == 'addtraining') { echo 'active'; } ?>"><a href="training.php">Add New</a></li>
+                    <li class="<?php if ($subnav == 'listtraining') { echo 'active'; } ?>"><a href="traininglist.php">List All</a></li>
                 </ul>
             </li>
 

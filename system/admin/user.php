@@ -9,6 +9,7 @@ include_once("inc/security.php");
   $subnav = "adduser";
 
   $dbcon->connect();
+  $dbcon2->connect();
 
   	$userid = $_GET["user_id"];
 
@@ -55,42 +56,14 @@ include_once("inc/security.php");
                         </div>
                         <div class="ibox-content">
                             <form class="form-horizontal" action="useraction.php" method="post">
+                              <div class="new-input">
                                 <input type="hidden" name="id" value="<?php echo $row[iduser];?>">
                                 <div class="form-group"><label class="col-sm-2 control-label">Image</label>
                                     <div class="col-sm-10">
                                       <input accept="image/jpeg,image/gif,image/png" class="enable-attache" data-geometry="150x150#" data-value="[<?php echo htmlentities($row[image]); ?>]" data-uploadurl="<?php echo ATTACHE_DOMAIN; ?>/upload" data-downloadurl="<?php echo ATTACHE_DOMAIN; ?>/view" data-uuid="<?php echo $uuid; ?>" data-expiration="<?php echo $expiration; ?>" data-hmac="<?php echo hash_hmac('sha1', $uuid.$expiration, ATTACHE_SECRET); ?>" type="file" name="image" id="image" />
                                     </div>
                                 </div>
-                               <!--  <div class="form-group"><label class="col-sm-2 control-label">User Name</label>
-                                    <div class="col-sm-10">
-
-                                    <div class="input-group">
-                                         <div class="input-group-btn">
-                                            <button type="button" class="btn btn-default
-                                               dropdown-toggle" data-toggle="dropdown">
-                                               -- Select Existing --
-                                               <span class="caret"></span>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <?php
-
-                                                    $userlist = $dbcon->exec("select DISTINCT(name) from user");
-
-                                                    for($i=0;$i<$userlist;$i++){
-                                                      $userrow=$dbcon->data_seek($i);
-
-                                                ?>
-                                                  <li><a href="#" class="quick-select" info="<?php echo $userrow[name]; ?>"><?php echo $userrow[name]; ?></a></li>
-                                                <?php
-                                                    }
-                                                ?>
-                                               <li><a href="#" class="quick-select" info="">-- Create New </a></li>
-                                            </ul>
-                                         </div>
-                                         <input id="userid" name="username" type="text" class="form-control" value="<?php echo $row[name]; ?>">
-                                      </div> 
-                                    </div>
-                                </div> -->
+                               
                               
                                 <div class="form-group"><label class="col-sm-2 control-label">Name</label>
                                     <div class="col-sm-10"><input name="username" type="text" class="form-control" value="<?php echo $row[name]; ?>"></div>
@@ -100,9 +73,75 @@ include_once("inc/security.php");
                                     <div class="col-sm-10"><input name="email" type="text" class="form-control" value="<?php echo $row[email]; ?>"></div>
                                 </div>
                                 
-                                <div class="form-group"><label class="col-sm-2 control-label">Type</label>
-                                    <div class="col-sm-10"><input name="type" type="text" class="form-control" value="<?php echo $row[type]; ?>"></div>
+                               <?php 
+
+                                $branchlist = $dbcon2->exec("select name from branch");
+
+
+
+                                                    for($i=0;$i<$branchlist;$i++){
+                                                      $branchrow=$dbcon2->data_seek($i);
+
+
+                               ?>
+
+                               <?php
+
+                                $interviewlist = $dbcon->exec("select date_time from interview");
+
+                                                    for($i=0;$i<$interviewlist;$i++){
+                                                      $interviewrow=$dbcon->data_seek($i);
+                                          
+                                                     
+
+                            ?> 
+
+                              <?php 
+                                $staff= $dbcon->exec("select * from staff where user_id=".quote_smart($userid));
+
+                                                      if($staff>0){
+                                                      $staffrow=$dbcon->data_seek($i);   
+
+
+                                                      
+                                                      }
+                            ?>
+                           
+                            <div class="form-group" id="opt"><label class="col-sm-2 control-label">Type</label>
+                                 <div class="col-sm-10">
+                                  <select class="form-control" id="type" name="type">
+                                   
+                                    <option>[<?php 
+                                      if(empty($row[type])) 
+                                        
+                                        {$row[type]="Select New";}
+                                      else 
+                                          $info="select to edit";
+                                        echo $row[type]; 
+                                        
+
+                                      ?>] <?php echo $info?></option>
+
+
+                                      <option>Admin</option>
+                                      <option>Staff</option>
+                                      <option>Lecturer</option>
+                                      <option>Trainer</option>
+                                      <option>Employer</option>
+                                      <option>Employee</option>
+                                      <option>Recruit</option>
+                                      <option>Student</option>
+                                   
+
+                                  </select>
+                                  
+                                  
                                 </div>
+
+                              </div>
+
+                            </div>
+
 
                                  <div class="form-group"><label class="col-sm-2 control-label">Postcode</label>
                                     <div class="col-sm-10"><input name="postcode" type="text" class="form-control" value="<?php echo $row[postcode]; ?>"></div>
@@ -120,12 +159,14 @@ include_once("inc/security.php");
 
 
                                 <div class="hr-line-dashed"></div>
+
                                 <div class="form-group">
                                     <div class="col-sm-4 col-sm-offset-2">
                                         <a class="btn btn-white" href="userlist.php">Cancel</a>
                                         <button class="btn btn-primary" type="submit">Save changes</button>
                                     </div>
                                 </div>
+                                
                             </form>
                         </div>
                     </div>
@@ -207,6 +248,54 @@ include_once("inc/security.php");
           });
 
       });
+
+
+      $('#type').change(function(){
+
+        if( $(this).val() == 'Admin'){
+       $('.new-field').remove();
+       
+    }
+      if( $(this).val() == 'Staff'){
+       $('.new-field').remove();
+        $('.new-input').append('<div class="new-field"><div class="form-group"><label class="col-sm-2 control-label">Position</label><div class="col-sm-10"><input name="position" type="text" class="form-control" value="<?php echo $staffrow[position]; ?>"></div></div> <div class="form-group"><label class="col-sm-2 control-label">Role</label><div class="col-sm-10"><input name="role" type="text" class="form-control" value="<?php echo $staffrow[role]; ?>"></div></div> <div class="form-group"><label class="col-sm-2 control-label">Date Joined</label><div class="col-sm-10"><input name="datej" type="date" class="form-control" value="<?php echo $staffrow[date_joined]; ?>"></div></div> <div class="form-group"><label class="col-sm-2 control-label">Date Left</label><div class="col-sm-10"><input name="datel" type="date" class="form-control" value="<?php echo $staffrow[date_left]; ?>"></div></div><div class="form-group" id="opt"><label class="col-sm-2 control-label">Branch</label><div class="col-sm-10"><select class="form-control" id="branch" name="branch"><option selected disable>Choose Branch</option><option><?php echo $branchrow[name]; ?></option></select></div></div><?php } ?> </div>');
+    }
+    else if( $(this).val() == 'Lecturer'){
+         $('.new-field').remove();
+        $('.new-input').append('<div class="new-field"><div class="form-group"><label class="col-sm-2 control-label">Phone</label><div class="col-sm-10"><input name="phone" type="text" class="form-control"></div></div> <div class="form-group"><label class="col-sm-2 control-label">Date Joined</label><div class="col-sm-10"><input name="datej" type="date" class="form-control"></div></div> <div class="form-group"><label class="col-sm-2 control-label">Date Left</label><div class="col-sm-10"><input name="datel" type="date" class="form-control"></div></div> </div> ');
+    }
+
+       else if( $(this).val() == 'Trainer'){
+         $('.new-field').remove();
+        $('.new-input').append('<div class="new-field"><div class="form-group"><label class="col-sm-2 control-label">Phone</label><div class="col-sm-10"><input name="phone" type="text" class="form-control"></div></div> <div class="form-group"><label class="col-sm-2 control-label">Date Joined</label><div class="col-sm-10"><input name="datej" type="date" class="form-control"></div></div> <div class="form-group"><label class="col-sm-2 control-label">Date Left</label><div class="col-sm-10"><input name="datel" type="date" class="form-control"></div></div> <div class="form-group"><label class="col-sm-2 control-label">Expertise</label><div class="col-sm-10"><input name="expertise" type="text" class="form-control"></div></div></div>');
+    }
+       else if( $(this).val() == 'Employer'){
+         $('.new-field').remove();
+        $('.new-input').append('<div class="new-field"><div class="form-group"><label class="col-sm-2 control-label">Company</label><div class="col-sm-10"><input name="company" type="text" class="form-control"></div></div> <div class="form-group"><label class="col-sm-2 control-label">Date Joined</label><div class="col-sm-10"><input name="datej" type="date" class="form-control"></div></div> <div class="form-group"><label class="col-sm-2 control-label">Date Left</label><div class="col-sm-10"><input name="datel" type="date" class="form-control"></div></div>  <div class="form-group"><label class="col-sm-2 control-label">Position</label><div class="col-sm-10"><input name="position" type="text" class="form-control"></div></div></div>');
+    } 
+     else if( $(this).val() == 'Employee'){
+         $('.new-field').remove();
+        $('.new-input').append('<div class="new-field"><div class="form-group"><label class="col-sm-2 control-label">Company</label><div class="col-sm-10"><input name="company" type="text" class="form-control"></div></div> <div class="form-group"><label class="col-sm-2 control-label">Date Joined</label><div class="col-sm-10"><input name="datej" type="date" class="form-control"></div></div> <div class="form-group"><label class="col-sm-2 control-label">Date Left</label><div class="col-sm-10"><input name="datel" type="date" class="form-control"></div></div>  <div class="form-group"><label class="col-sm-2 control-label">Position</label><div class="col-sm-10"><input name="position" type="text" class="form-control"></div></div></div>');
+    }
+
+    else if( $(this).val() == 'Recruit'){
+         $('.new-field').remove();
+
+          $('.new-input').append(' <div class="new-field"><div class="form-group" id="opt"><label class="col-sm-2 control-label">Date</label><div class="col-sm-10"><select class="form-control" id="date" name="date"><option selected disable>Choose Date</option><option><?php echo $interviewrow[date_time]; ?></option></select></div></div><?php } ?></div>');
+
+       }
+
+    else if( $(this).val() == 'Student'){
+         $('.new-field').remove();
+        $('.new-input').append('<div class="new-field"><div class="form-group"><label class="col-sm-2 control-label">Semester</label><div class="col-sm-10"><select class="form-control" id="semester" name="semester"><option selected disable>Choose Semester</option><option>1</option><option>2</option></select></div></div> <div class="form-group"><label class="col-sm-2 control-label">Date Joined</label><div class="col-sm-10"><input name="datej" type="date" class="form-control"></div></div> <div class="form-group"><label class="col-sm-2 control-label">Date Left</label><div class="col-sm-10"><input name="datel" type="date" class="form-control"></div></div> <div class="form-group"><label class="col-sm-2 control-label">Phone</label><div class="col-sm-10"><input name="expertise" type="text" class="form-control"></div></div></div>');
+    }
+
+    else{
+        $('.new-field').remove();
+    }
+});
+
+
   </script>
 </body>
 </html>
