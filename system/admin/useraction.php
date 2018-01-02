@@ -21,12 +21,15 @@ include_once("inc/security.php");
      $_POST["datel"]='0000-00-00';// $flag_l=true;
 
    if (empty ($_POST["date"]))
-     $_POST["datea"]='0000-00-00 00:00:00';// $flag_l=true;
+     $_POST["date"]='0000-00-00 00:00:00';// $flag_l=true;
 
    if (empty ($_POST["datea"]))
      $_POST["datea"]='0000-00-00';// $flag_l=true;
   
- 
+  if (empty ($_POST["dater"]))
+     $_POST["dater"]='0000-00-00';// $flag_l=true;
+
+   
    switch ($type[0]) {
        
            case "Admin":
@@ -100,6 +103,7 @@ include_once("inc/security.php");
                 break;
 
            case "Staff":
+
                 $scriptMsg = "New".$type[0]. "Added";
                 $userid = $_POST["id"];
                 $name = $_POST["username"];
@@ -116,17 +120,17 @@ include_once("inc/security.php");
                 $street = $_POST["street"];
                 $country = $_POST["country"];
 
-                $branch = $dbcon->exec("select idbranch from branch where name = ".quote_smart($branch));
+                // $branch = $dbcon->exec("select idbranch from branch where name = ".quote_smart($branch));
 
                 
 
-                if($branch>0){
-                  $row=$dbcon->data_seek(0);
-                   $data_s[branch_id]=quote_check($row[idbranch]);
-                }
+                // if($branch>0){
+                //   $row=$dbcon->data_seek(0);
+                //    $data_s[branch_id]=quote_check($row[idbranch]);
+                // }
 
-                else
-                     $data_s[branch_id]="-1";
+                // else
+                //      $data_s[branch_id]="-1";
 
                 if ($email == "")
                 {
@@ -157,6 +161,7 @@ include_once("inc/security.php");
                     
                     $data_s[date_joined]=quote_check($datej);
                     $data_s[date_left]=quote_check($datel);
+                    $data_s[branch_id]=quote_check($branch);
                     $staff_id= $dbcon->insert("staff", $data_s);
 
                   
@@ -189,6 +194,7 @@ include_once("inc/security.php");
                     
                     $data_s[date_joined]=quote_check($datej);
                     $data_s[date_left]=quote_check($datel);
+                    $data_s[branch_id]=quote_check($branch);
                     $dbcon->update("staff",$data_s,"user_id = ".quote_smart($userid));
 
                  
@@ -566,14 +572,14 @@ include_once("inc/security.php");
                 break;
              case "Recruit":
                 
-                $scriptMsg = "New".$type[0]. "Added";
+                $scriptMsg = "New"." ".$type[0]." "."Added";
                 $userid = $_POST["id"];
                 $name = $_POST["username"];
                 $image = $_POST["image"];
                 $email = $_POST["email"];
                 $type = $type[0];
-                $interviewid=$_POST["idinterview"];
-                $courseid=$_POST["idcourse"];
+                $interviewid=$_POST["date"];
+                $courseid=$_POST["course"];
                 $applied=$_POST["applied"];
                 $phone=$_POST["phone"];
                 $file=$_POST["cv"];  
@@ -584,8 +590,8 @@ include_once("inc/security.php");
                 $street = $_POST["street"];
                 $country = $_POST["country"];
 
-
                 
+              
              
              
 
@@ -611,7 +617,7 @@ include_once("inc/security.php");
                     $user_id = $dbcon->insert("user",$data);
 
                     //Recruit
-                    
+                   
                     
                     $data_r[interview_id]=quote_check($interviewid);
                     $data_r[user_id]=quote_check($user_id);  
@@ -628,8 +634,8 @@ include_once("inc/security.php");
 
                   
 
-                 
-                        header("location: userlist.php?userid=".$user_id."&success=".urlencode($scriptMsg));
+                    
+                    header("location: userlist.php?userid=".$user_id."&success=".urlencode($scriptMsg));
                         exit();
                     
 
@@ -666,9 +672,9 @@ include_once("inc/security.php");
 
                     
                   
-
-              
-                     //header("location: userlist.php?userid=".$userid."&success='".urlencode($name)."' updated.");
+                 
+                
+                     header("location: userlist.php?userid=".$userid."&success='".urlencode($name)."' updated.");
                
 
 
@@ -677,13 +683,123 @@ include_once("inc/security.php");
 
                 }
                 break;
+
              case "Student":
-                echo $type[0];
+              
+                
+
+                $scriptMsg = "New"." ".$type[0]." "."Added";
+                $userid = $_POST["id"];
+                $name = $_POST["username"];
+                $image = $_POST["image"];
+                $email = $_POST["email"];
+                $type = $type[0];
+            
+                $courseid=$_POST["course"];
+                $phone=$_POST["phone"];
+                $semester=$_POST["semester"];
+                $dater=$_POST["dater"];
+                $datel=$_POST["datel"];
+                $postcode = $_POST["postcode"];
+                $city = $_POST["city"];
+                $street = $_POST["street"];
+                $country = $_POST["country"];
+
+                
+              
+             
+             
+
+                if ($email == "")
+                {
+                  header("location: user.php?userid=".$userid."&error=An error occur while processing. Email Needed.");
+                  exit();
+                }
+                else
+                {
+
+                  if ($userid == "")
+                  {
+                    //user
+                    $data[name]=quote_check($name);
+                    $data[type]=quote_check($type);
+                    //$data[image]=quote_check($image);
+                    $data[email]=quote_check($email);
+                    $data[postcode]=quote_check($postcode);
+                    $data[city]=quote_check($city);
+                    $data[street]=quote_check($street);
+                    $data[country]=quote_check($country);
+                    $user_id = $dbcon->insert("user",$data);
+
+                    //student
+                   
+                    
+                    $data_s[user_id]=quote_check($user_id);  
+                    $data_s[semester]=quote_check($semester);
+                    //$data[file]=quote_check($cv);
+                    $data_s[phone]=quote_check($phone);
+                    
+                    $data_s[date_registered]=quote_check($dater);
+                     $data_s[date_left]=quote_check($datel);
+                   
+                   
+                    $data_s[course_id]=quote_check($courseid);
+
+                    $student_id= $dbcon->insert("student", $data_s);
+
+                    
+                    
+                        header("location: userlist.php?userid=".$user_id."&success=".urlencode($scriptMsg));
+                        exit();
+                    
+
+                  }
+                  else
+                  {
+                    //user
+                    $data[name]=quote_check($name);
+                    $data[email]=quote_check($email);
+                    $data[type]=quote_check($type);
+                    //$data[image]=quote_check($image);
+                   
+                    $data[postcode]=quote_check($postcode);
+                    $data[city]=quote_check($city);
+                    $data[street]=quote_check($street);
+                    $data[country]=quote_check($country);
+                    $dbcon->update("user",$data,"iduser = ".quote_smart($userid));
+                   
+
+                     //Recruit
+                   
+                     
+                    $data_s[semester]=quote_check($semester);
+                    $data_s[phone]=quote_check($phone);
+                    
+                    $data_s[date_registered]=quote_check($dater);
+                     $data_s[date_left]=quote_check($datel);
+                   
+                   
+                    $data_s[course_id]=quote_check($courseid);
+
+                    
+                    $dbcon->update("student",$data_s,"user_id = ".quote_smart($userid));
+
+                    
+                  
+                 
+                
+                     header("location: userlist.php?userid=".$userid."&success='".urlencode($name)."' updated.");
+               
+
+
+                  }
+
+              }
                 break;
 
 
             default:
-                   # code...
-                   break;
+                   echo "";
+                  
 }//end switch
 ?>

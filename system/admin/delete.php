@@ -21,7 +21,8 @@ include_once("inc/security.php");
       else if ($iduser){
 
       	$dbcon->exec("DELETE FROM user WHERE iduser = ".quote_smart($iduser));
-      	 header("location: userlist.php?userid=".$iduser."&success='".urlencode($iduser)."' deleted.");
+      	 var_dump($iduser);
+         header("location: userlist.php?userid=".$iduser."&success='".urlencode($iduser)."' deleted.");
       }	
 
        else if ($idclass){

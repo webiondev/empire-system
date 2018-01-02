@@ -26,7 +26,7 @@
                <li class="<?php if ($nav == 'user') { echo 'active'; } ?>">
                 <a href="userlist.php"><i class="fa fa-cube"></i> <span class="nav-label">User</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li class="<?php if ($subnav == 'adduser') { echo 'active'; } ?>"><a href="user.php">Add New</a></li>
+                    <li class="<?php if ($subnav == 'adduser') { echo 'active'; } ?>"><a href="user.php">Add User</a></li>
                     <li class="<?php if ($subnav == 'userlist') { echo 'active'; } ?>"><a href="userlist.php">List All</a></li>
                 </ul>
             </li>
