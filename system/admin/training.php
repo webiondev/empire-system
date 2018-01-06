@@ -10,7 +10,7 @@ include_once("inc/security.php");
 
   $dbcon->connect();
 
-  	$trainingid = $_GET["training_id"];
+  	$trainingid = $_GET["trainingid"];
 
     $training = $dbcon->exec("select * from training where idtraining = ".quote_smart($trainingid));
 

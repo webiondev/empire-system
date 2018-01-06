@@ -23,6 +23,11 @@
             </li>
 
 -->     
+            <div class="hr-line-dashed"></div>
+                
+                <h4 class="display-1" style="text-align: center;">Core Admin Job</h4>
+
+            <div class="hr-line-dashed"></div>
                <li class="<?php if ($nav == 'user') { echo 'active'; } ?>">
                 <a href="userlist.php"><i class="fa fa-cube"></i> <span class="nav-label">User</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
@@ -55,7 +60,50 @@
                 </ul>
             </li>
 
-         
+            <li class="<?php if ($nav == 'interview') { echo 'active'; } ?>">
+                <a href="interviewlist.php"><i class="fa fa-book"></i> <span class="nav-label">Interview</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li class="<?php if ($subnav == 'addinterview') { echo 'active'; } ?>"><a href="interview.php">Add New</a></li>
+                    <li class="<?php if ($subnav == 'listinterview') { echo 'active'; } ?>"><a href="interviewlist.php">List All</a></li>
+                </ul>
+            </li>
+
+             <li class="<?php if ($nav == 'attendance') { echo 'active'; } ?>">
+                <a href="attendancelist.php"><i class="fa fa-book"></i> <span class="nav-label">Attendance</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                 <!--    <li class="<?php if ($subnav == 'addinterview') { echo 'active'; } ?>"><a href="interview.php">Add New</a></li>
+                  -->   <li class="<?php if ($subnav == 'listattendance') { echo 'active'; } ?>"><a href="attendancelist.php">List All</a></li>
+                </ul>
+            </li>
+
+            <li class="<?php if ($nav == 'leave') { echo 'active'; } ?>">
+                <a href="leavelist.php"><i class="fa fa-book"></i> <span class="nav-label">Leave</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                 <!--    <li class="<?php if ($subnav == 'addinterview') { echo 'active'; } ?>"><a href="interview.php">Add New</a></li>
+                  -->   <li class="<?php if ($subnav == 'listleave') { echo 'active'; } ?>"><a href="leavelist.php">List All</a></li>
+                </ul>
+            </li>
+
+              <li class="<?php if ($nav == 'enquiry') { echo 'active'; } ?>">
+                <a href="enquirylist.php"><i class="fa fa-book"></i> <span class="nav-label">Enquiry</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                     <li class="<?php if ($subnav == 'addenquiry') { echo 'active'; } ?>"><a href="enquiry.php">Add New</a></li>
+                    <li class="<?php if ($subnav == 'listenquiry') { echo 'active'; } ?>"><a href="enquirylist.php">List All</a></li>
+                </ul>
+            </li>
+
+            <div class="hr-line-dashed"></div>
+            <h4 class="display-1" style="text-align: center;">Non-Admin Job</h4>
+
+            <div class="hr-line-dashed"></div>
+
+             <li class="<?php if ($nav == 'attendance') { echo 'active'; } ?>">
+                <a href="attendance.php"><i class="fa fa-book"></i> <span class="nav-label">Attendance</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                 <!--    <li class="<?php if ($subnav == 'addinterview') { echo 'active'; } ?>"><a href="interview.php">Add New</a></li>
+                  -->   <li class="<?php if ($subnav == 'addattendance') { echo 'active'; } ?>"><a href="attendance.php">Give Attendance</a></li>
+                </ul>
+            </li>
 
            <!--  <li class="<?php if ($nav == 'testimonial') { echo 'active'; } ?>">
                 <a href="testimoniallist.php"><i class="fa fa-certificate"></i> <span class="nav-label">Testimonial</span> <span class="fa arrow"></span></a>

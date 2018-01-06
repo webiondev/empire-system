@@ -8,8 +8,8 @@ session_start();
 $dbcon->connect();
 
 
-$res=post_captcha($_POST['g-recaptcha-response']); // Here you get to check captcha response
-//$res['success']=true;
+//$res=post_captcha($_POST['g-recaptcha-response']); // Here you get to check captcha response
+$res['success']=true;
 
 //error params
 $error_1="?error=Invalid username/password";

@@ -13,7 +13,7 @@ include_once("inc/security.php");
 
  
 
-  	$userid = $_GET["user_id"];
+  	$userid = $_GET["userid"];
 
     $user = $dbcon->exec("select * from user where iduser = ".quote_smart($userid));
 

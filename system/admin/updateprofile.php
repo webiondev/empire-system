@@ -5,7 +5,7 @@
 
     $dbcon->connect();
 
-    $user = $dbcon->exec("select * from tbluser WHERE id = ".quote_smart($_COOKIE["user_id"]));
+    $user = $dbcon->exec("select * from user WHERE iduser = ".quote_smart($_COOKIE["user_id"]));
 
     $strAction = "Update Profile";
 
