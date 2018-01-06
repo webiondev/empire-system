@@ -5,22 +5,22 @@ include_once("inc/functions.php");
 include_once("inc/security.php");
 
 
-  $nav = "recruit";
-  $subnav = "addrecruit";
+  $nav = "interview";
+  $subnav = "addinterview";
 
   $dbcon->connect();
 
-  	$recruitid = $_GET["recruit_id"];
+  	$interviewid = $_GET["interviewid"];
 
-    $recruit = $dbcon->exec("select * from recruit where idrecruit = ".quote_smart($recruitid));
+    $interview = $dbcon->exec("select * from interview where idinterview = ".quote_smart($interviewid));
 
-    $strAction = "Add Recruit";
+    $strAction = "Add Interview";
 
-    if ($recruit > 0)
+    if ($interview > 0)
     {
-      $strAction = "Update Recruit";
+      $strAction = "Update Interview";
       $row=$dbcon->data_seek(0);
-      $subnav = "recruitlist";
+      $subnav = "Traininglist";
     }
 
   ?>
@@ -54,69 +54,49 @@ include_once("inc/security.php");
                             <h5><?php echo $strAction; ?></h5>
                         </div>
                         <div class="ibox-content">
-                            <form class="form-horizontal" action="recruitaction.php" method="post">
-                                <input type="hidden" name="id" value="<?php echo $row[idrecruit];?>">
-                          
+                            <form class="form-horizontal" action="interviewaction.php" method="post">
+                                <input type="hidden" name="id" value="<?php echo $row[idinterview];?>">
+                             
                                 <?php
 
-                                  $interviewlist = $dbcon->exec("select idinterview, date_time from interview");
+                                $name=$dbcon->exec("select name from user where iduser = ".quote_smart($row[user_id]));
+                                if ($name>0)
+                                  
+                                  $name=$dbcon->data_seek(0);
 
-                                $interview_val=array();
-                                $course_val=array();
-             
-                                  for($k=0;$k<$interviewlist;$k++){
-                                        $interviewrow=$dbcon->data_seek($k);
-                                      
-                                       array_push($interview_val,$interviewrow);
-                                          } 
+                                ?>
+                                <div class="form-group"><label class="col-sm-2 control-label">Arranged by</label>
+                                    <div class="col-sm-10"><input name="username" type="text" class="form-control" value="<?php echo "$name[name]"; ?>" disabled></div>
+                                </div>
+                                
+                                <div class="form-group"><label class="col-sm-2 control-label">Date/Time</label>
+                                    <div class="col-sm-10"><input name="date_time" type="datetime-local" class="form-control" value="<?php echo "$row[date_time]"; ?>"><?php echo $row[date_time]; ?>[current]</div>
+                                </div>
+                                
+                                
+                                <div class="form-group"><label class="col-sm-2 control-label">Domain</label>
+                                    <div class="col-sm-10"><input name="domain" type="text" class="form-control" value="<?php echo $row[domain]; ?>"></div>
+                                </div>
+                                 <div class="form-group"><label class="col-sm-2 control-label">Postcode</label>
+                                    <div class="col-sm-10"><input name="postcode" type="text" class="form-control" value="<?php echo $row[postcode]; ?>"></div>
+                                </div>
 
-                                 $recruit= $dbcon->exec("select * from recruit where user_id=".quote_smart($userid));
-
-                                if($recruit>0){
-                                  $recruitrow=$dbcon->data_seek(0);   
-
-
-                                            
-                                            }
-                             $recruit_iv= $dbcon->exec("select idinterview, date_time from interview where idinterview=".quote_smart($recruitrow[interview_id])); 
-
-
-                                if($recruit_iv>0)
-                                      $recruit_iv=$dbcon->data_seek(0); 
-                                              ?>
-                              
-                             <div class="form-group" id="opt">
-                               <label class="col-sm-2 control-label">Date</label>
-                                <div class="col-sm-10">
-                                   <select class="form-control" id="date" name="date">
-                                      <option value="<?php echo $recruit_iv[idinterview]." ";?>" ><?php echo $recruit_iv[date_time]." "; ?>[Current]</option>
-
-                                      <?php foreach($interview_val as $key=>$val) {?>
-                                          <option value="<?php echo $val[idinterview]; ?>"><?php echo $val[date_time]; ?></option><?php } ?>
-                                     </select>
-                                   </div>
-                                 </div>
-
-                                 <div class="form-group"><label class="col-sm-2 control-label">Applied For</label>
-                                  <div class="col-sm-10"><input name="applied" type="text" class="form-control" value="<?php echo $recruitrow[applied_for]; ?>">
-                                 </div>
-                               </div> 
-
-                               <div class="form-group"><label class="col-sm-2 control-label">CV</label>
-                                  <div class="col-sm-10"><input accept="application/pdf" class="enable-attache" data-geometry="150x150#" data-value="[<?php echo htmlentities($recruitrow[file]); ?>]" data-uploadurl="<?php echo ATTACHE_DOMAIN; ?>/upload" data-downloadurl="<?php echo ATTACHE_DOMAIN; ?>/view" data-uuid="<?php echo $uuid; ?>" data-expiration="<?php echo $expiration; ?>" data-hmac="<?php echo hash_hmac('sha1', $uuid.$expiration, ATTACHE_SECRET); ?>" type="file" name="cv" id="cv" /></div></div>
-
-                                  <div class="form-group"><label class="col-sm-2 control-label">Phone</label>
-                                    <div class="col-sm-10"><input name="phone" type="text" class="form-control" value="<?php echo $recruitrow[phone]; ?>"></div></div> 
-
-                                    <div class="form-group"><label class="col-sm-2 control-label">Date Applied</label><div class="col-sm-10"><input name="datea" type="date" class="form-control" value="<?php echo $recruitrow[date_applied]; ?>"></div></div>
+                                 <div class="form-group"><label class="col-sm-2 control-label">City</label>
+                                    <div class="col-sm-10"><input name="city" type="text" class="form-control" value="<?php echo $row[city]; ?>"></div>
+                                </div>
+                                 <div class="form-group"><label class="col-sm-2 control-label">Street</label>
+                                    <div class="col-sm-10"><input name="street" type="text" class="form-control" value="<?php echo $row[street]; ?>"></div>
+                                </div>
+                                 <div class="form-group"><label class="col-sm-2 control-label">Country</label>
+                                    <div class="col-sm-10"><input name="country" type="text" class="form-control" value="<?php echo $row[country]; ?>"></div>
+                                </div>
                                 
                                
-
 
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">
                                     <div class="col-sm-4 col-sm-offset-2">
-                                        <a class="btn btn-white" href="recruitlist.php">Cancel</a>
+                                        <a class="btn btn-white" href="interviewlist.php">Cancel</a>
                                         <button class="btn btn-primary" type="submit">Save changes</button>
                                     </div>
                                 </div>

@@ -1,5 +1,5 @@
 <?php
-  //Iinclude ("inc/postCaptcha.php"); // since this is a function only. I will put inside functions.
+  include_once ("inc/postCaptcha.php"); // since this is a function only. I will put inside functions.
   include_once("inc/cDbcon.php");
   include_once("inc/functions.php");
 

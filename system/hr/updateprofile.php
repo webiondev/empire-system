@@ -5,19 +5,21 @@
 
     $dbcon->connect();
 
-    $user = $dbcon->exec("select * from tbluser WHERE id = ".quote_smart($_COOKIE["user_id"]));
+    $user = $dbcon->exec("select * from user WHERE iduser = ".quote_smart($_COOKIE["user_id"]));
 
     $strAction = "Update Profile";
 
-    if ($user > 0)
-    {
-      $row=$dbcon->data_seek(0);
-    }
-    else
-    {
-      header("location: logout.php");
-      exit();
-    }
+    var_dump($user);
+    var_dump($_COOKIE["user_id"]);
+    // if ($user > 0)
+    // {
+    //   $row=$dbcon->data_seek(0);
+    // }
+    // else
+    // {
+    //   header("location: logout.php");
+    //   exit();
+    // }
 ?>
 <!DOCTYPE html>
 <html>

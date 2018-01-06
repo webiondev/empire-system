@@ -23,15 +23,37 @@
             </li>
 
 -->     
-               <li class="<?php if ($nav == 'recruit') { echo 'active'; } ?>">
-                <a href="recruitlist.php"><i class="fa fa-cube"></i> <span class="nav-label">Recruit</span> <span class="fa arrow"></span></a>
+               <li class="<?php if ($nav == 'user') { echo 'active'; } ?>">
+                <a href="userlist.php"><i class="fa fa-cube"></i> <span class="nav-label">User</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li class="<?php if ($subnav == 'addrecruit') { echo 'active'; } ?>"><a href="recruit.php">Add New</a></li>
-                    <li class="<?php if ($subnav == 'recruitlist') { echo 'active'; } ?>"><a href="recruitlist.php">List All</a></li>
+                    <li class="<?php if ($subnav == 'adduser') { echo 'active'; } ?>"><a href="user.php">Add User</a></li>
+                    <li class="<?php if ($subnav == 'userlist') { echo 'active'; } ?>"><a href="userlist.php">List All</a></li>
                 </ul>
             </li>
 
-            
+            <li class="<?php if ($nav == 'course') { echo 'active'; } ?>">
+                <a href="courselist.php"><i class="fa fa-book"></i> <span class="nav-label">Course</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li class="<?php if ($subnav == 'addcourse') { echo 'active'; } ?>"><a href="course.php">Add New</a></li>
+                    <li class="<?php if ($subnav == 'listcourse') { echo 'active'; } ?>"><a href="courselist.php">List All</a></li>
+                </ul>
+            </li>
+
+             <li class="<?php if ($nav == 'class') { echo 'active'; } ?>">
+                <a href="classlist.php"><i class="fa fa-book"></i> <span class="nav-label">Class</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li class="<?php if ($subnav == 'addclass') { echo 'active'; } ?>"><a href="class.php">Add New</a></li>
+                    <li class="<?php if ($subnav == 'listclass') { echo 'active'; } ?>"><a href="classlist.php">List All</a></li>
+                </ul>
+            </li>
+
+              <li class="<?php if ($nav == 'training') { echo 'active'; } ?>">
+                <a href="traininglist.php"><i class="fa fa-book"></i> <span class="nav-label">Training</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li class="<?php if ($subnav == 'addtraining') { echo 'active'; } ?>"><a href="training.php">Add New</a></li>
+                    <li class="<?php if ($subnav == 'listtraining') { echo 'active'; } ?>"><a href="traininglist.php">List All</a></li>
+                </ul>
+            </li>
 
          
 

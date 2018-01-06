@@ -5,22 +5,29 @@ include_once("inc/functions.php");
 include_once("inc/security.php");
 
 
-  $nav = "recruit";
-  $subnav = "addrecruit";
+
+if (empty($_GET["leaveid"])){
+
+     header("location:leavelist.php?error=An error occur while processing. Please choose a leave request");
+      exit();
+  }
+
+  $nav = "leave";
+  //$subnav = "addtraining";
 
   $dbcon->connect();
 
-  	$recruitid = $_GET["recruit_id"];
+  	$leaveid = $_GET["leave_id"];
 
-    $recruit = $dbcon->exec("select * from recruit where idrecruit = ".quote_smart($recruitid));
+    $leave = $dbcon->exec("select * from leave_ where idleave = ".quote_smart($leaveid));
 
-    $strAction = "Add Recruit";
+    $strAction = "Handle Leave Request";
 
-    if ($recruit > 0)
+    if ($leave > 0)
     {
-      $strAction = "Update Recruit";
+      $strAction = "Update Leave Request";
       $row=$dbcon->data_seek(0);
-      $subnav = "recruitlist";
+      $subnav = "Leavelist";
     }
 
   ?>
@@ -54,69 +61,49 @@ include_once("inc/security.php");
                             <h5><?php echo $strAction; ?></h5>
                         </div>
                         <div class="ibox-content">
-                            <form class="form-horizontal" action="recruitaction.php" method="post">
-                                <input type="hidden" name="id" value="<?php echo $row[idrecruit];?>">
-                          
-                                <?php
-
-                                  $interviewlist = $dbcon->exec("select idinterview, date_time from interview");
-
-                                $interview_val=array();
-                                $course_val=array();
-             
-                                  for($k=0;$k<$interviewlist;$k++){
-                                        $interviewrow=$dbcon->data_seek($k);
-                                      
-                                       array_push($interview_val,$interviewrow);
-                                          } 
-
-                                 $recruit= $dbcon->exec("select * from recruit where user_id=".quote_smart($userid));
-
-                                if($recruit>0){
-                                  $recruitrow=$dbcon->data_seek(0);   
-
-
-                                            
-                                            }
-                             $recruit_iv= $dbcon->exec("select idinterview, date_time from interview where idinterview=".quote_smart($recruitrow[interview_id])); 
-
-
-                                if($recruit_iv>0)
-                                      $recruit_iv=$dbcon->data_seek(0); 
-                                              ?>
+                            <form class="form-horizontal" action="leaveaction.php" method="post">
+                                <input type="hidden" name="id" value="<?php echo $row[idleave];?>">
+                             
                               
-                             <div class="form-group" id="opt">
-                               <label class="col-sm-2 control-label">Date</label>
-                                <div class="col-sm-10">
-                                   <select class="form-control" id="date" name="date">
-                                      <option value="<?php echo $recruit_iv[idinterview]." ";?>" ><?php echo $recruit_iv[date_time]." "; ?>[Current]</option>
+                                <?php
+                                  $name=$dbcon2->exec("select name from user where iduser = ".quote_smart($row[user_id]));
+                                  if ($name>0)
+                                     $name=$dbcon2->data_seek(0);
 
-                                      <?php foreach($interview_val as $key=>$val) {?>
-                                          <option value="<?php echo $val[idinterview]; ?>"><?php echo $val[date_time]; ?></option><?php } ?>
-                                     </select>
-                                   </div>
-                                 </div>
 
-                                 <div class="form-group"><label class="col-sm-2 control-label">Applied For</label>
-                                  <div class="col-sm-10"><input name="applied" type="text" class="form-control" value="<?php echo $recruitrow[applied_for]; ?>">
-                                 </div>
-                               </div> 
-
-                               <div class="form-group"><label class="col-sm-2 control-label">CV</label>
-                                  <div class="col-sm-10"><input accept="application/pdf" class="enable-attache" data-geometry="150x150#" data-value="[<?php echo htmlentities($recruitrow[file]); ?>]" data-uploadurl="<?php echo ATTACHE_DOMAIN; ?>/upload" data-downloadurl="<?php echo ATTACHE_DOMAIN; ?>/view" data-uuid="<?php echo $uuid; ?>" data-expiration="<?php echo $expiration; ?>" data-hmac="<?php echo hash_hmac('sha1', $uuid.$expiration, ATTACHE_SECRET); ?>" type="file" name="cv" id="cv" /></div></div>
-
-                                  <div class="form-group"><label class="col-sm-2 control-label">Phone</label>
-                                    <div class="col-sm-10"><input name="phone" type="text" class="form-control" value="<?php echo $recruitrow[phone]; ?>"></div></div> 
-
-                                    <div class="form-group"><label class="col-sm-2 control-label">Date Applied</label><div class="col-sm-10"><input name="datea" type="date" class="form-control" value="<?php echo $recruitrow[date_applied]; ?>"></div></div>
+                                    ?>
+                                 <input type="hidden" name="userid" value="<?php echo $row[user_id]; ?>">   
+                                <div class="form-group"><label class="col-sm-2 control-label">Name</label>
+                                    <div class="col-sm-10"><input name="name" type="text" class="form-control" value="<?php echo $name[name]; ?>" readonly></div>
+                                </div>
                                 
-                               
+                                <div class="form-group"><label class="col-sm-2 control-label">Start</label>
+                                    <div class="col-sm-10"><input name="start" type="date" class="form-control" value="<?php echo $row[start]; ?>">[Requested]</div>
+                                </div>
+                                
+                                
+                                <div class="form-group"><label class="col-sm-2 control-label">End</label>
+                                    <div class="col-sm-10"><input name="end" type="date" class="form-control" value="<?php echo $row[end]; ?>">[Requested]</div>
+                                </div>
+                                 <div class="form-group"><label class="col-sm-2 control-label">Reason</label>
+                                    <div class="col-sm-10"><input name="reason" type="text" class="form-control" value="<?php echo $row[reason]; ?>" readonly></div>
+                                </div>
 
+                                 <div class="form-group"><label class="col-sm-2 control-label">Status</label>
+                                    <div class="col-sm-10">
+                                    <select class="form-control id="status" name="status">
+                                      <option value="pending">Pending</option>
+                                      <option value="active">Active</option>
+                                      <option value="reject">Rejected</option>  
+                                    </select>
+                                  </div>
+                                </div>
 
+                                
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">
                                     <div class="col-sm-4 col-sm-offset-2">
-                                        <a class="btn btn-white" href="recruitlist.php">Cancel</a>
+                                        <a class="btn btn-white" href="leavelist.php">Cancel</a>
                                         <button class="btn btn-primary" type="submit">Save changes</button>
                                     </div>
                                 </div>
