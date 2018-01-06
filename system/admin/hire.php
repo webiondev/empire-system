@@ -6,29 +6,34 @@ include_once("inc/security.php");
 
 
 
-if (empty($_GET["leave_id"])){
+  
 
-     header("location:leavelist.php?error=An error occur while processing. Please choose a leave request");
-      exit();
-  }
-
-  $nav = "leave";
-  //$subnav = "addtraining";
+  $nav = "hire";
+  $subnav = "hire_m";
 
   $dbcon->connect();
 
-  	$leaveid = $_GET["leave_id"];
+  	$recruitid = $_GET["recruit_id"];
 
-    $leave = $dbcon->exec("select * from leave_ where idleave = ".quote_smart($leaveid));
+    if (empty ($recruitid)){
 
-    $strAction = "Handle Leave Request";
+      header("location: manpowerlist.php?&error=An error occur while processing. Choose a Recruit First.");
+      exit();
 
-    if ($leave > 0)
+  }
+
+    $recruit = $dbcon->exec("select * from recruit where idrecruit = ".quote_smart($recruitid));
+
+    $strAction = "Hire Manpower";
+
+    if ($recruit > 0)
     {
-      $strAction = "Ask Leave";
+      $strAction = "Hire";
       $row=$dbcon->data_seek(0);
-      $subnav = "Leavelist";
+      $subnav = "listmanpower";
     }
+
+
 
   ?>
 
@@ -61,8 +66,8 @@ if (empty($_GET["leave_id"])){
                             <h5><?php echo $strAction; ?></h5>
                         </div>
                         <div class="ibox-content">
-                            <form class="form-horizontal" action="leaveaction.php" method="post">
-                                <input type="hidden" name="id" value="<?php echo $row[idleave];?>">
+                            <form class="form-horizontal" action="manpoweraction.php" method="post">
+                                 <input type="hidden" name="id" value="<?php echo $row[idrecruit];?>">
                              
                               
                                 <?php
@@ -70,53 +75,35 @@ if (empty($_GET["leave_id"])){
                                   if ($name>0)
                                      $name=$dbcon2->data_seek(0);
 
-
                                     ?>
-                                 <input type="hidden" name="userid" value="<?php echo $row[user_id]; ?>">   
-                                <div class="form-group"><label class="col-sm-2 control-label">Name</label>
-                                    <div class="col-sm-10"><input name="name" type="text" class="form-control" value="<?php echo $name[name]; ?>"></div>
-                                </div>
-                                
-                                <div class="form-group"><label class="col-sm-2 control-label">Start</label>
-                                    <div class="col-sm-10"><input name="start" type="date" class="form-control" value="<?php echo $row[start]; ?>"></div>
-                                </div>
-                                
-                                
-                                <div class="form-group"><label class="col-sm-2 control-label">End</label>
-                                    <div class="col-sm-10"><input name="end" type="date" class="form-control" value="<?php echo $row[end]; ?>"></div>
-                                </div>
-                                 <div class="form-group"><label class="col-sm-2 control-label">Reason</label>
-                                    <div class="col-sm-10"><input name="reason" type="text" class="form-control" value="<?php echo $row[reason]; ?>"></div>
+                                 <input type="hidden" name="userid" value="<?php echo $_COOKIE["user_id"]; ?>">   
+                                <div class="form-group"><label class="col-sm-2 control-label">Employer Identity</label>
+                                    <div class="col-sm-10"><input name="name" type="text" class="form-control" value="<?php echo $_COOKIE["username"]?>" readonly></div>
                                 </div>
 
-                                 <div class="form-group"><label class="col-sm-2 control-label">Status</label>
-                                    <div class="col-sm-10">
-                                    <select class="form-control id="status" name="status">
-                                      <?php
-                                        if (empty($row[status]))
-                                          echo '<option selected disabled>Select Status</option>
-                                              <option value="pending">Pending</option>
-                                              <option value="active">Active</option>
-                                              <option value="reject">Rejected</option>'; 
-                                      
-                                       else{
-
-                                        echo '<option>'.$row[status]." ".'[Current]</option>
-                                              <option value="pending">Pending</option>
-                                              <option value="active">Active</option>
-                                              <option value="reject">Rejected</option>'; 
-                                            }
-                                      ?>
-                                    </select>
-                                  </div>
+                               
+                                
+                                <div class="form-group"><label class="col-sm-2 control-label">Description</label>
+                                    <div class="col-sm-10"><input name="description" type="text" class="form-control" value="<?php echo "I wish to hire ID:"." ".$row[idrecruit]." "."Name:"." ".$name[name]?>"></div>
                                 </div>
+                                
+                                
+                                <div class="form-group"><label class="col-sm-2 control-label">Date To Hire</label>
+                                    <div class="col-sm-10"><input name="date" type="date" class="form-control"></div>
+                                </div>
+                                
 
+                              <!--   <div class="form-group"><label class="col-sm-2 control-label">Status</label>
+                                    <div class="col-sm-10"><input name="status" type="text" class="form-control" readonly></div>
+                                </div> -->
+
+                            
                                 
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">
                                     <div class="col-sm-4 col-sm-offset-2">
-                                        <a class="btn btn-white" href="leavelist.php">Cancel</a>
-                                        <button class="btn btn-primary" type="submit">Save changes</button>
+                                        <a class="btn btn-white" href="manpowerlist.php">Cancel</a>
+                                        <button class="btn btn-primary" type="submit">Request Hire</button>
                                     </div>
                                 </div>
                             </form>

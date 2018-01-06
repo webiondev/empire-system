@@ -93,7 +93,7 @@
             </li>
 
             <div class="hr-line-dashed"></div>
-            <h4 class="display-1" style="text-align: center;">Non-Admin Job</h4>
+            <h4 class="display-1" style="text-align: center;">Non-Admin Job (All Users)</h4>
 
             <div class="hr-line-dashed"></div>
 
@@ -104,6 +104,31 @@
                   -->   <li class="<?php if ($subnav == 'addattendance') { echo 'active'; } ?>"><a href="attendance.php">Give Attendance</a></li>
                 </ul>
             </li>
+
+            <li class="<?php if ($nav == 'leave') { echo 'active'; } ?>">
+                <a href="leavelist.php"><i class="fa fa-book"></i> <span class="nav-label">Leave</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                
+                 <li class="<?php if ($subnav == 'leave') { echo 'active'; } ?>"><a href="askleave.php">Ask Leave</a></li>
+                 <li class="<?php if ($subnav == 'statusleave') { echo 'active'; } ?>"><a href="leavestatus.php">Check Status</a></li>
+                </ul>
+            </li>
+
+            <div class="hr-line-dashed"></div>
+            <h4 class="display-1" style="text-align: center;">Employer Job</h4>
+
+            <div class="hr-line-dashed"></div>
+
+            <li class="<?php if ($nav == 'hire') { echo 'active'; } ?>">
+                <a href="manpowerlist.php"><i class="fa fa-book"></i> <span class="nav-label">Hire</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                
+                 <!-- <li class="<?php if ($subnav == 'hire_m') { echo 'active'; } ?>"><a href="hire.php">Hire</a></li> -->
+                 <li class="<?php if ($subnav == 'listmanpower') { echo 'active'; } ?>"><a href="manpowerlist.php">List Manpower</a></li>
+                 <li class="<?php if ($subnav == 'listrequest') { echo 'active'; } ?>"><a href="requestlist.php">Your Request</a></li>
+                </ul>
+            </li>
+
 
            <!--  <li class="<?php if ($nav == 'testimonial') { echo 'active'; } ?>">
                 <a href="testimoniallist.php"><i class="fa fa-certificate"></i> <span class="nav-label">Testimonial</span> <span class="fa arrow"></span></a>

@@ -5,7 +5,48 @@ include_once("inc/security.php");
 
  $dbcon->connect();
 
-    $scriptMsg = "Training Added";
+
+if( $_SERVER['HTTP_REFERER']=='http://localhost:8000/askleave.php'){
+
+    $scriptMsg = "Ask Leave";
+    //$leaveid = $_POST["id"];
+    $userid=$_POST["userid"];
+    $name=$_POST["name"];
+    $start = $_POST["start"];
+    $end = $_POST["end"];
+    $reason=$_POST["reason"];
+   
+
+if($start=="" || $end=="" || $reason==""){
+
+    header("location: leave.php?leaveid=".$leaveid."&error=All Fields Required");
+   exit();
+
+
+}
+    
+else {
+    $data[user_id]=quote_check($userid); 
+    $data[start]=quote_check($start);
+    $data[end]=quote_check($end);
+    $data[reason]=quote_check($reason);
+
+    $dbcon->insert("leave_", $data);
+   
+ 
+
+   header("location: leave.php?leaveid=".$leaveid."&success='".urlencode($name)."'\'s leave request sent.");
+         exit();
+  }
+
+}
+
+
+
+else {
+
+
+    $scriptMsg = "Leave Updated";
     $leaveid = $_POST["id"];
     $userid=$_POST["userid"];
     $name=$_POST["name"];
@@ -25,5 +66,9 @@ include_once("inc/security.php");
 
    header("location: leavelist.php?leaveid=".$leaveid."&success='".urlencode($name)."'\'s leave status updated.");
          exit();
+
+   } 
+
+
 
 ?>

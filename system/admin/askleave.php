@@ -6,29 +6,24 @@ include_once("inc/security.php");
 
 
 
-if (empty($_GET["leave_id"])){
 
-     header("location:leavelist.php?error=An error occur while processing. Please choose a leave request");
-      exit();
-  }
-
-  $nav = "leave";
+  $nav = "askleave";
   //$subnav = "addtraining";
 
-  $dbcon->connect();
+  // $dbcon->connect();
 
-  	$leaveid = $_GET["leave_id"];
+  // 	$leaveid = $_GET["leave_id"];
 
-    $leave = $dbcon->exec("select * from leave_ where idleave = ".quote_smart($leaveid));
+  //   $leave = $dbcon->exec("select * from leave_ where idleave = ".quote_smart($leaveid));
 
-    $strAction = "Handle Leave Request";
+  //   $strAction = "Handle Leave Request";
 
-    if ($leave > 0)
-    {
-      $strAction = "Ask Leave";
-      $row=$dbcon->data_seek(0);
-      $subnav = "Leavelist";
-    }
+  //   if ($leave > 0)
+  //   {
+  //     $strAction = "Ask Leave";
+  //     $row=$dbcon->data_seek(0);
+  //     $subnav = "Leavelist";
+  //   }
 
   ?>
 
@@ -62,55 +57,37 @@ if (empty($_GET["leave_id"])){
                         </div>
                         <div class="ibox-content">
                             <form class="form-horizontal" action="leaveaction.php" method="post">
-                                <input type="hidden" name="id" value="<?php echo $row[idleave];?>">
+                                 <input type="hidden" name="id" value="<?php echo $row[idleave];?>">
                              
                               
                                 <?php
-                                  $name=$dbcon2->exec("select name from user where iduser = ".quote_smart($row[user_id]));
+                                  $name=$dbcon2->exec("select name from user where iduser = ".quote_smart($_COOKIE["user_id"]));
                                   if ($name>0)
                                      $name=$dbcon2->data_seek(0);
 
-
                                     ?>
-                                 <input type="hidden" name="userid" value="<?php echo $row[user_id]; ?>">   
+                                 <input type="hidden" name="userid" value="<?php echo $_COOKIE["user_id"]; ?>">   
                                 <div class="form-group"><label class="col-sm-2 control-label">Name</label>
-                                    <div class="col-sm-10"><input name="name" type="text" class="form-control" value="<?php echo $name[name]; ?>"></div>
+                                    <div class="col-sm-10"><input name="name" type="text" class="form-control" value="<?php echo $name[name]?>" readonly></div>
                                 </div>
                                 
                                 <div class="form-group"><label class="col-sm-2 control-label">Start</label>
-                                    <div class="col-sm-10"><input name="start" type="date" class="form-control" value="<?php echo $row[start]; ?>"></div>
+                                    <div class="col-sm-10"><input name="start" type="date" class="form-control" ></div>
                                 </div>
                                 
                                 
                                 <div class="form-group"><label class="col-sm-2 control-label">End</label>
-                                    <div class="col-sm-10"><input name="end" type="date" class="form-control" value="<?php echo $row[end]; ?>"></div>
+                                    <div class="col-sm-10"><input name="end" type="date" class="form-control"></div>
                                 </div>
                                  <div class="form-group"><label class="col-sm-2 control-label">Reason</label>
-                                    <div class="col-sm-10"><input name="reason" type="text" class="form-control" value="<?php echo $row[reason]; ?>"></div>
+                                    <div class="col-sm-10"><input name="reason" type="text" class="form-control"></div>
                                 </div>
 
-                                 <div class="form-group"><label class="col-sm-2 control-label">Status</label>
-                                    <div class="col-sm-10">
-                                    <select class="form-control id="status" name="status">
-                                      <?php
-                                        if (empty($row[status]))
-                                          echo '<option selected disabled>Select Status</option>
-                                              <option value="pending">Pending</option>
-                                              <option value="active">Active</option>
-                                              <option value="reject">Rejected</option>'; 
-                                      
-                                       else{
+                              <!--   <div class="form-group"><label class="col-sm-2 control-label">Status</label>
+                                    <div class="col-sm-10"><input name="status" type="text" class="form-control" readonly></div>
+                                </div> -->
 
-                                        echo '<option>'.$row[status]." ".'[Current]</option>
-                                              <option value="pending">Pending</option>
-                                              <option value="active">Active</option>
-                                              <option value="reject">Rejected</option>'; 
-                                            }
-                                      ?>
-                                    </select>
-                                  </div>
-                                </div>
-
+                            
                                 
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">

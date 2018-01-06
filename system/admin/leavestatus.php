@@ -4,11 +4,11 @@ include_once("inc/functions.php");
 include_once("inc/security.php");
 
 $nav = "leave";
-$subnav = "listleave";
+$subnav = "statusleave";
 
 $dbcon->connect();
 
-$page_name = "leavelist.php";
+$page_name = "leavestatus.php";
 $page_number = $_GET["pg"];
 
 if ($page_number == "")
@@ -96,6 +96,8 @@ if(!is_numeric($page_number)){
 
 $position = (($page_number - 1) * ITEM_PER_PAGE);
 
+$strwhere='where user_id='.$_COOKIE["user_id"];
+
 $leavelist=$dbcon->exec("SELECT * FROM leave_ ".$strwhere." ORDER BY start DESC LIMIT ".$position.", ".ITEM_PER_PAGE);
 
 
@@ -134,13 +136,13 @@ $leavelist=$dbcon->exec("SELECT * FROM leave_ ".$strwhere." ORDER BY start DESC 
                               <table class="table table-striped table-bordered table-hover datatables-content" >
                                   <thead>
                                   <tr>
-                                     <th>&nbsp;</th>
+                                     <!-- <th>&nbsp;</th> -->
                                       <th>Name</th>
                                       <th>Start</th>
                                       <th>End</th>
                                       <th>Reason</th>
                                       <th>Status</th>
-                                      <th style="width:120px;" class="no-sort text-center">Action</th>
+                                     <!--  <th style="width:120px;" class="no-sort text-center">Action</th> -->
                                   </tr>
                                   </thead>
                                   <tbody>
@@ -155,21 +157,21 @@ $leavelist=$dbcon->exec("SELECT * FROM leave_ ".$strwhere." ORDER BY start DESC 
 
   ?>
                                   <tr id="item-<?php echo $row[idleave];?>">
-                                     <td><img src="<?php echo extractfile($row[photo], 'preview', '200x63%23'); ?>" class="img-thumbnail" /></td>
+                                     <!-- <td><img src="<?php echo extractfile($row[photo], 'preview', '200x63%23'); ?>" class="img-thumbnail" /></td> -->
                                       <td><?php echo $name[name]; ?></td>
                                       <td><?php echo $row[start]; ?></td>
                                       <td><?php echo $row[end]; ?></td>
                                       <td><?php echo $row[reason]; ?></td>
                                       <td><?php echo $row[status]; ?></td>
-                                      <td class="text-center">
-                                        <div class="btn-group action-tooltip">
+                                      <!-- <td class="text-center"> -->
+                                       <!--  <div class="btn-group action-tooltip">
                                           <a href="leave.php?leave_id=<?php echo $row[idleave]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a>
                                         </div>
 
                                          <div class="btn-group action-tooltip">
                                           <a href="delete.php?leaveid=<?php echo $row[idleave]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="delete"><i class="fa fa-remove"></i></a>
-                                        </div>
-                                      </td>
+                                        </div> -->
+                                     <!--  </td> -->
                                   </tr>
 
   <?php
@@ -179,7 +181,7 @@ $leavelist=$dbcon->exec("SELECT * FROM leave_ ".$strwhere." ORDER BY start DESC 
                                   </tbody>
                                   <tfoot>
                                   <tr>
-                                      <td colspan="9" class="footable-visible">
+                                      <td colspan="6" class="footable-visible">
                                           <?php echo $pagination; ?>
                                       </td>
                                   </tr>

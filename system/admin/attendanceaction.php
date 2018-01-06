@@ -12,7 +12,7 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
     $userid = $_POST["id"];
     $image=$_POST["image"];
 
-    if (false){
+    if ($image=""){
 
         header("location: attendance.php?userid=".$userid."&error=An error occur while processing. Image required.");
         exit();
