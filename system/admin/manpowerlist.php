@@ -3,12 +3,12 @@ include_once("inc/cDbcon.php");
 include_once("inc/functions.php");
 include_once("inc/security.php");
 
-$nav = "leave";
-$subnav = "listleave";
+$nav = "hire";
+$subnav = "manpowerlist";
 
 $dbcon->connect();
 
-$page_name = "leavelist.php";
+$page_name = "manpowerlist.php";
 $page_number = $_GET["pg"];
 
 if ($page_number == "")
@@ -19,7 +19,7 @@ if ($page_number == "")
 $previous_page = $page_number - 1;
 $next_page = $page_number + 1;
 
-$entrycount=$dbcon->getexec("SELECT COUNT(1) FROM leave_ ".$strwhere);
+$entrycount=$dbcon->getexec("SELECT COUNT(1) FROM recruit ".$strwhere);
 
 $pages = ceil($entrycount/ITEM_PER_PAGE);
 
@@ -96,7 +96,7 @@ if(!is_numeric($page_number)){
 
 $position = (($page_number - 1) * ITEM_PER_PAGE);
 
-$leavelist=$dbcon->exec("SELECT * FROM leave_ ".$strwhere." ORDER BY start DESC LIMIT ".$position.", ".ITEM_PER_PAGE);
+$recruitlist=$dbcon->exec("SELECT * FROM recruit ".$strwhere." ORDER BY date_applied DESC LIMIT ".$position.", ".ITEM_PER_PAGE);
 
 
 ?>
@@ -127,7 +127,7 @@ $leavelist=$dbcon->exec("SELECT * FROM leave_ ".$strwhere." ORDER BY start DESC 
         <div class="wrapper wrapper-content">
               <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Leave Requests</h5>
+                            <h5>Manpower Details</h5>
                         </div>
                       <div class="ibox-content">
                           <div class="table-responsive">
@@ -136,18 +136,18 @@ $leavelist=$dbcon->exec("SELECT * FROM leave_ ".$strwhere." ORDER BY start DESC 
                                   <tr>
                                      <th>&nbsp;</th>
                                       <th>Name</th>
-                                      <th>Start</th>
-                                      <th>End</th>
-                                      <th>Reason</th>
-                                      <th>Status</th>
+                                      <th>Applied For</th>
+                                      
+                                      <th>Phone</th>
+                                      <th>Date Applied</th>
                                       <th style="width:120px;" class="no-sort text-center">Action</th>
                                   </tr>
                                   </thead>
                                   <tbody>
   <?php
-    for($i=0;$i<$leavelist;$i++){
+    for($i=0;$i<$recruitlist;$i++){
       $row=$dbcon->data_seek($i);
-     
+    
 
         $name=$dbcon2->exec("select name from user where iduser = ".quote_smart($row[user_id]));
         if ($name>0)
@@ -155,20 +155,19 @@ $leavelist=$dbcon->exec("SELECT * FROM leave_ ".$strwhere." ORDER BY start DESC 
 
   ?>
                                   <tr id="item-<?php echo $row[idleave];?>">
-                                     <td><img src="<?php echo extractfile($row[photo], 'preview', '200x63%23'); ?>" class="img-thumbnail" /></td>
+                                     <td><img src="<?php echo extractfile($row[file], 'preview', '200x63%23'); ?>" class="img-thumbnail" /></td>
                                       <td><?php echo $name[name]; ?></td>
-                                      <td><?php echo $row[start]; ?></td>
-                                      <td><?php echo $row[end]; ?></td>
-                                      <td><?php echo $row[reason]; ?></td>
-                                      <td><?php echo $row[status]; ?></td>
+                                      <td><?php echo $row[applied_for]; ?></td>   
+                                      <td><?php echo $row[phone]; ?></td>
+                                      <td><?php echo $row[date_applied]; ?></td>
                                       <td class="text-center">
                                         <div class="btn-group action-tooltip">
-                                          <a href="leave.php?leave_id=<?php echo $row[idleave]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a>
+                                          <a href="hire.php?recruit_id=<?php echo $row[idrecruit]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a>
                                         </div>
 
-                                         <div class="btn-group action-tooltip">
+                                         <!-- <div class="btn-group action-tooltip">
                                           <a href="delete.php?leaveid=<?php echo $row[idleave]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="delete"><i class="fa fa-remove"></i></a>
-                                        </div>
+                                        </div> -->
                                       </td>
                                   </tr>
 

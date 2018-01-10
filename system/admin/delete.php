@@ -13,6 +13,7 @@ include_once("inc/security.php");
     $idattendance=$_GET["attendanceid"];
     $idleave=$_GET["leaveid"];
     $idenquiry=$_GET["enquiryid"];
+    $idemployment_notif=$_GET["idemployment_notif"];
    
       if($idcourse){
 
@@ -59,6 +60,12 @@ include_once("inc/security.php");
 
          $dbcon->exec("DELETE FROM enquiry WHERE idenquiry = ".quote_smart($idenquiry));
          header("location:enquirylist.php?enquiryid=".$idenquiry."&success='".urlencode($idenquiry)."' deleted.");
+      }
+
+    else if ($idemployment_notif){
+
+         $dbcon->exec("DELETE FROM employer_notification WHERE idnotification = ".quote_smart($idemployment_notif));
+         header("location:requestlist.php?idemployment_notif=".$idemployment_notif."&success='".urlencode($idemployment_notif)."' deleted.");
       }
      
 ?>

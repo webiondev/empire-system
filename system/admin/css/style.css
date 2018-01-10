@@ -3686,7 +3686,7 @@ ol.unstyled {
   right: 0;
 }
 .footer.fixed_full {
-  position: relative;
+  position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
