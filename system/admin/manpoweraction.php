@@ -30,12 +30,16 @@ include_once("inc/security.php");
        
 
         $data[employer_id]=quote_check($employer_id);
-        $data[recruit_id]=quote_check($recruitid);
+        //$data[recruit_id]=quote_check($recruitid);
         $data[description]=quote_check($description);
         $data[date_time]=quote_check($date);
         
 
         $idemployer_notification=$dbcon->insert("employer_notification", $data);
+
+        //var_dump($data);
+
+        //send mail to staff
 
         header("location: requestlist.php?recruitid=".$recruitid."&success=Request Hire Sent.");
         exit();

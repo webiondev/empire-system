@@ -126,6 +126,24 @@
                  <!-- <li class="<?php if ($subnav == 'hire_m') { echo 'active'; } ?>"><a href="hire.php">Hire</a></li> -->
                  <li class="<?php if ($subnav == 'listmanpower') { echo 'active'; } ?>"><a href="manpowerlist.php">List Manpower</a></li>
                  <li class="<?php if ($subnav == 'listrequest') { echo 'active'; } ?>"><a href="requestlist.php">Your Request</a></li>
+                 <li class="<?php if ($subnav == 'listrecruitrequest') { echo 'active'; } ?>"><a href="recruitrequestlist.php">Recruit Request</a></li>
+                
+                 <li class="<?php if ($subnav == 'listmyemployee') { echo 'active'; } ?>"><a href="listmyemployee.php">List My Employee</a></li>
+                </ul>
+            </li>
+
+            <div class="hr-line-dashed"></div>
+            <h4 class="display-1" style="text-align: center;">Recruit Job</h4>
+
+            <div class="hr-line-dashed"></div>
+
+            <li class="<?php if ($nav == 'recruit') { echo 'active'; } ?>">
+                <a href="employerlist.php"><i class="fa fa-book"></i> <span class="nav-label">Search Employer</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                
+                 <!-- <li class="<?php if ($subnav == 'hire_m') { echo 'active'; } ?>"><a href="hire.php">Hire</a></li> -->
+                 <li class="<?php if ($subnav == 'listemployer') { echo 'active'; } ?>"><a href="employerlist.php">List Employer</a></li>
+                <li class="<?php if ($subnav == 'listmyrequests') { echo 'active'; } ?>"><a href="myrequestlist.php">My Job Request</a></li>
                 </ul>
             </li>
 
