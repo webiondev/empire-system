@@ -3,12 +3,12 @@ include_once("inc/cDbcon.php");
 include_once("inc/functions.php");
 include_once("inc/security.php");
 
-$nav = "class";
-$subnav = "listclass";
+$nav = "recruit";
+$subnav = "employerlist";
 
 $dbcon->connect();
 
-$page_name = "classlist.php";
+$page_name = "employerlist.php";
 $page_number = $_GET["pg"];
 
 if ($page_number == "")
@@ -19,7 +19,7 @@ if ($page_number == "")
 $previous_page = $page_number - 1;
 $next_page = $page_number + 1;
 
-$entrycount=$dbcon->getexec("SELECT COUNT(1) FROM class ".$strwhere);
+$entrycount=$dbcon->getexec("SELECT COUNT(1) FROM employer ".$strwhere);
 
 $pages = ceil($entrycount/ITEM_PER_PAGE);
 
@@ -96,7 +96,7 @@ if(!is_numeric($page_number)){
 
 $position = (($page_number - 1) * ITEM_PER_PAGE);
 
-$classlist=$dbcon->exec("SELECT * FROM class ".$strwhere." ORDER BY building DESC LIMIT ".$position.", ".ITEM_PER_PAGE);
+$employerlist=$dbcon->exec("SELECT * FROM employer ".$strwhere." ORDER BY company DESC LIMIT ".$position.", ".ITEM_PER_PAGE);
 
 
 ?>
@@ -127,46 +127,47 @@ $classlist=$dbcon->exec("SELECT * FROM class ".$strwhere." ORDER BY building DES
         <div class="wrapper wrapper-content">
               <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>class List</h5>
+                            <h5>Employer Details</h5>
                         </div>
                       <div class="ibox-content">
                           <div class="table-responsive">
                               <table class="table table-striped table-bordered table-hover datatables-content" >
                                   <thead>
                                   <tr>
-                                      <!-- <th>&nbsp;</th> -->
-                                      <th>class Code</th>
-                                      <th>building</th>
-                                      <th>level</th>
-                                      <th>postcode</th>
-                                      <th>city</th>
-                                      <th>street</th>
-                                      <th>country</th>
-                                     
+                                     <!-- <th>&nbsp;</th> -->
+                                      <th>Name</th>
+                                      <th>Company</th>
+                                      
+                                      <th>Position</th>
+                                      <!-- <th>Date Applied</th> -->
                                       <th style="width:120px;" class="no-sort text-center">Action</th>
                                   </tr>
                                   </thead>
                                   <tbody>
   <?php
-    for($i=0;$i<$classlist;$i++){
+    for($i=0;$i<$employerlist;$i++){
       $row=$dbcon->data_seek($i);
+    
+
+        $name=$dbcon2->exec("select name from user where iduser = ".quote_smart($row[user_id]));
+        if ($name>0)
+           $name=$dbcon2->data_seek(0);
+
   ?>
-                                  <tr id="item-<?php echo $row[idclass];?>">
-                                      <td><?php echo $row[code]; ?></td>
-                                      <td><?php echo $row[building]; ?></td>
-                                      <td><?php echo $row[level]; ?></td>
-                                      <td><?php echo $row[postcode]; ?></td>
-                                      <td><?php echo $row[city]; ?></td>
-                                      <td><?php echo $row[street]; ?></td>
-                                      <td><?php echo $row[country]; ?></td>
-                                      
-                                      <td class="text-center">
+                                  <tr id="item-<?php echo $row[user_id];?>">
+                                     <!-- <td><img src="<?php echo extractfile($row[file], 'preview', '200x63%23'); ?>" class="img-thumbnail" /></td> -->
+                                      <td><?php echo $name[name]; ?></td>
+                                      <td><?php echo $row[company]; ?></td>   
+                                      <td><?php echo $row[position]; ?></td>
+                                      <!-- <td><?php echo $row[date_applied]; ?></td>
+                                       --><td class="text-center">
                                         <div class="btn-group action-tooltip">
-                                          <a href="class.php?classid=<?php echo $row[idclass]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a>
+                                          <a href="recruitrequestaction.php?recruit_iduser=<?php echo $_COOKIE["user_id"] ?>&employer_iduser=<?php echo $row[user_id] ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="Request Job"><i class="fa fa-pencil"></i></a>
                                         </div>
-                                        <div class="btn-group action-tooltip ">
-                                          <a href="delete.php?classid=<?php echo $row[idclass]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="delete"><i class="fa fa-remove"></i></a>
-                                        </div>
+
+                                         <!-- <div class="btn-group action-tooltip">
+                                          <a href="delete.php?leaveid=<?php echo $row[idleave]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="delete"><i class="fa fa-remove"></i></a>
+                                        </div> -->
                                       </td>
                                   </tr>
 
@@ -189,10 +190,9 @@ $classlist=$dbcon->exec("SELECT * FROM class ".$strwhere." ORDER BY building DES
                     </div>
         </div>
 
-           <?php include "inc/footer.php"; ?>
+          <?php include "inc/footer.php"; ?>
 
         </div>
-       
     </div>
 
   <?php include "inc/script.php"; ?>

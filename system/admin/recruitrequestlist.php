@@ -3,12 +3,12 @@ include_once("inc/cDbcon.php");
 include_once("inc/functions.php");
 include_once("inc/security.php");
 
-$nav = "class";
-$subnav = "listclass";
+$nav = "hire";
+$subnav = "listrecruitrequest";
 
 $dbcon->connect();
 
-$page_name = "classlist.php";
+$page_name = "recruitrequestlist.php";
 $page_number = $_GET["pg"];
 
 if ($page_number == "")
@@ -19,7 +19,7 @@ if ($page_number == "")
 $previous_page = $page_number - 1;
 $next_page = $page_number + 1;
 
-$entrycount=$dbcon->getexec("SELECT COUNT(1) FROM class ".$strwhere);
+$entrycount=$dbcon->getexec("SELECT COUNT(1) FROM recruitrequest ".$strwhere);
 
 $pages = ceil($entrycount/ITEM_PER_PAGE);
 
@@ -95,8 +95,8 @@ if(!is_numeric($page_number)){
 }
 
 $position = (($page_number - 1) * ITEM_PER_PAGE);
-
-$classlist=$dbcon->exec("SELECT * FROM class ".$strwhere." ORDER BY building DESC LIMIT ".$position.", ".ITEM_PER_PAGE);
+$strwhere="where employer_iduser=".$_COOKIE["user_id"];
+$recruitrequestlist=$dbcon->exec("SELECT * FROM recruitrequest ".$strwhere." ORDER BY date DESC LIMIT ".$position.", ".ITEM_PER_PAGE);
 
 
 ?>
@@ -127,45 +127,43 @@ $classlist=$dbcon->exec("SELECT * FROM class ".$strwhere." ORDER BY building DES
         <div class="wrapper wrapper-content">
               <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>class List</h5>
+                            <h5>Recruit Requests</h5>
                         </div>
                       <div class="ibox-content">
                           <div class="table-responsive">
                               <table class="table table-striped table-bordered table-hover datatables-content" >
                                   <thead>
                                   <tr>
-                                      <!-- <th>&nbsp;</th> -->
-                                      <th>class Code</th>
-                                      <th>building</th>
-                                      <th>level</th>
-                                      <th>postcode</th>
-                                      <th>city</th>
-                                      <th>street</th>
-                                      <th>country</th>
-                                     
+                                     <!-- <th>&nbsp;</th> -->
+                                      <th>Recruit Name</th>
+                                      <th>Date</th>
                                       <th style="width:120px;" class="no-sort text-center">Action</th>
                                   </tr>
                                   </thead>
                                   <tbody>
   <?php
-    for($i=0;$i<$classlist;$i++){
+    for($i=0;$i<$recruitrequestlist;$i++){
       $row=$dbcon->data_seek($i);
+
+
+        $name=$dbcon2->exec("select name from user where iduser =".quote_smart($row[recruit_iduser]));
+        if ($name>0)
+           $name=$dbcon2->data_seek(0);
+
+        
+
   ?>
-                                  <tr id="item-<?php echo $row[idclass];?>">
-                                      <td><?php echo $row[code]; ?></td>
-                                      <td><?php echo $row[building]; ?></td>
-                                      <td><?php echo $row[level]; ?></td>
-                                      <td><?php echo $row[postcode]; ?></td>
-                                      <td><?php echo $row[city]; ?></td>
-                                      <td><?php echo $row[street]; ?></td>
-                                      <td><?php echo $row[country]; ?></td>
-                                      
+                                  <tr id="item-<?php echo $row[idrequest];?>">
+                                    <!--  <td><img src="<?php echo extractfile($row[photo], 'preview', '200x63%23'); ?>" class="img-thumbnail" /></td> -->
+                                      <td><?php echo $name[name]; ?></td>
+                                      <td><?php echo $row[date]; ?></td>
                                       <td class="text-center">
                                         <div class="btn-group action-tooltip">
-                                          <a href="class.php?classid=<?php echo $row[idclass]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a>
+                                          <a href="acceptrequest.php?request_id=<?php echo $row[idrequest]; ?>&recruit_id=<?php echo $row[recruit_iduser]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="hire recruit"><i class="fa fa-pencil"></i></a>
                                         </div>
-                                        <div class="btn-group action-tooltip ">
-                                          <a href="delete.php?classid=<?php echo $row[idclass]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="delete"><i class="fa fa-remove"></i></a>
+
+                                         <div class="btn-group action-tooltip">
+                                          <a href="delete.php?requestid=<?php echo $row[idrequest]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="delete"><i class="fa fa-remove"></i></a>
                                         </div>
                                       </td>
                                   </tr>
@@ -189,10 +187,9 @@ $classlist=$dbcon->exec("SELECT * FROM class ".$strwhere." ORDER BY building DES
                     </div>
         </div>
 
-           <?php include "inc/footer.php"; ?>
+          <?php include "inc/footer.php"; ?>
 
         </div>
-       
     </div>
 
   <?php include "inc/script.php"; ?>

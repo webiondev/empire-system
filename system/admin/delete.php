@@ -14,6 +14,8 @@ include_once("inc/security.php");
     $idleave=$_GET["leaveid"];
     $idenquiry=$_GET["enquiryid"];
     $idemployment_notif=$_GET["idemployment_notif"];
+    $idrequest=$_GET["requestid"];
+     $idrequest_r=$_GET["requestid_r"];
    
       if($idcourse){
 
@@ -67,7 +69,17 @@ include_once("inc/security.php");
          $dbcon->exec("DELETE FROM employer_notification WHERE idnotification = ".quote_smart($idemployment_notif));
          header("location:requestlist.php?idemployment_notif=".$idemployment_notif."&success='".urlencode($idemployment_notif)."' deleted.");
       }
+    else if ($idrequest){//employer reject recruit request
+
+         $dbcon->exec("DELETE FROM recruitrequest WHERE idrequest = ".quote_smart($idrequest));
+         header("location:recruitrequestlist.php?idrequest=".$idrequest."&success='".urlencode($idrequest)."' deleted.");
+      }  
      
+    else if ($idrequest_r){//recruit reject his/her request
+
+         $dbcon->exec("DELETE FROM recruitrequest WHERE idrequest = ".quote_smart($idrequest_r));
+         header("location:myrequestlist.php?idrequest_r=".$idrequest_r."&success='".urlencode($idrequest_r)."' deleted.");
+      }   
 ?>
 
 
