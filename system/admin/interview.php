@@ -12,6 +12,8 @@ include_once("inc/security.php");
 
   	$interviewid = $_GET["interviewid"];
 
+    var_dump("$interviewid");
+
     $interview = $dbcon->exec("select * from interview where idinterview = ".quote_smart($interviewid));
 
     $strAction = "Add Interview";

@@ -7,6 +7,8 @@ include_once("inc/security.php");
 
 
 if( $_SERVER['HTTP_REFERER']=='http://localhost:8000/askleave.php'){
+//if( $_SERVER['HTTP_REFERER']=='http://portal.empireincholdings.com/system/admin/askleave.php'){
+
 
     $scriptMsg = "Ask Leave";
     //$leaveid = $_POST["id"];
@@ -31,7 +33,7 @@ else {
     $data[end]=quote_check($end);
     $data[reason]=quote_check($reason);
 
-    $dbcon->insert("leave_", $data);
+    $leaveid=$dbcon->insert("leave_", $data);
    
  
 

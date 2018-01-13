@@ -12,6 +12,7 @@ include_once("inc/security.php");
     $message=$_POST["message"];
     $date_left=$_POST["date"];
     $type=$_POST["type"];
+    $email=$_POST["email"];
     
     //get employer_id  and get company name
     
@@ -20,11 +21,11 @@ include_once("inc/security.php");
         $data_h[date_left]=quote_check($date_left);
         $data_h[status]="dismiss";
     
-        var_dump($data_h);
 
         $dbcon->update("employment_history",$data_h );
         
         //mail to  employee 
+        //mail("empire email","subject",$message);
 
         //mail to staff if firing
       }
@@ -32,12 +33,14 @@ include_once("inc/security.php");
     else {
 
       //mail message to employee
+      //mail("rahman@d2j.com","my subject",$message);
+      
 
 
 
     }
     
-   //header("location: recruitrequestlist.php?success=New Employee Hired.");
+   header("location: recruitrequestlist.php?success=New Employee Hired.");
    exit();
 
             

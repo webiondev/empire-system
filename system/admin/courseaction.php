@@ -32,19 +32,14 @@ include_once("inc/security.php");
         $course_id = $dbcon->insert("course",$data);
 
        
-       if($course_id>0){
+ 
         header("location: courselist.php?courseid=".$course_id."&success='".urlencode($title)."' added.");
-        exit();
-      }
-
-      else{
-
-        header("location: courselist.php?courseid=".$course_id."&error=An error occur while processing. Please check if record exists.");
+    
         exit();
 
 
       }
-      }
+      
       else
       {
         
@@ -54,21 +49,18 @@ include_once("inc/security.php");
         $data[code]=quote_check($coursecode);
         $res=$dbcon->update("course",$data,"idcourse = ".quote_smart($courseid));
 
-        if($res==1){
+     
         header("location: course.php?courseid=".$courseid."&success='".urlencode($title)."' updated.");
         exit();
 
-      }
-
-        else{
-            header("location: courselist.php?courseid=".$courseid."&error=An error occur while processing. Please check if record exists.");
+    
         exit();
 
         }
       }
 
 
-    }
+  
 ?>
 
 

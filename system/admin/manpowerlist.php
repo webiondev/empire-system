@@ -162,7 +162,7 @@ $recruitlist=$dbcon->exec("SELECT * FROM recruit ".$strwhere." ORDER BY date_app
                                       <td><?php echo $row[date_applied]; ?></td>
                                       <td class="text-center">
                                         <div class="btn-group action-tooltip">
-                                          <a href="hire.php?recruit_id=<?php echo $row[idrecruit]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a>
+                                          <a href="hire.php?recruitid=<?php echo $row[idrecruit]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a>
                                         </div>
 
                                          <!-- <div class="btn-group action-tooltip">

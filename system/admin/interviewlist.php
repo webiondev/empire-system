@@ -168,7 +168,7 @@ $interviewlist=$dbcon->exec("SELECT * FROM interview ".$strwhere." ORDER BY date
                                       
                                       <td class="text-center">
                                         <div class="btn-group action-tooltip">
-                                          <a href="interview.php?interview_id=<?php echo $row[idinterview]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a>
+                                          <a href="interview.php?interviewid=<?php echo $row[idinterview]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a>
                                         </div>
 
                                          <div class="btn-group action-tooltip">

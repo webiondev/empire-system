@@ -159,7 +159,7 @@ $recruitrequestlist=$dbcon->exec("SELECT * FROM recruitrequest ".$strwhere." ORD
                                       <td><?php echo $row[date]; ?></td>
                                       <td class="text-center">
                                         <div class="btn-group action-tooltip">
-                                          <a href="acceptrequest.php?request_id=<?php echo $row[idrequest]; ?>&recruit_id=<?php echo $row[recruit_iduser]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="hire recruit"><i class="fa fa-pencil"></i></a>
+                                          <a href="acceptrequest.php?requestid=<?php echo $row[idrequest]; ?>&recruitid=<?php echo $row[recruit_iduser]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="hire recruit"><i class="fa fa-pencil"></i></a>
                                         </div>
 
                                          <div class="btn-group action-tooltip">

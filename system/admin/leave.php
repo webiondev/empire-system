@@ -6,7 +6,7 @@ include_once("inc/security.php");
 
 
 
-if (empty($_GET["leave_id"])){
+if (empty($_GET["leaveid"])){
 
      header("location:leavelist.php?error=An error occur while processing. Please choose a leave request");
       exit();
@@ -17,7 +17,7 @@ if (empty($_GET["leave_id"])){
 
   $dbcon->connect();
 
-  	$leaveid = $_GET["leave_id"];
+  	$leaveid = $_GET["leaveid"];
 
     $leave = $dbcon->exec("select * from leave_ where idleave = ".quote_smart($leaveid));
 

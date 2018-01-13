@@ -78,7 +78,9 @@ include_once("inc/security.php");
                                 </div>
                                  
                              
-
+                                  <div class="form-group"><label class="col-sm-2 control-label">Email</label>
+                                    <div class="col-sm-10"><input name="email" type="text" class="form-control" value="<?php echo $row[email]; ?>"></div>
+                                </div>
                                 
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">

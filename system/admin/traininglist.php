@@ -165,7 +165,7 @@ $traininglist=$dbcon->exec("SELECT * FROM training ".$strwhere." ORDER BY name D
                                       
                                       <td class="text-center">
                                         <div class="btn-group action-tooltip">
-                                          <a href="training.php?training_id=<?php echo $row[idtraining]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a>
+                                          <a href="training.php?trainingid=<?php echo $row[idtraining]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a>
                                         </div>
 
                                          <div class="btn-group action-tooltip">

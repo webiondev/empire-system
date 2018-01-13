@@ -57,7 +57,7 @@ include_once("inc/security.php");
                         </div>
                         <div class="ibox-content">
                             <form class="form-horizontal" action="leaveaction.php" method="post">
-                                 <input type="hidden" name="id" value="<?php echo $row[idleave];?>">
+                                 <!-- <input type="hidden" name="id" value="<?php echo $_COOKIE["user_id"];?>"> -->
                              
                               
                                 <?php

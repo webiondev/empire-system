@@ -21,7 +21,7 @@ include_once("inc/security.php");
 
 
 
-        header("location: hire.php?recruit_id=".$recruitid."&error=An error occur while processing. Date required.");
+        header("location: hire.php?recruitid=".$recruitid."&error=An error occur while processing. Date required.");
         exit();
     }
 
@@ -33,13 +33,11 @@ include_once("inc/security.php");
         //$data[recruit_id]=quote_check($recruitid);
         $data[description]=quote_check($description);
         $data[date_time]=quote_check($date);
-        
+        $data[recruit_id]=quote_check($recruitid);
 
         $idemployer_notification=$dbcon->insert("employer_notification", $data);
 
-        //var_dump($data);
-
-        //send mail to staff
+        
 
         header("location: requestlist.php?recruitid=".$recruitid."&success=Request Hire Sent.");
         exit();

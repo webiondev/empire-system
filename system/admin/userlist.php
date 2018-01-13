@@ -162,7 +162,7 @@ $userlist=$dbcon->exec("SELECT * FROM user ".$strwhere." ORDER BY name DESC, typ
                                       
                                       <td class="text-center">
                                         <div class="btn-group action-tooltip">
-                                          <a href="user.php?user_id=<?php echo $row[iduser]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a>
+                                          <a href="user.php?userid=<?php echo $row[iduser]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a>
                                         </div>
 
                                          <div class="btn-group action-tooltip">

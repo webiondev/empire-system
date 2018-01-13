@@ -55,7 +55,7 @@ include_once("inc/security.php");
     
     else if ($idleave){
 
-         $dbcon->exec("DELETE FROM leave WHERE idleave = ".quote_smart($idleave));
+         $dbcon->exec("DELETE FROM leave_ WHERE idleave = ".quote_smart($idleave));
          header("location:leavelist.php?leaveid=".$idleave."&success='".urlencode($idleave)."' deleted.");
       }
      else if ($idenquiry){

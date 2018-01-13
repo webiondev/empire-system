@@ -13,7 +13,7 @@ include_once("inc/security.php");
 
   $dbcon->connect();
 
-  	$recruitid = $_GET["recruit_id"];
+  	$recruitid = $_GET["recruitid"];
 
     if (empty ($recruitid)){
 

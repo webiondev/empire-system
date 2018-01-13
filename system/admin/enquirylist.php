@@ -138,6 +138,7 @@ $enquirylist=$dbcon->exec("SELECT * FROM enquiry ".$strwhere." ORDER BY date_tim
                                       <th>Name</th>
                                       <th>Date/Time</th>
                                       <th>Description</th>
+                                      <th>Email</th>
                                       <th style="width:120px;" class="no-sort text-center">Action</th>
                                   </tr>
                                   </thead>
@@ -153,9 +154,10 @@ $enquirylist=$dbcon->exec("SELECT * FROM enquiry ".$strwhere." ORDER BY date_tim
                                       <td><?php echo $row[enquirer]; ?></td>
                                       <td><?php echo $row[date_time]; ?></td>
                                       <td><?php echo $row[description]; ?></td>
+                                      <td><?php echo $row[email]; ?></td>
                                       <td class="text-center">
                                         <div class="btn-group action-tooltip">
-                                          <a href="enquiry.php?enquiry_id=<?php echo $row[idenquiry]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a>
+                                          <a href="enquiry.php?enquiryid=<?php echo $row[idenquiry]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a>
                                         </div>
 
                                          <div class="btn-group action-tooltip">

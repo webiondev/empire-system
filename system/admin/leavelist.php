@@ -163,7 +163,7 @@ $leavelist=$dbcon->exec("SELECT * FROM leave_ ".$strwhere." ORDER BY start DESC 
                                       <td><?php echo $row[status]; ?></td>
                                       <td class="text-center">
                                         <div class="btn-group action-tooltip">
-                                          <a href="leave.php?leave_id=<?php echo $row[idleave]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a>
+                                          <a href="leave.php?leaveid=<?php echo $row[idleave]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a>
                                         </div>
 
                                          <div class="btn-group action-tooltip">

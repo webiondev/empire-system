@@ -8,34 +8,33 @@ include_once("inc/security.php");
 
   
 
-  $nav = "hire";
-  //$subnav = "hire_m";
+  $nav = "employee";
+  $subnav = "listmyemployer";
 
   $dbcon->connect();
 
 
-  	$employeeid = $_GET["employee_id"];
-    $date_joined=$_GET["date_joined"];
-    $idemployment_history=$_GET["idemployment_history"];
+  	$userid = $_GET["userid"];
+    $name=$_GET["name"];
 
-    if (empty ($employeeid)){
+    if (empty ($userid)){
 
-      header("location: listmyemployee.php?&error=An error occur while processing. Choose an employee first.");
+      header("location: myemployerlist.php?&error=An error occur while processing. Choose your employer first.");
       exit();
 
   }
 
-     $employee = $dbcon->exec("select user_id from employee where idemployee = ".quote_smart($employeeid));
+  
 
 
-    $strAction = "Notify Employee";
+    // $strAction = "Notify Employee";
 
-    if ($employee > 0)
-    {
-      $strAction = "Notify";
-      $row=$dbcon->data_seek(0);
-      //$subnav = "listmanpower";
-    }
+    // if ($employee > 0)
+    // {
+    //   $strAction = "Notify";
+    //   $row=$dbcon->data_seek(0);
+    //   //$subnav = "listmanpower";
+    // }
 
 
   ?>
@@ -69,40 +68,22 @@ include_once("inc/security.php");
                             <h5><?php echo $strAction; ?></h5>
                         </div>
                         <div class="ibox-content">
-                            <form class="form-horizontal" action="employeenoticeaction.php" method="post">
+                            <form class="form-horizontal" action="myemployeraction.php" method="post">
                               <div class="new-input">
-                                 <input type="hidden" name="id" value="<?php echo $employeeid; ?>">
-                                 <input type="hidden" name="datej" value="<?php echo $date_joined; ?>">
-                                 <input type="hidden" name="id_e_h" value="<?php echo $idemployment_history; ?>">
-                                  
-                              
-                                <?php
-                                  $info=$dbcon2->exec("select name, email from user where iduser = ".quote_smart($row[user_id]));
-                                  if ($info>0)
-                                     $info=$dbcon2->data_seek(0);
-
-                                    ?>
+                                 <input type="hidden" name="id" value="<?php echo $userid; ?>">
                                  
-                                <input type="hidden" name="email" value="<?php echo  $info[email]?>">
-                                <div class="form-group"><label class="col-sm-2 control-label">Name</label>
-                                    <div class="col-sm-10"><input name="name" type="text" class="form-control" value="<?php echo $info[name]?>" readonly></div>
+                                 
+                                <div class="form-group"><label class="col-sm-2 control-label">To</label>
+                                    <div class="col-sm-10"><input name="name" type="text" class="form-control" value="<?php echo $name ?>" readonly></div>
                                 </div>
 
                                
                                 
-                                <div class="form-group"><label class="col-sm-2 control-label">Message to Employee</label>
+                                <div class="form-group"><label class="col-sm-2 control-label">Message to Employer</label>
                                     <div class="col-sm-10"><input name="message" type="text" class="form-control"></div>
                                 </div>
                                 
-                                 <div class="form-group" id="opt"><label class="col-sm-2 control-label">Type</label>
-                                 <div class="col-sm-10">
-                                  <select class="form-control" id="type" name="type" required>
-                                   <option>message</option>
-                                   <option>dismiss</option>
-                                 </select>
-                               </div>
-                             </div>
-                           </div>
+                               
                                 
 
                               <!--   <div class="form-group"><label class="col-sm-2 control-label">Status</label>
@@ -114,7 +95,7 @@ include_once("inc/security.php");
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">
                                     <div class="col-sm-4 col-sm-offset-2">
-                                        <a class="btn btn-white" href="listmyemployee.php">Cancel</a>
+                                        <a class="btn btn-white" href="myemployerlist.php">Cancel</a>
                                         <button class="btn btn-primary" type="submit">Send</button>
                                     </div>
                                 </div>

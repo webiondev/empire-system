@@ -4,11 +4,11 @@ include_once("inc/functions.php");
 include_once("inc/security.php");
 
 $nav = "recruit";
-$subnav = "listmyrequests";
+$subnav = "myemployerlist";
 
 $dbcon->connect();
 
-$page_name = "myrequestlist.php";
+$page_name = "myemployerlist.php";
 $page_number = $_GET["pg"];
 
 if ($page_number == "")
@@ -19,7 +19,7 @@ if ($page_number == "")
 $previous_page = $page_number - 1;
 $next_page = $page_number + 1;
 
-$entrycount=$dbcon->getexec("SELECT COUNT(1) FROM recruitrequest ".$strwhere);
+$entrycount=$dbcon->getexec("SELECT COUNT(1) FROM employment_history ".$strwhere);
 
 $pages = ceil($entrycount/ITEM_PER_PAGE);
 
@@ -95,8 +95,17 @@ if(!is_numeric($page_number)){
 }
 
 $position = (($page_number - 1) * ITEM_PER_PAGE);
-$strwhere="where recruit_iduser=".$_COOKIE["user_id"];
-$myrequestlist=$dbcon->exec("SELECT * FROM recruitrequest ".$strwhere." ORDER BY date DESC LIMIT ".$position.", ".ITEM_PER_PAGE);
+$strwhere="where user_id=".quote_smart($_COOKIE["user_id"]);
+$myemployerlist=$dbcon->exec("SELECT * FROM employee ".$strwhere);
+
+if($myemployerlist>0)
+  $myemployerlist=$dbcon->data_seek(0);
+
+ 
+
+$strwhere="where employee_id=".quote_smart($myemployerlist[idemployee]);
+$myemployerlist=$dbcon->exec("SELECT * FROM employment_history ".$strwhere." ORDER BY company DESC LIMIT ".$position.", ".ITEM_PER_PAGE);
+
 
 
 ?>
@@ -127,7 +136,7 @@ $myrequestlist=$dbcon->exec("SELECT * FROM recruitrequest ".$strwhere." ORDER BY
         <div class="wrapper wrapper-content">
               <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>My Requests</h5>
+                            <h5>Employer Details</h5>
                         </div>
                       <div class="ibox-content">
                           <div class="table-responsive">
@@ -135,36 +144,46 @@ $myrequestlist=$dbcon->exec("SELECT * FROM recruitrequest ".$strwhere." ORDER BY
                                   <thead>
                                   <tr>
                                      <!-- <th>&nbsp;</th> -->
-                                      <th>Employer Name</th>
-                                      <th>Date</th>
+                                      <th>Name</th>
+                                      <th>Company</th>
+                                      
+                                      <th>Position</th>
+                                      <th>Email</th>
+                                      <!-- <th>Date Applied</th> -->
                                       <th style="width:120px;" class="no-sort text-center">Action</th>
                                   </tr>
                                   </thead>
                                   <tbody>
   <?php
-    for($i=0;$i<$myrequestlist;$i++){
+    for($i=0;$i<$myemployerlist;$i++){
       $row=$dbcon->data_seek($i);
+      
 
+        $employer=$dbcon2->exec("select * from employer where idemployer = ".quote_smart($row[employer_id]));
+        if ($employer>0)
+           $employer=$dbcon2->data_seek(0);
 
-        $name=$dbcon2->exec("select name from user where iduser =".quote_smart($row[employer_iduser]));
-        if ($name>0)
-           $name=$dbcon2->data_seek(0);
+        $employerinfo=$dbcon2->exec("select * from user where iduser = ".quote_smart($employer[user_id]));
 
-        
+         if ($employerinfo>0)
+           $employerinfo=$dbcon2->data_seek(0);
 
   ?>
-                                  <tr id="item-<?php echo $row[idrequest];?>">
-                                    <!--  <td><img src="<?php echo extractfile($row[photo], 'preview', '200x63%23'); ?>" class="img-thumbnail" /></td> -->
-                                      <td><?php echo $name[name]; ?></td>
-                                      <td><?php echo $row[date]; ?></td>
-                                      <td class="text-center">
-                                      <!--   <div class="btn-group action-tooltip">
-                                          <a href="enquiry.php?enquiry_id=<?php echo $row[idenquiry]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a>
-                                        </div> -->
-
-                                         <div class="btn-group action-tooltip">
-                                          <a href="delete.php?requestidr=<?php echo $row[idrequest]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="delete"><i class="fa fa-remove"></i></a>
+                                  <tr id="item-<?php echo $employerinfo[iduser];?>">
+                                     <!-- <td><img src="<?php echo extractfile($row[file], 'preview', '200x63%23'); ?>" class="img-thumbnail" /></td> -->
+                                      <td><?php echo $employerinfo[name]; ?></td>
+                                      <td><?php echo $employer[company]; ?></td>   
+                                      <td><?php echo $employer[position]; ?></td>
+                                      <td><?php echo $employerinfo[email]; ?></td>
+                                      <!-- <td><?php echo $row[date_applied]; ?></td>
+                                       --><td class="text-center">
+                                        <div class="btn-group action-tooltip">
+                                          <a href="myemployer.php?userid=<?php echo $employer["user_id"]; ?>&name=<?php echo $employerinfo["name"]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="message"><i class="fa fa-pencil"></i></a>
                                         </div>
+
+                                         <!-- <div class="btn-group action-tooltip">
+                                          <a href="delete.php?leaveid=<?php echo $row[idleave]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="delete"><i class="fa fa-remove"></i></a>
+                                        </div> -->
                                       </td>
                                   </tr>
 

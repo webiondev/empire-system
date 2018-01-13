@@ -13,8 +13,8 @@ include_once("inc/security.php");
 
   $dbcon->connect();
 
-  	$recruit_iduser = $_GET["recruit_id"];
-    $request_id=$_GET["request_id"];
+  	$recruit_iduser = $_GET["recruitid"];
+    $request_id=$_GET["requestid"];
 
     if (empty ($recruit_iduser) || empty ($request_id)){
 
@@ -111,7 +111,7 @@ include_once("inc/security.php");
                                 <div class="form-group">
                                     <div class="col-sm-4 col-sm-offset-2">
                                         <a class="btn btn-white" href="recruitrequestlist.php">Cancel</a>
-                                        <button class="btn btn-primary" type="submit">Request Hire</button>
+                                        <button class="btn btn-primary" type="submit">Hire</button>
                                     </div>
                                 </div>
                             </form>

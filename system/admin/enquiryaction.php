@@ -10,6 +10,7 @@ include_once("inc/security.php");
     $name=$_POST["name"];
     $date_time = $_POST["date_time"];
     $description=$_POST["description"];
+    $email=$_POST["email"];
     
    
 
@@ -24,14 +25,14 @@ include_once("inc/security.php");
 
     else{
         
-        if(empty($enquiry_id)){
+        if(empty($enquiryid)){
         
-             var_dump($name);
             $data[enquirer]=quote_check($name);
             $data[date_time]=quote_check($date_time);
             $data[description]=quote_check($description);
+             $data[email]=quote_check($email);
             
-            $enquiry_id=$dbcon->insert("enquiry", $data);
+            $enquiryid=$dbcon->insert("enquiry", $data);
 
            
             header("location: enquirylist.php?enquiryid=".$enquiryid."&success=New Enquiry Added.");
@@ -46,8 +47,9 @@ include_once("inc/security.php");
             $data[enquirer]=quote_check($name);
             $data[date_time]=quote_check($date_time);
             $data[description]=quote_check($description);
-            
-            $dbcon->update("enquiry", $data,"idenquiry = ".quote_smart($enquiry_id));
+            $data[email]=quote_check($email);
+
+            $dbcon->update("enquiry", $data,"idenquiry = ".quote_smart($enquiryid));
 
            header("location: enquirylist.php?enquiryid=".$enquiry_id."&success=Enquiry Updated.");
            exit();

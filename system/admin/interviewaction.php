@@ -18,7 +18,7 @@ include_once("inc/security.php");
     
     if ($date_time == "")
     {
-      header("location: interview.php?interviewid=".$interviewid."&error=An error occur while processing. Date/Time required.");
+      header("location: interviewlist.php?interviewid=".$interviewid."&error=An error occur while processing. Date/Time required.");
       exit();
     }
     else

@@ -40,16 +40,9 @@ include_once("inc/security.php");
 
         $training_id = $dbcon->insert("training",$data);
 
-        if($training_d>0){
+       
           header("location: traininglist.php?trainingid=".$training_id."&success='".urlencode($name)."' added.");
-          exit();
-        }
-
-        else{
-           header("location: traininglist.php?trainerid=".$training_id."&error=An error occur while processing. Please check if record exists.");
-          exit();
-
-        }
+     
       }
       else
       {
@@ -67,18 +60,9 @@ include_once("inc/security.php");
 
         $res=$dbcon->update("training",$data,"idtraining = ".quote_smart($trainingid));
 
-       if($res==1){
           header("location: traininglist.php?trainingid=".$trainingid."&success='".urlencode($name)."' updated.");
-          exit();
-        }
-
-        else{
-           header("location: traininglist.php?trainerid=".$trainingid."&error=An error occur while processing. Please check if record exists.");
-          exit();
-
-        }
-      }
-
+    
 
     }
+  }
 ?>

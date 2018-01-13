@@ -190,7 +190,7 @@ $employeelist=$dbcon->exec("SELECT * FROM employment_history ".$strwhere." ORDER
 
                                       <td class="text-center">
                                         <div class="btn-group action-tooltip">
-                                          <a href="employeenotice.php?employee_id=<?php echo $row[employee_id]; ?>&date_joined=<?php echo $row[date_joined];?>$idemployment_history=<?php echo $row[idemployment_history];?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="notify"><i class="fa fa-pencil"></i></a>
+                                          <a href="employeenotice.php?employeeid=<?php echo $row[employee_id]; ?>&date_joined=<?php echo $row[date_joined];?>$idemployment_history=<?php echo $row[idemployment_history];?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="notify"><i class="fa fa-pencil"></i></a>
                                         </div>
 
                                          <!-- <div class="btn-group action-tooltip">

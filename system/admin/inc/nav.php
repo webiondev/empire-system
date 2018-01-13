@@ -147,6 +147,22 @@
                 </ul>
             </li>
 
+             <div class="hr-line-dashed"></div>
+            <h4 class="display-1" style="text-align: center;">Employee Job</h4>
+
+            <div class="hr-line-dashed"></div>
+
+            <li class="<?php if ($nav == 'employee') { echo 'active'; } ?>">
+                <a href="myemployerlist.php"><i class="fa fa-book"></i> <span class="nav-label">Employment</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                
+                
+                 <li class="<?php if ($subnav == 'listmyemployer') { echo 'active'; } ?>"><a href="myemployerlist.php">List Employer</a></li>
+                <!-- <li class="<?php if ($subnav == 'listmyrequests') { echo 'active'; } ?>"><a href="myrequestlist.php">My Job Request</a></li>
+ -->                </ul>
+            </li>
+
+
 
            <!--  <li class="<?php if ($nav == 'testimonial') { echo 'active'; } ?>">
                 <a href="testimoniallist.php"><i class="fa fa-certificate"></i> <span class="nav-label">Testimonial</span> <span class="fa arrow"></span></a>

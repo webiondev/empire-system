@@ -19,7 +19,7 @@ include_once("inc/security.php");
     
     if ($building == "")
     {
-      header("location: class.php?class_id=".$classid."&error=An error occur while processing. Please try again.");
+      header("location: class.php?classid=".$classid."&error=An error occur while processing. Please try again.");
       exit();
     }
     else
@@ -36,18 +36,10 @@ include_once("inc/security.php");
         $data[street]=quote_check($street);
         $data[country]=quote_check($country);
 
-        if($class_id>0){
+   
           
           header("location: classlist.php?classid=".$class_id."&success='".urlencode($code)."' added.");
-          exit();
-
-      }
-      else{
-
-         header("location: classlist.php?classid=".$class_id."&error=An error occur while processing. Please check if record exists.");
-          exit();
-
-      }
+   
       }
       else
       {
@@ -60,15 +52,10 @@ include_once("inc/security.php");
         $data[country]=quote_check($country);
         $res=$dbcon->update("class",$data,"idclass = ".quote_smart($classid));
 
-        if($res==1){
+       
         header("location: classlist.php?classid=".$classid."&success='".urlencode($code)."' updated.");
         exit();
-      }
-      else{
-        header("location: classlist.php?classid=".$classid."&error=An error occur while processing. Please check if record exists.");
-          exit();
 
-      }
       }
 
 
