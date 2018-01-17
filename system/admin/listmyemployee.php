@@ -7,6 +7,7 @@ $nav = "hire";
 $subnav = "listmyemployee";
 
 $dbcon->connect();
+$dbcon2->connect();
 
 $page_name = "listmyemployee.php";
 $page_number = $_GET["pg"];
@@ -162,16 +163,18 @@ $employeelist=$dbcon->exec("SELECT * FROM employment_history ".$strwhere." ORDER
     for($i=0;$i<$employeelist;$i++){
       $row=$dbcon->data_seek($i);
 
+      
+
 
       //get employee details
-      $this_employee=$dbcon->exec("select user_id from employee where idemployee=".quote_smart($row[employee_id]));
+      $this_employee=$dbcon2->exec("select user_id from employee where idemployee=".quote_smart($row[employee_id]));
       if($this_employee>0)
-        $thisemployee=$dbcon->data_seek(0);
+        $thisemployee=$dbcon2->data_seek(0);
 
       //get employee user details
-      $this_employee_details=$dbcon->exec("select * from user where iduser=".quote_smart($thisemployee[user_id]));
+      $this_employee_details=$dbcon2->exec("select * from user where iduser=".quote_smart($thisemployee[user_id]));
          if($this_employee_details>0)
-            $this_employee_details=$dbcon->data_seek(0);
+            $this_employee_details=$dbcon2->data_seek(0);
      
 
 

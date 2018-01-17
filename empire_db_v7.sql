@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 13, 2018 at 09:23 AM
+-- Generation Time: Jan 17, 2018 at 06:48 AM
 -- Server version: 5.7.20-log
 -- PHP Version: 7.1.9
 
@@ -161,14 +161,32 @@ CREATE TABLE IF NOT EXISTS `employee` (
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`idemployee`) USING BTREE,
   KEY `fk_employee_user1_idx` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `employee`
 --
 
 INSERT INTO `employee` (`idemployee`, `user_id`) VALUES
-(5, 3);
+(5, 3),
+(6, 3),
+(7, 3),
+(8, 3),
+(9, 3),
+(10, 3),
+(11, 3),
+(12, 3),
+(13, 3),
+(14, 3),
+(15, 3),
+(16, 3),
+(17, 3),
+(18, 3),
+(19, 3),
+(20, 3),
+(21, 3),
+(22, 3),
+(23, 3);
 
 -- --------------------------------------------------------
 
@@ -244,14 +262,14 @@ CREATE TABLE IF NOT EXISTS `employer_notification` (
   `date_time` datetime DEFAULT NULL,
   PRIMARY KEY (`idnotification`),
   KEY `fk_notification_employer1_idx` (`employer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `employer_notification`
 --
 
 INSERT INTO `employer_notification` (`idnotification`, `employer_id`, `description`, `date_time`) VALUES
-(1, 1, 'I wish to hire ID: 75 Name: recruit1', '2018-01-25 00:00:00');
+(3, 1, 'I am interested in recruit 75', '2018-01-20 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -288,14 +306,15 @@ CREATE TABLE IF NOT EXISTS `employment_history` (
   PRIMARY KEY (`idemployment_history`) USING BTREE,
   KEY `fk_employment_history_employer1_idx` (`employer_id`),
   KEY `fk_employment_history_employee1_idx` (`employee_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `employment_history`
 --
 
 INSERT INTO `employment_history` (`idemployment_history`, `status`, `company`, `position`, `employer_id`, `employee_id`, `date_joined`, `date_left`) VALUES
-(5, 'dismiss', 'glacon', 'clerk', 1, 5, '2018-01-18', '2018-01-19');
+(22, 'dismiss', 'glacon', 'developer', 1, 22, '2018-01-26', '2018-01-29'),
+(23, 'dismiss', 'glacon', 'php dev', 1, 23, '2018-02-15', '2018-01-29');
 
 -- --------------------------------------------------------
 
@@ -420,17 +439,24 @@ CREATE TABLE IF NOT EXISTS `message` (
   `idmessage` int(11) NOT NULL AUTO_INCREMENT,
   `message` text NOT NULL,
   `date_time` datetime NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `user_idfrom` int(11) NOT NULL,
+  `user_idfor` int(11) NOT NULL,
   PRIMARY KEY (`idmessage`),
-  KEY `fk_message_user1` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  KEY `fk_message_user1` (`user_idfrom`),
+  KEY `fk_message_user2` (`user_idfor`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `message`
 --
 
-INSERT INTO `message` (`idmessage`, `message`, `date_time`, `user_id`) VALUES
-(3, 'How r ya', '2018-01-13 14:49:41', 7);
+INSERT INTO `message` (`idmessage`, `message`, `date_time`, `user_idfrom`, `user_idfor`) VALUES
+(8, 'You have been hired. Join date:2018-01-26', '2018-01-17 10:35:52', 7, 3),
+(10, 'You are dismissed', '2018-01-17 10:52:37', 7, 3),
+(11, 'How r ya', '2018-01-17 11:00:47', 7, 3),
+(13, 'I wish to hire ID: 75 Name: recruit1', '2018-01-17 11:05:33', 7, 1),
+(14, 'I am interested in recruit 75', '2018-01-17 11:18:23', 7, 1),
+(20, 'Ye ok', '2018-01-17 14:41:41', 1, 7);
 
 -- --------------------------------------------------------
 
@@ -556,13 +582,6 @@ CREATE TABLE IF NOT EXISTS `student` (
   KEY `fk_student_courser1_idx` (`course_id`),
   KEY `fk_student_student1_idx` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `student`
---
-
-INSERT INTO `student` (`idstudent`, `user_id`, `semester`, `phone`, `date_registered`, `date_left`, `course_id`) VALUES
-(8, 83, 1, '', '2018-01-24', '0000-00-00', 1);
 
 -- --------------------------------------------------------
 
@@ -720,10 +739,7 @@ INSERT INTO `user` (`iduser`, `name`, `email`, `password`, `type`, `remember_tok
 (4, 'trainer1', 'trainer1@empire.com', '$2a$12$0pgNKzLvPLdgwahoXSlbReUKPDczv6Udi3yLZsZusfMZi52rbzqTC', 'trainer', NULL, NULL, '0000', 'shah alam', 'usj', 'malaysia'),
 (5, 'lecturer1', 'lecturer1@empire.com', '$2a$12$0pgNKzLvPLdgwahoXSlbReUKPDczv6Udi3yLZsZusfMZi52rbzqTC', 'lecturer', NULL, NULL, '0000', 'shah alam', 'usj', 'malaysia'),
 (7, 'employer1', 'employer1@empire.com', '$2a$12$0pgNKzLvPLdgwahoXSlbReUKPDczv6Udi3yLZsZusfMZi52rbzqTC', 'employer', NULL, NULL, '000', 'shah alam', 'usj', 'malaysia'),
-(56, 'staff2', 'staff2@empire.com', '0', 'Staff', '0', '0', '000', 'shah alam', 'usj', 'Malaysia'),
-(83, 'student1', 'student1@empire.com', '0', 'Student', '0', '0', '', '', '', ''),
-(84, 'admin4', 'admin4@empire.com', '0', 'Admin', '0', '0', '', '', '', ''),
-(85, 'staff5', 'staff5@empire.com', '0', 'Staff', '0', '0', '', '', '', '');
+(56, 'staff2', 'staff2@empire.com', '0', 'Staff', '0', '0', '000', 'shah alam', 'usj', 'Malaysia');
 
 --
 -- Constraints for dumped tables
@@ -817,7 +833,8 @@ ALTER TABLE `lecturer`
 -- Constraints for table `message`
 --
 ALTER TABLE `message`
-  ADD CONSTRAINT `fk_message_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`iduser`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_message_user1` FOREIGN KEY (`user_idfrom`) REFERENCES `user` (`iduser`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_message_user2` FOREIGN KEY (`user_idfor`) REFERENCES `user` (`iduser`);
 
 --
 -- Constraints for table `module`

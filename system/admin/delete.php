@@ -15,7 +15,8 @@ include_once("inc/security.php");
     $idenquiry=$_GET["enquiryid"];
     $idemployment_notif=$_GET["idemployment_notif"];
     $idrequest=$_GET["requestid"];
-     $idrequest_r=$_GET["requestid_r"];
+    $idrequest_r=$_GET["requestid_r"];
+    $idmessage=$_GET["messageid"];
    
       if($idcourse){
 
@@ -80,6 +81,12 @@ include_once("inc/security.php");
          $dbcon->exec("DELETE FROM recruitrequest WHERE idrequest = ".quote_smart($idrequest_r));
          header("location:myrequestlist.php?idrequest_r=".$idrequest_r."&success='".urlencode($idrequest_r)."' deleted.");
       }   
+
+     else if ($idmessage){
+
+         $dbcon->exec("DELETE FROM message WHERE idmessage = ".quote_smart($idmessage));
+         header("location:messagelist.php?idmessage=".$idmessage."&success='".urlencode($idmessage)."' deleted.");
+      }
 ?>
 
 

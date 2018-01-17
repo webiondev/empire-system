@@ -14,9 +14,11 @@ include_once("inc/security.php");
   $dbcon->connect();
 
 
-  	$employeeid = $_GET["employee_id"];
+  	$employeeid = $_GET["employeeid"];
     $date_joined=$_GET["date_joined"];
     $idemployment_history=$_GET["idemployment_history"];
+
+  
 
     if (empty ($employeeid)){
 

@@ -3,12 +3,12 @@ include_once("inc/cDbcon.php");
 include_once("inc/functions.php");
 include_once("inc/security.php");
 
-$nav = "hire";
-$subnav = "listrequest";
+$nav = "message";
+$subnav = "messagelist";
 
 $dbcon->connect();
 
-$page_name = "requestlist.php";
+$page_name = "messagelist.php";
 $page_number = $_GET["pg"];
 
 if ($page_number == "")
@@ -19,7 +19,7 @@ if ($page_number == "")
 $previous_page = $page_number - 1;
 $next_page = $page_number + 1;
 
-$entrycount=$dbcon->getexec("SELECT COUNT(1) FROM employer_notification ".$strwhere);
+$entrycount=$dbcon->getexec("SELECT COUNT(1) FROM message ".$strwhere);
 
 $pages = ceil($entrycount/ITEM_PER_PAGE);
 
@@ -96,10 +96,7 @@ if(!is_numeric($page_number)){
 
 $position = (($page_number - 1) * ITEM_PER_PAGE);
 
-$employer_id=$dbcon->exec("SELECT * FROM employer where user_id=".$_COOKIE["user_id"]);
-$image=$dbcon->exec("SELECT image FROM user where iduser=".$_COOKIE["user_id"]);
-$strwhere="where employer_id=".$employer_id;
-$notiflist=$dbcon->exec("SELECT * FROM employer_notification ".$strwhere." ORDER BY date_time DESC LIMIT ".$position.", ".ITEM_PER_PAGE);
+$messagelist=$dbcon->exec("SELECT * FROM message ".$strwhere." ORDER BY date_time DESC LIMIT ".$position.", ".ITEM_PER_PAGE);
 
 
 ?>
@@ -137,33 +134,44 @@ $notiflist=$dbcon->exec("SELECT * FROM employer_notification ".$strwhere." ORDER
                               <table class="table table-striped table-bordered table-hover datatables-content" >
                                   <thead>
                                   <tr>
-                                     <th>&nbsp;</th> 
-                                      <th>Description</th>
-                                      <!-- <th>Recruit ID</th> -->
-                                      <th>Date Of Request</th>
+                                    <!--  <th>&nbsp;</th> -->
+                                      <th>From</th>
+                                      <th>To</th>
+                                      <th>Message</th>
+                                      <th>Date/Time</th>
+                                      
+                                     
                                       <th style="width:120px;" class="no-sort text-center">Action</th>
                                   </tr>
                                   </thead>
                                   <tbody>
   <?php
-    for($i=0;$i<$notiflist;$i++){
+    for($i=0;$i<$messagelist;$i++){
       $row=$dbcon->data_seek($i);
-
     
 
+        $name=$dbcon2->exec("select name from user where iduser = ".quote_smart($row[user_idfrom]));
+         if ($name>0)
+             $name1=$dbcon2->data_seek(0);
+
+         $name=$dbcon2->exec("select name from user where iduser = ".quote_smart($row[user_idfor]));
+           if ($name>0)
+             $name2=$dbcon2->data_seek(0);
+
   ?>
-                                  <tr id="item-<?php echo $row[idnotification];?>">
-                                    <td><img src="<?php echo extractfile($row[image], 'preview', '200x63%23'); ?>" class="img-thumbnail" /></td>
-                                      <td><?php echo $row[description]; ?></td> 
-                                     <!--  <td><?php echo $row[recruit_id]; ?></td>   -->
+                                  <tr id="item-<?php echo $row[idmessage];?>">
+                                   <!--   <td><img src="<?php echo extractfile($row[file], 'preview', '200x63%23'); ?>" class="img-thumbnail" /></td> -->
+                                      <td><?php echo $name1[name]; ?></td>
+                                      <td><?php echo $name2[name]; ?></td>   
+                                      <td><?php echo $row[message]; ?></td>
                                       <td><?php echo $row[date_time]; ?></td>
                                       <td class="text-center">
                                         <div class="btn-group action-tooltip">
-                                          <a href="listthishire.php?recruitid=<?php echo $row[recruit_id]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a>
+                                          <a href="message.php?messageid=<?php echo $row[idmessage]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="reply"><i class="fa fa-pencil"></i></a>
                                         </div>
 
                                          <div class="btn-group action-tooltip">
-                                          <a href="delete.php?idemployment_notif=<?php echo $row[idnotification]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="delete"><i class="fa fa-remove"></i></a>
+                                          <a href="delete.php?messageid=<?php echo $row[idmessage]; ?>" class="btn-white btn btn-sm" data-toggle="tooltip" data-placement="top" title="delete"><i class="fa fa-remove"></i></a>
                                         </div>
                                       </td>
                                   </tr>

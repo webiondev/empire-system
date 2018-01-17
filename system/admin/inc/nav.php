@@ -92,6 +92,45 @@
                 </ul>
             </li>
 
+            <li class="<?php if ($nav == 'message') { echo 'active'; } ?>">
+                <a href="messagelist.php"><i class="fa fa-book"></i> <span class="nav-label">Message</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                
+                 <li class="<?php if ($subnav == 'message') { echo 'active'; } ?>"><a href="messagelist.php">List Message</a></li>
+                
+                </ul>
+            </li>
+
+
+
+            <li class="<?php if ($nav == 'notification') { echo 'active'; } ?>">
+                <a href="notificationlist.php"><i class="fa fa-book"></i> <span class="nav-label">Notification</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                
+                 <li class="<?php if ($subnav == 'notification') { echo 'active'; } ?>"><a href="notificationlist.php">List Notification</a></li>
+                 
+                </ul>
+            </li>
+
+             <li class="<?php if ($nav == 'Feedback') { echo 'active'; } ?>">
+                <a href="feedbacklist.php"><i class="fa fa-book"></i> <span class="nav-label">Feedback</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                
+                 <li class="<?php if ($subnav == 'feedback') { echo 'active'; } ?>"><a href="feedbacklist.php">List Feedback</a></li>
+                 
+                </ul>
+            </li>
+
+             <li class="<?php if ($nav == 'report') { echo 'active'; } ?>">
+                <a href="reportlist.php"><i class="fa fa-book"></i> <span class="nav-label">Report</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                
+                 <li class="<?php if ($subnav == 'report') { echo 'active'; } ?>"><a href="Reportlist.php">List Report</a></li>
+                 
+                </ul>
+            </li>
+
+
             <div class="hr-line-dashed"></div>
             <h4 class="display-1" style="text-align: center;">Non-Admin Job (All Users)</h4>
 
@@ -113,6 +152,8 @@
                  <li class="<?php if ($subnav == 'statusleave') { echo 'active'; } ?>"><a href="leavestatus.php">Check Status</a></li>
                 </ul>
             </li>
+
+
 
             <div class="hr-line-dashed"></div>
             <h4 class="display-1" style="text-align: center;">Employer Job</h4>

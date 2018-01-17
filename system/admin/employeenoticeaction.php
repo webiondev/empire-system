@@ -14,8 +14,11 @@ include_once("inc/security.php");
     $type=$_POST["type"];
     $email=$_POST["email"];
     
-    //get employer_id  and get company name
-    
+    //get employer_id user_id 
+   
+    $userid= $dbcon->exec("select user_id from employee where idemployee=".quote_check($employeeid));
+    if($userid>0)
+      $userid=$dbcon->data_seek(0); 
     
     if($type=="dismiss"){
         $data_h[date_left]=quote_check($date_left);
@@ -24,16 +27,24 @@ include_once("inc/security.php");
 
         $dbcon->update("employment_history",$data_h );
         
-        //mail to  employee 
-        //mail("empire email","subject",$message);
+       $data_m[message]=quote_check($message);
+       $data_m[date_time]=date('Y-m-d H:i:s');
+       $data_m[user_idfrom]=quote_check($_COOKIE["user_id"]);
+       $data_m[user_idfor]=quote_check($userid[user_id]);
 
-        //mail to staff if firing
+       $dbcon->insert("message", $data_m);
+
+
       }
 
     else {
 
-      //mail message to employee
-      //mail("rahman@d2j.com","my subject",$message);
+      $data_m[message]=quote_check($message);
+       $data_m[date_time]=date('Y-m-d H:i:s');
+       $data_m[user_idfrom]=quote_check($_COOKIE["user_id"]);
+       $data_m[user_idfor]=quote_check($userid[user_id]);
+
+       $dbcon->insert("message", $data_m);
       
 
 

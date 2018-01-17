@@ -24,7 +24,7 @@ include_once("inc/security.php");
 
     $data[user_id]=quote_check($recruit_iduser);
     
-    //$idemployee=$dbcon->insert("employee", $data);
+    $idemployee=$dbcon->insert("employee", $data);
 
     $data_h[status]="Active";
     $data_h[company]=quote_check($row[company]);
@@ -34,15 +34,20 @@ include_once("inc/security.php");
 
     $data_h[date_joined]=quote_check($date_joined);
 
-    var_dump($data);
-    echo '<br/>';
-    var_dump($data_h);
+    // var_dump($data);
+    // echo '<br/>';
+    // var_dump($data_h);
 
-   //$idemployment_history=$dbcon->insert("employment_history",$data_h );
-   
+   $idemployment_history=$dbcon->insert("employment_history",$data_h );
+   $data_m[message]="You have been hired. Join date:".quote_check("$date_joined");
+   $data_m[date_time]=date('Y-m-d H:i:s');
+   $data_m[user_idfrom]=quote_check($_COOKIE["user_id"]);
+   $data_m[user_idfor]=quote_check($recruit_iduser);
+
    //message to recruit
+   $dbcon->insert("message", $data_m);
+   
 
-    
    header("location: recruitrequestlist.php?success=Offer sent to recruit.");
    exit();
 
