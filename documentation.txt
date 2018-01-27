@@ -1,0 +1,4 @@
+User has address based on role
+Admin can add user based on role
+Distribute modules based on role
+To test a module login as that user role
